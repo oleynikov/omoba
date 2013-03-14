@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="include;$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\boost"
+				AdditionalIncludeDirectories="include;&quot;$(OGRE_HOME)\include&quot;;&quot;$(OGRE_HOME)\include\OIS&quot;;&quot;$(OGRE_HOME)\include\OGRE&quot;;&quot;$(OGRE_HOME)\boost&quot;;&quot;C:\Program Files\boost\boost_1_51&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -117,7 +117,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="include;$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\boost"
+				AdditionalIncludeDirectories="include;&quot;$(OGRE_HOME)\include&quot;;&quot;$(OGRE_HOME)\include\OIS&quot;;&quot;$(OGRE_HOME)\include\OGRE&quot;;&quot;$(OGRE_HOME)\boost&quot;;&quot;C:\Program Files\boost\boost_1_51&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
