@@ -7,11 +7,11 @@
 namespace omoba
 {
 
-	enum AXIS
+	enum Axis
 	{
-		X,
-		Y,
-		Z
+		AXIS_X,
+		AXIS_Y,
+		AXIS_Z
 	};
 
 	class ASceneNodeShifter
@@ -29,15 +29,15 @@ namespace omoba
 			void				moveNodeBy(const Ogre::Vector3&);
 			void				pushNodeBy(const Ogre::Vector3&);
 			void				setNodeSpeed(const Ogre::Vector3&);
-			void				setNodeSpeed(const omoba::AXIS, const Ogre::Real); 
+			void				setNodeSpeed(const omoba::Axis, const Ogre::Real); 
 			void				rotateNodeBy	(
 													const Ogre::Vector3&,
 													const Ogre::Radian&,
-													Ogre::Node::TransformSpace = Ogre::Node::TransformSpace::TS_LOCAL
+													Ogre::Node::TransformSpace = Ogre::Node::TS_LOCAL
 												);
 			void				aimNodeTo		(
 													const Ogre::Vector3&,
-													Ogre::Node::TransformSpace = Ogre::Node::TransformSpace::TS_LOCAL,
+													Ogre::Node::TransformSpace = Ogre::Node::TS_LOCAL,
 													const Ogre::Vector3& = Ogre::Vector3::UNIT_Z
 												);
 			virtual bool		frameRenderingQueued(const Ogre::FrameEvent&);

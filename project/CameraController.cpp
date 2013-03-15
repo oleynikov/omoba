@@ -62,23 +62,23 @@ void							omoba::CameraController::mouseMoveHandler(const OIS::MouseEvent& mous
 
 	//	X - axix
 	if ( mousePosX <= omoba::CameraController::scrollAreaSize )
-		this->setNodeSpeed(omoba::AXIS::X,-1*omoba::CameraController::scrollSpeed);
+		this->setNodeSpeed(omoba::AXIS_X,-1*omoba::CameraController::scrollSpeed);
 
 	else if ( mousePosX >= windowSizeX - omoba::CameraController::scrollAreaSize )
-		this->setNodeSpeed(omoba::AXIS::X,omoba::CameraController::scrollSpeed);
+		this->setNodeSpeed(omoba::AXIS_X,omoba::CameraController::scrollSpeed);
 
 	else
-		this->setNodeSpeed(omoba::AXIS::X,0);
+		this->setNodeSpeed(omoba::AXIS_X,0);
 
 	//	Y - axis
 	if ( mousePosY <= omoba::CameraController::scrollAreaSize )
-		this->setNodeSpeed(omoba::AXIS::Z,-1*omoba::CameraController::scrollSpeed);
+		this->setNodeSpeed(omoba::AXIS_Z,-1*omoba::CameraController::scrollSpeed);
 
 	else if ( mousePosY >= windowSizeY - omoba::CameraController::scrollAreaSize )
-		this->setNodeSpeed(omoba::AXIS::Z,omoba::CameraController::scrollSpeed);
+		this->setNodeSpeed(omoba::AXIS_Z,omoba::CameraController::scrollSpeed);
 
 	else
-		this->setNodeSpeed(omoba::AXIS::Z,0);
+		this->setNodeSpeed(omoba::AXIS_Z,0);
 
 	//	Mouse wheel
 	if ( mousePosZ > 0 )
@@ -103,6 +103,7 @@ void							omoba::CameraController::mouseReleaseHandler(const OIS::MouseEvent& m
 		this->cameraCaptured = false;
 
 }
+
 
 /*
 

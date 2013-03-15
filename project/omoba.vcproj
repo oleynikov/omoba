@@ -177,7 +177,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\main.cpp"
+				RelativePath=".\Game.cpp"
 				>
 			</File>
 			<Filter
@@ -204,7 +204,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\InputManager.cpp"
+					RelativePath=".\InputDispatcher.cpp"
 					>
 				</File>
 				<File
@@ -219,7 +219,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\main.h"
+				RelativePath=".\Game.h"
 				>
 			</File>
 			<Filter
@@ -246,7 +246,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\InputManager.h"
+					RelativePath=".\InputDispatcher.h"
 					>
 				</File>
 				<File

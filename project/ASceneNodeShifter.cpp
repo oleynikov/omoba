@@ -62,15 +62,15 @@ void				omoba::ASceneNodeShifter::setNodeSpeed(const Ogre::Vector3& speed)
 	this->updateNodeMoving();
 
 }
-void				omoba::ASceneNodeShifter::setNodeSpeed(const omoba::AXIS axis, const Ogre::Real speed)
+void				omoba::ASceneNodeShifter::setNodeSpeed(const omoba::Axis axis, const Ogre::Real speed)
 {
 
 	switch(axis)
 	{
 
-		case omoba::AXIS::X: this->nodeSpeed.x = speed; break;
-		case omoba::AXIS::Y: this->nodeSpeed.y = speed; break;
-		case omoba::AXIS::Z: this->nodeSpeed.z = speed; break;
+		case omoba::AXIS_X: this->nodeSpeed.x = speed; break;
+		case omoba::AXIS_Y: this->nodeSpeed.y = speed; break;
+		case omoba::AXIS_Z: this->nodeSpeed.z = speed; break;
 
 	}
 
