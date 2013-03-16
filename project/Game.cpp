@@ -19,6 +19,8 @@ using namespace omoba;
 	//Remove ourself as a Window listener
 	Ogre::WindowEventUtilities::removeWindowEventListener ( this->oRenderWindow , this );
 
+	this->windowClosed(this->oRenderWindow);
+
 	delete this->oRoot;
 
 }
@@ -34,7 +36,7 @@ void			Game::initiate(void)
 	this->createCamera();
 	this->createViewport();
 	this->createScene();
-	//this->createInputDispatcher();
+	this->createInputDispatcher();
 	this->startRendering();
 
 }
@@ -95,24 +97,9 @@ void			Game::createRenderWindow(void)
 			this->oRoot->showConfigDialog()
 		)
 	)
+	throw "Exit from config dialog";
 
-	{
-		//exp delete cfg
-		throw "Exit the program";
-	}
-
-	/*
-		// Manual setup
-		// Do not add this to the application
-		RenderSystem *rs = mRoot->getRenderSystemByName("Direct3D9 Rendering Subsystem");
-		// or use "OpenGL Rendering Subsystem"
-		mRoot->setRenderSystem(rs);
-		rs->setConfigOption("Full Screen", "No");
-		rs->setConfigOption("Video Mode", "800 x 600 @ 32-bit colour");
-
-	*/
-
-	this->oRenderWindow = this->oRoot->initialise ( true , "omoba early alpha");
+	this->oRenderWindow = this->oRoot->initialise ( true , "omoba early alpha" );
 
 	//Register as a Window listener
 	Ogre::WindowEventUtilities::addWindowEventListener ( this->oRenderWindow , this );
@@ -184,6 +171,7 @@ void			Game::createInputDispatcher(void)
 {
 
 	this->inputDispatcher = new InputDispatcher(*this->oRenderWindow);
+
 	this->oRoot->addFrameListener ( this->inputDispatcher );
 
 	//Set initial mouse clipping size
@@ -204,18 +192,23 @@ void			Game::windowResized(Ogre::RenderWindow* renderWindow)
 }
 void			Game::windowClosed(Ogre::RenderWindow* renderWindow)
 {
-	
+
 	//Unattach OIS before window shutdown (very important under Linux)
 	//Only close for window that created OIS
 	if ( renderWindow == this->oRenderWindow )
     {
-
 		if ( this->inputDispatcher )
-			delete this->inputDispatcher;
+		{
 
-		this->oRoot->queueEndRendering();
+			this->oRoot->removeFrameListener(this->inputDispatcher);
+			delete this->inputDispatcher;
+			this->inputDispatcher = 0;
+
+		}
 
     }
+
+	this->oRoot->queueEndRendering();
 
 }
 //------------------------------------------------------------------------------------------------------
@@ -255,6 +248,10 @@ void			Game::windowClosed(Ogre::RenderWindow* renderWindow)
 		            e.getFullDescription().c_str() << std::endl;
 			#endif
         }
+		catch(...)
+		{
+
+		}
  
         return 0;
 

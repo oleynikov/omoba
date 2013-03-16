@@ -5,6 +5,7 @@
 #include <OISInputManager.h>
 #include <OISKeyboard.h>
 #include <OISMouse.h>
+#include <OISEvents.h>
 #include <boost/signals2.hpp>
 #include <boost/bind.hpp>
 #include "AInputListener.h"

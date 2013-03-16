@@ -31,6 +31,7 @@
     this->inputManager->destroyInputObject( this->keyboard );
 
 	OIS::InputManager::destroyInputSystem(this->inputManager);
+	this->inputManager = 0;
 
 }
 void	omoba::InputDispatcher::registerListener(const omoba::InputEvent& inputEvent, omoba::AInputListener* inputListener)
