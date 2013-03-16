@@ -1,16 +1,17 @@
 #include "PlayerController.h"
 
-omoba::PlayerController::PlayerController(void)
+		omoba::PlayerController::PlayerController(Ogre::SceneManager* sceneManager, Ogre::Camera* camera)
 	:
-		sceneManager(0),
+		sceneManager(sceneManager),
+		camera(camera),
 		mouseButtonSelect(OIS::MouseButtonID::MB_Left)
 {
 }
 
-omoba::PlayerController::~PlayerController(void)
+		omoba::PlayerController::~PlayerController(void)
 {
 }
-void omoba::PlayerController::mousePressHandler(const OIS::MouseEvent& mouseEvent)
+void	omoba::PlayerController::mousePressHandler(const OIS::MouseEvent& mouseEvent)
 {
 
 	if ( mouseEvent.state.buttonDown(this->mouseButtonSelect) )
@@ -56,7 +57,7 @@ void omoba::PlayerController::mousePressHandler(const OIS::MouseEvent& mouseEven
 
 }
 
-void omoba::PlayerController::mouseReleaseHandler(const OIS::MouseEvent& mouseEvent)
+void	omoba::PlayerController::mouseReleaseHandler(const OIS::MouseEvent& mouseEvent)
 {
 
 	this->getNode()->showBoundingBox(false);

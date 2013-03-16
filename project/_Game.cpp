@@ -10,8 +10,9 @@ using namespace omoba;
 						oRenderWindow(0),
 						oSceneManager(0),
 						inputDispatcher(0),
+						camera(0),
 						cameraController(0),
-						camera(0)
+						playerController(0)
 {
 }
 				Game::~Game(void)
@@ -176,16 +177,34 @@ void			Game::createScene(void)
 {
 
 	Ogre::Entity* ogreHead = this->oSceneManager->createEntity ( "Head" , "ogrehead.mesh" );
-
 	Ogre::SceneNode* headNode = this->oSceneManager->getRootSceneNode()->createChildSceneNode();
 	headNode->attachObject(ogreHead);
-	 
-	// Set ambient light
+
+	this->playerController = new PlayerController(this->oSceneManager,this->camera);
+	this->playerController->setNode(headNode);
+	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_PRESSED,this->playerController);
+	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_RELEASED,this->playerController);
+
+	//	Set ambient light
 	this->oSceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
 	 
-	// Create a light
+	//	Create a light
 	Ogre::Light* l = this->oSceneManager->createLight("MainLight");
 	l->setPosition(20,80,50);
+
+	//	Create plain
+	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
+	Ogre::MeshManager::getSingleton().createPlane
+	(
+		"ground",
+		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		plane, 1500, 1500, 20, 20, true, 1, 5, 5,
+		Ogre::Vector3::UNIT_Z
+	);
+	Ogre::Entity* entGround = this->oSceneManager->createEntity("GroundEntity", "ground");
+	this->oSceneManager->getRootSceneNode()->createChildSceneNode()->attachObject(entGround);
+	entGround->setMaterialName("Examples/Rockwall");
+	entGround->setCastShadows(false);
 
 }
 void			Game::startRendering(void)

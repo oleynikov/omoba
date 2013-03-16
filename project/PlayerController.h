@@ -11,16 +11,15 @@ namespace omoba
 	{
 
 		public:
-			PlayerController(void);
-			~PlayerController(void);
-			virtual void mousePressHandler(const OIS::MouseEvent&);
-			virtual void mouseReleaseHandler(const OIS::MouseEvent&);
-			Ogre::Camera* camera;
-			Ogre::SceneManager* sceneManager;
-
+									PlayerController(Ogre::SceneManager*,Ogre::Camera*);
+									~PlayerController(void);
+			virtual void			mousePressHandler(const OIS::MouseEvent&);
+			virtual void			mouseReleaseHandler(const OIS::MouseEvent&);
 			
 		private:
-			OIS::MouseButtonID mouseButtonSelect;
+			Ogre::Camera*			camera;
+			Ogre::SceneManager*		sceneManager;
+			OIS::MouseButtonID		mouseButtonSelect;
 
 	};
 

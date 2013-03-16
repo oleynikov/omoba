@@ -33,7 +33,7 @@ namespace omoba
 			void				rotateNodeBy	(
 													const Ogre::Vector3&,
 													const Ogre::Radian&,
-													Ogre::Node::TransformSpace = Ogre::Node::TS_LOCAL
+													Ogre::Node::TransformSpace = Ogre::Node::TS_PARENT
 												);
 			void				aimNodeTo		(
 													const Ogre::Vector3&,
