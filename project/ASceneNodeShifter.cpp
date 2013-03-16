@@ -83,10 +83,10 @@ void				omoba::ASceneNodeShifter::rotateNodeBy(const Ogre::Vector3& axis, const 
 	this->node->rotate(axis,angle,relativeTo);
 
 }
-void				omoba::ASceneNodeShifter::aimNodeTo(const Ogre::Vector3& targetDirection, Ogre::Node::TransformSpace relativeTo, const Ogre::Vector3& viewDirection)
+void				omoba::ASceneNodeShifter::aimNodeTo(const Ogre::Vector3& targetPoint, Ogre::Node::TransformSpace relativeTo, const Ogre::Vector3& viewDirection)
 {
 
-	this->node->lookAt(targetDirection,relativeTo,viewDirection);
+	this->node->lookAt(targetPoint,relativeTo,viewDirection);
 
 }
 bool				omoba::ASceneNodeShifter::frameRenderingQueued(const Ogre::FrameEvent& frameEvent)

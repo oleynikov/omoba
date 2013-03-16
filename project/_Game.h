@@ -1,5 +1,6 @@
+#pragma once
+
 #include <OgreRoot.h>
-#include <OgreException.h>
 #include <OgreConfigFile.h>
 #include <OgreEntity.h>
 #include <OgreCamera.h>
@@ -8,6 +9,7 @@
 #include <OgreRenderWindow.h>
 #include <OgreWindowEventUtilities.h>
 #include "InputDispatcher.h"
+#include "CameraController.h"
 
 namespace omoba
 {
@@ -28,10 +30,10 @@ namespace omoba
 			void					createRenderWindow(void);
 			void					initializeResources(void);
 			void					createSceneManager(void);
+			void					createInputDispatcher(void);
 			void					createCamera(void);
 			void					createViewport(void);
 			void					createScene(void);
-			void					createInputDispatcher(void);
 			void					startRendering(void);
 
 		protected:
@@ -44,8 +46,10 @@ namespace omoba
 			Ogre::Root*				oRoot;
 			Ogre::RenderWindow*		oRenderWindow;
 			Ogre::SceneManager*		oSceneManager;
-			Ogre::Camera*			oCamera;
 			InputDispatcher*		inputDispatcher;
+			CameraController*		cameraController;
+			Ogre::Camera*			camera;
+
 
 	};
 

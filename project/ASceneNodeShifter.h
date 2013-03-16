@@ -37,8 +37,8 @@ namespace omoba
 												);
 			void				aimNodeTo		(
 													const Ogre::Vector3&,
-													Ogre::Node::TransformSpace = Ogre::Node::TS_LOCAL,
-													const Ogre::Vector3& = Ogre::Vector3::UNIT_Z
+													Ogre::Node::TransformSpace = Ogre::Node::TS_PARENT,
+													const Ogre::Vector3& = Ogre::Vector3::NEGATIVE_UNIT_Z
 												);
 			virtual bool		frameRenderingQueued(const Ogre::FrameEvent&);
 

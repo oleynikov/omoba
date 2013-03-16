@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "_Game.h"
 
 using namespace omoba;
 
@@ -9,8 +9,9 @@ using namespace omoba;
 						oRoot(0),
 						oRenderWindow(0),
 						oSceneManager(0),
-						oCamera(0),
-						inputDispatcher(0)
+						inputDispatcher(0),
+						cameraController(0),
+						camera(0)
 {
 }
 				Game::~Game(void)
@@ -33,10 +34,10 @@ void			Game::initiate(void)
 	this->createRenderWindow();
 	this->initializeResources();
 	this->createSceneManager();
+	this->createInputDispatcher();
 	this->createCamera();
 	this->createViewport();
 	this->createScene();
-	this->createInputDispatcher();
 	this->startRendering();
 
 }
@@ -125,30 +126,50 @@ void			Game::createSceneManager(void)
 	this->oSceneManager = this->oRoot->createSceneManager ( "DefaultSceneManager" );
 
 }
+void			Game::createInputDispatcher(void)
+{
+
+	this->inputDispatcher = new InputDispatcher(*this->oRenderWindow);
+
+	this->oRoot->addFrameListener ( this->inputDispatcher );
+
+	//Set initial mouse clipping size
+	this->windowResized ( this->oRenderWindow );
+
+}
 void			Game::createCamera(void)
 {
 
-	// Create the camera
-	this->oCamera = this->oSceneManager->createCamera ( "PlayerCamera" );
+	//	Creating camera and  camera node
+	this->camera = this->oSceneManager->createCamera ( "CameraMain" );
+	Ogre::SceneNode* cameraNode = this->oSceneManager->getRootSceneNode()->createChildSceneNode( "CameraSceneNode" );
+	cameraNode->attachObject(this->camera);
 
-	// Position it at 80 in Z direction
-	this->oCamera->setPosition(Ogre::Vector3(0,300,300));
+	//	Creating camera controller
+	this->cameraController = new CameraController();
+	this->cameraController->setNode(cameraNode);
+	this->cameraController->moveNodeBy(Ogre::Vector3(0,500,300));
+	this->cameraController->aimNodeTo(Ogre::Vector3::ZERO);
+	
+	//	Registering camera controller to recieve input events
+	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_MOVED,this->cameraController);
+	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_PRESSED,this->cameraController);
+	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_RELEASED,this->cameraController);
 
-	// Look back along -Z
-	this->oCamera->lookAt(Ogre::Vector3(0,0,0));
-	this->oCamera->setNearClipDistance(5);
+	//	Registering camera controller to recieve frame events
+	this->oRoot->addFrameListener ( this->cameraController );
 
 }
 void			Game::createViewport(void)
 {
 
 	// Create one viewport, entire window
-	Ogre::Viewport* viewport = this->oRenderWindow->addViewport(this->oCamera);
+	Ogre::Viewport* viewport = this->oRenderWindow->addViewport(this->camera);
 	viewport->setBackgroundColour(Ogre::ColourValue(0,0,0));
 	 
 	// Alter the camera aspect ratio to match the viewport
 	Ogre::Real cameraAspectRatio(Ogre::Real(viewport->getActualWidth()) / Ogre::Real(viewport->getActualHeight()));
-	this->oCamera->setAspectRatio(cameraAspectRatio);
+	this->camera->setAspectRatio(cameraAspectRatio);
 
 }
 void			Game::createScene(void)
@@ -167,17 +188,6 @@ void			Game::createScene(void)
 	l->setPosition(20,80,50);
 
 }
-void			Game::createInputDispatcher(void)
-{
-
-	this->inputDispatcher = new InputDispatcher(*this->oRenderWindow);
-
-	this->oRoot->addFrameListener ( this->inputDispatcher );
-
-	//Set initial mouse clipping size
-	this->windowResized ( this->oRenderWindow );
-
-}
 void			Game::startRendering(void)
 {
 
@@ -187,7 +197,7 @@ void			Game::startRendering(void)
 void			Game::windowResized(Ogre::RenderWindow* renderWindow)
 {
 
-	//this->inputDispatcher->updateRenderWindow(renderWindow);
+	this->inputDispatcher->updateRenderWindow(renderWindow);
 
 }
 void			Game::windowClosed(Ogre::RenderWindow* renderWindow)
@@ -211,12 +221,8 @@ void			Game::windowClosed(Ogre::RenderWindow* renderWindow)
 	this->oRoot->queueEndRendering();
 
 }
-//------------------------------------------------------------------------------------------------------
 
-
-
-
-
+//---------------------------------------------------------------------------------
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 	#define WIN32_LEAN_AND_MEAN
 	#include "windows.h"
