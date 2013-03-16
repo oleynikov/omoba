@@ -182,6 +182,8 @@ void			Game::createScene(void)
 
 	this->playerController = new PlayerController(this->oSceneManager,this->camera);
 	this->playerController->setNode(headNode);
+	this->playerController->moveNodeBy(Ogre::Vector3(0,10,0));
+
 	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_PRESSED,this->playerController);
 	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_RELEASED,this->playerController);
 
