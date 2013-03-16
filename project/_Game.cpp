@@ -12,7 +12,8 @@ using namespace omoba;
 						inputDispatcher(0),
 						camera(0),
 						cameraController(0),
-						playerController(0)
+						playerController(0),
+						cursor(0)
 {
 }
 				Game::~Game(void)
@@ -39,6 +40,7 @@ void			Game::initiate(void)
 	this->createCamera();
 	this->createViewport();
 	this->createScene();
+	this->createCursor();
 	this->startRendering();
 
 }
@@ -207,6 +209,13 @@ void			Game::createScene(void)
 	this->oSceneManager->getRootSceneNode()->createChildSceneNode()->attachObject(entGround);
 	entGround->setMaterialName("Examples/Rockwall");
 	entGround->setCastShadows(false);
+
+}
+void			Game::createCursor(void)
+{
+
+	this->cursor = new Cursor();
+	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_MOVED,this->cursor);
 
 }
 void			Game::startRendering(void)

@@ -8,9 +8,11 @@
 #include <OgreSceneManager.h>
 #include <OgreRenderWindow.h>
 #include <OgreWindowEventUtilities.h>
+#include <OgreOverlayManager.h>
 #include "InputDispatcher.h"
 #include "CameraController.h"
 #include "PlayerController.h"
+#include "Cursor.h"
 
 // Temp include
 #include <OgreMeshManager.h>
@@ -38,6 +40,7 @@ namespace omoba
 			void					createCamera(void);
 			void					createViewport(void);
 			void					createScene(void);
+			void					createCursor(void);
 			void					startRendering(void);
 
 		protected:
@@ -54,6 +57,7 @@ namespace omoba
 			Ogre::Camera*			camera;
 			CameraController*		cameraController;
 			PlayerController*		playerController;
+			Cursor*					cursor;
 
 	};
 

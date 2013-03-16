@@ -1,0 +1,13 @@
+template container Panel(OmobaCore/Cursor)
+{
+	metrics_mode pixels
+	transparent true
+	
+	element Panel(OmobaCore/Cursor/Image)
+	{
+        metrics_mode pixels
+        material OmobaCore/Cursor
+        width 32
+        height 32
+	}
+}
