@@ -1,65 +1,74 @@
 #include "PlayerController.h"
 
-		omoba::PlayerController::PlayerController(Ogre::SceneManager* sceneManager, Ogre::Camera* camera)
-	:
-		sceneManager(sceneManager),
-		camera(camera),
-		mouseButtonSelect(OIS::MouseButtonID::MB_Left)
+using namespace omoba;
+
+			PlayerController::PlayerController(Ogre::SceneManager* sceneManager, Ogre::Camera* camera)
+				:
+					sceneManager(sceneManager),
+					camera(camera),
+					mouseButtonSelect(OIS::MouseButtonID::MB_Right)
 {
 }
 
-		omoba::PlayerController::~PlayerController(void)
+			PlayerController::~PlayerController(void)
 {
 }
-void	omoba::PlayerController::mousePressHandler(const OIS::MouseEvent& mouseEvent)
+void		PlayerController::mousePressHandler(const OIS::MouseEvent& mouseEvent)
 {
 
 	if ( mouseEvent.state.buttonDown(this->mouseButtonSelect) )
 	{
 
 		//	New mouse poisition
-		int mousePosX = mouseEvent.state.X.abs;
-		int mousePosY = mouseEvent.state.Y.abs;
-		int mousePosZ = mouseEvent.state.Z.rel;
+		float viewportX = float(mouseEvent.state.X.abs) / float(mouseEvent.state.width);
+		float viewportY = float(mouseEvent.state.Y.abs) / float(mouseEvent.state.height);
+		Ogre::Vector2 viewportPoint(viewportX,viewportY);
 
-		//then send a raycast straight out from the camera at the mouse's position
-		Ogre::Ray mouseRay = this->camera->getCameraToViewportRay
-		(
-			mousePosX/float(mouseEvent.state.width),
-			mousePosY/float(mouseEvent.state.height)
-		);
+		Ogre::Vector3 intersection;
 
-		Ogre::RaySceneQuery* query = this->sceneManager->createRayQuery(Ogre::Ray());
-		query->setRay(mouseRay);
-	 
-		Ogre::RaySceneQueryResult& result = query->execute();
-		Ogre::RaySceneQueryResult::iterator iter = result.begin();
-	 
-		// Get the results, set the camera height
-		for (iter; iter != result.end(); iter++)
-		{
-
-			if
-			(
-				iter->movable
-					&&
-				iter->movable->getParentSceneNode() == this->getNode()
-			)
-			{
-
-				this->getNode()->showBoundingBox(true);
-
-			}
-
-		}
+		if ( this->getCameraRayIntersection(viewportPoint,this->getNode(),intersection) )
+			this->getNode()->showBoundingBox(true);
+		else if ( intersection != Ogre::Vector3::ZERO )
+			this->pushNodeBy(intersection,100);
 
 	}
 
 }
-
-void	omoba::PlayerController::mouseReleaseHandler(const OIS::MouseEvent& mouseEvent)
+void		PlayerController::mouseReleaseHandler(const OIS::MouseEvent& mouseEvent)
 {
 
 	this->getNode()->showBoundingBox(false);
+
+}
+bool		PlayerController::getCameraRayIntersection	(	
+															const Ogre::Vector2& viewportPoint,
+															const Ogre::SceneNode* targetNode,
+															Ogre::Vector3& intersectionPoint
+														)
+{
+
+	bool intersectsNode = false;
+	intersectionPoint = Ogre::Vector3::ZERO;
+
+	//then send a raycast straight out from the camera at the mouse's position
+	Ogre::Ray mouseRay = this->camera->getCameraToViewportRay(viewportPoint.x,viewportPoint.y);
+	Ogre::RaySceneQuery* cameraRayQuery = this->sceneManager->createRayQuery(mouseRay);
+	Ogre::RaySceneQueryResult& cameraRayQueryResult = cameraRayQuery->execute();
+
+	Ogre::RaySceneQueryResult::iterator itr = cameraRayQueryResult.begin();
+	for ( ; itr != cameraRayQueryResult.end(); itr++ )
+	{
+
+		intersectionPoint = mouseRay.getPoint ( itr->distance );
+
+		if ( itr->movable && itr->movable->getParentSceneNode() == targetNode )
+		{
+			intersectsNode = true;
+			break;
+		}
+
+	}
+
+	return intersectsNode;
 
 }

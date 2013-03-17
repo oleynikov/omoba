@@ -81,10 +81,12 @@ void							omoba::CameraController::mouseMoveHandler(const OIS::MouseEvent& mous
 		this->setNodeSpeed(omoba::AXIS_Z,0);
 
 	//	Mouse wheel
+	/*
 	if ( mousePosZ > 0 )
 		this->rotateNodeBy(Ogre::Vector3::UNIT_Y,Ogre::Radian(Ogre::Degree(omoba::CameraController::rotationAngle)));
 	else if ( mousePosZ < 0 )
 		this->rotateNodeBy(Ogre::Vector3::UNIT_Y,Ogre::Radian(Ogre::Degree(-1*omoba::CameraController::rotationAngle)));
+	*/
 
 }
 void							omoba::CameraController::mousePressHandler(const OIS::MouseEvent& mouseEvent)

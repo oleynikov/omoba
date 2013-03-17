@@ -28,6 +28,7 @@ namespace omoba
 			bool				getNodeMoving(void) const;
 			void				moveNodeBy(const Ogre::Vector3&);
 			void				pushNodeBy(const Ogre::Vector3&);
+			void				pushNodeBy(const Ogre::Vector3&, const Ogre::Real&);
 			void				setNodeSpeed(const Ogre::Vector3&);
 			void				setNodeSpeed(const omoba::Axis, const Ogre::Real); 
 			void				rotateNodeBy	(

@@ -1,13 +1,15 @@
 #include "ASceneNodeShifter.h"
 
-					omoba::ASceneNodeShifter::ASceneNodeShifter(void)
+using namespace omoba;
+
+					ASceneNodeShifter::ASceneNodeShifter(void)
 						:
 							node(0),
 							nodeSpeed(Ogre::Vector3::ZERO),
-							nodeMoving(false)
+							nodeMoving(false) 
 {
 }
-					omoba::ASceneNodeShifter::~ASceneNodeShifter(void)
+					ASceneNodeShifter::~ASceneNodeShifter(void)
 {
 
 	if ( this->node )
@@ -18,78 +20,89 @@
 	}
 
 }
-void				omoba::ASceneNodeShifter::setNode(Ogre::SceneNode* node)
+void				ASceneNodeShifter::setNode(Ogre::SceneNode* node)
 {
 
 	this->node = node;
 
 }
 
-Ogre::SceneNode*	omoba::ASceneNodeShifter::getNode(void) const
+Ogre::SceneNode*	ASceneNodeShifter::getNode(void) const
 {
 
 	return this->node;
 
 }
-void				omoba::ASceneNodeShifter::stopNode(void)
+void				ASceneNodeShifter::stopNode(void)
 {
 
 	this->setNodeSpeed(Ogre::Vector3::ZERO);
 
 }
-bool				omoba::ASceneNodeShifter::getNodeMoving(void) const
+bool				ASceneNodeShifter::getNodeMoving(void) const
 {
 
 	return this->nodeMoving;
 
 }
-void				omoba::ASceneNodeShifter::moveNodeBy(const Ogre::Vector3& delta)
+void				ASceneNodeShifter::moveNodeBy(const Ogre::Vector3& delta)
 {
 
 	this->node->translate(delta);
 
 }
-void				omoba::ASceneNodeShifter::pushNodeBy(const Ogre::Vector3& speed)
+void				ASceneNodeShifter::pushNodeBy(const Ogre::Vector3& speed)
 {
 
 	this->setNodeSpeed(this->nodeSpeed+speed);
 
 }
-void				omoba::ASceneNodeShifter::setNodeSpeed(const Ogre::Vector3& speed)
+void				ASceneNodeShifter::pushNodeBy(const Ogre::Vector3& nodeDestination, const const Ogre::Real& speed)
+{
+
+	Ogre::Vector3 nodePosition = this->node->getPosition();
+	Ogre::Vector3 moveDirection = nodeDestination - nodePosition;
+	moveDirection.normalise();
+	moveDirection.makeFloor(Ogre::Vector3(1,1,1));
+
+	this->setNodeSpeed ( moveDirection * speed );
+
+}
+void				ASceneNodeShifter::setNodeSpeed(const Ogre::Vector3& speed)
 {
 
 	this->nodeSpeed = speed;
 	this->updateNodeMoving();
 
 }
-void				omoba::ASceneNodeShifter::setNodeSpeed(const omoba::Axis axis, const Ogre::Real speed)
+void				ASceneNodeShifter::setNodeSpeed(const Axis axis, const Ogre::Real speed)
 {
 
 	switch(axis)
 	{
 
-		case omoba::AXIS_X: this->nodeSpeed.x = speed; break;
-		case omoba::AXIS_Y: this->nodeSpeed.y = speed; break;
-		case omoba::AXIS_Z: this->nodeSpeed.z = speed; break;
+		case AXIS_X: this->nodeSpeed.x = speed; break;
+		case AXIS_Y: this->nodeSpeed.y = speed; break;
+		case AXIS_Z: this->nodeSpeed.z = speed; break;
 
 	}
 
 	this->updateNodeMoving();
 
 }
-void				omoba::ASceneNodeShifter::rotateNodeBy(const Ogre::Vector3& axis, const Ogre::Radian& angle, Ogre::Node::TransformSpace relativeTo)
+void				ASceneNodeShifter::rotateNodeBy(const Ogre::Vector3& axis, const Ogre::Radian& angle, Ogre::Node::TransformSpace relativeTo)
 {
 
 	this->node->rotate(axis,angle,relativeTo);
 
 }
-void				omoba::ASceneNodeShifter::aimNodeTo(const Ogre::Vector3& targetPoint, Ogre::Node::TransformSpace relativeTo, const Ogre::Vector3& viewDirection)
+void				ASceneNodeShifter::aimNodeTo(const Ogre::Vector3& targetPoint, Ogre::Node::TransformSpace relativeTo, const Ogre::Vector3& viewDirection)
 {
 
 	this->node->lookAt(targetPoint,relativeTo,viewDirection);
 
 }
-bool				omoba::ASceneNodeShifter::frameRenderingQueued(const Ogre::FrameEvent& frameEvent)
+bool				ASceneNodeShifter::frameRenderingQueued(const Ogre::FrameEvent& frameEvent)
 {
 
 	if ( this->nodeMoving == true )
@@ -102,7 +115,7 @@ bool				omoba::ASceneNodeShifter::frameRenderingQueued(const Ogre::FrameEvent& f
 	return true;
 
 }
-void				omoba::ASceneNodeShifter::updateNodeMoving(void)
+void				ASceneNodeShifter::updateNodeMoving(void)
 {
 
 	this->nodeMoving =

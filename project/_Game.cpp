@@ -184,10 +184,10 @@ void			Game::createScene(void)
 
 	this->playerController = new PlayerController(this->oSceneManager,this->camera);
 	this->playerController->setNode(headNode);
-	this->playerController->moveNodeBy(Ogre::Vector3(0,10,0));
-
+	
 	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_PRESSED,this->playerController);
 	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_RELEASED,this->playerController);
+	this->oRoot->addFrameListener(this->playerController);
 
 	//	Set ambient light
 	this->oSceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
@@ -205,7 +205,7 @@ void			Game::createScene(void)
 		plane, 1500, 1500, 20, 20, true, 1, 5, 5,
 		Ogre::Vector3::UNIT_Z
 	);
-	Ogre::Entity* entGround = this->oSceneManager->createEntity("GroundEntity", "ground");
+	Ogre::Entity* entGround = this->oSceneManager->createEntity("Ground", "ground");
 	this->oSceneManager->getRootSceneNode()->createChildSceneNode()->attachObject(entGround);
 	entGround->setMaterialName("Examples/Rockwall");
 	entGround->setCastShadows(false);
