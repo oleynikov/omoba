@@ -37,6 +37,7 @@ namespace omoba
 
 									InputDispatcher(Ogre::RenderWindow&);
 									~InputDispatcher(void);
+			void					initiate(void);
 			void					registerListener(const InputEvent&, AInputListener*);
 			void					updateRenderWindow(Ogre::RenderWindow*);
 
@@ -47,6 +48,7 @@ namespace omoba
 			virtual bool			mousePressed(const OIS::MouseEvent&, OIS::MouseButtonID);
 			virtual bool			mouseReleased(const OIS::MouseEvent&, OIS::MouseButtonID);
 			virtual bool			frameRenderingQueued(const Ogre::FrameEvent&);
+
 
 			OIS::InputManager*		inputManager;
 			OIS::Keyboard*			keyboard;

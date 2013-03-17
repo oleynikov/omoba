@@ -1,0 +1,9 @@
+project/omoba.vcproj.Kolyunya-PC.Kolyunya.user
+project/omoba.ncb
+
+project/obj/*
+project/media/*
+project/bin/Debug/*
+project/bin/Release/*
+!project/bin/Debug/resources_d.cfg
+!project/bin/Release/resources.cfg

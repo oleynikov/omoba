@@ -221,6 +221,7 @@ void			Game::createCursor(void)
 void			Game::startRendering(void)
 {
 
+	this->inputDispatcher->initiate();
 	this->oRoot->startRendering();
 
 }
