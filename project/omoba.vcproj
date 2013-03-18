@@ -219,6 +219,10 @@
 			<Filter
 				Name="Tools"
 				>
+				<File
+					RelativePath=".\Segment.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -269,6 +273,10 @@
 			<Filter
 				Name="Tools"
 				>
+				<File
+					RelativePath=".\Segment.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

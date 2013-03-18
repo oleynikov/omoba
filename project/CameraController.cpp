@@ -11,6 +11,9 @@ const Ogre::Radian				omoba::CameraController::rotationAngle = Ogre::Radian(Ogre
 									:
 										cameraCaptured(false)
 {
+
+	this->lookAtMoveDirection = false;
+
 }
 								omoba::CameraController::~CameraController(void)
 {
@@ -30,7 +33,7 @@ void							omoba::CameraController::mouseMoveHandler(const OIS::MouseEvent& mous
 		int mouseDeltaX = mouseEvent.state.X.rel;
 		int mouseDeltaY = mouseEvent.state.Y.rel;
 
-		this->moveNodeBy(Ogre::Vector3(mouseDeltaX,0,mouseDeltaY));
+		this->moveBy(Ogre::Vector3(mouseDeltaX,0,mouseDeltaY));
 
 		return;
 
@@ -62,23 +65,23 @@ void							omoba::CameraController::mouseMoveHandler(const OIS::MouseEvent& mous
 
 	//	X - axix
 	if ( mousePosX <= omoba::CameraController::scrollAreaSize )
-		this->setNodeSpeed(omoba::AXIS_X,-1*omoba::CameraController::scrollSpeed);
+		this->setSpeed(omoba::AXIS_X,-1*omoba::CameraController::scrollSpeed);
 
 	else if ( mousePosX >= windowSizeX - omoba::CameraController::scrollAreaSize )
-		this->setNodeSpeed(omoba::AXIS_X,omoba::CameraController::scrollSpeed);
+		this->setSpeed(omoba::AXIS_X,omoba::CameraController::scrollSpeed);
 
 	else
-		this->setNodeSpeed(omoba::AXIS_X,0);
+		this->setSpeed(omoba::AXIS_X,0);
 
 	//	Y - axis
 	if ( mousePosY <= omoba::CameraController::scrollAreaSize )
-		this->setNodeSpeed(omoba::AXIS_Z,-1*omoba::CameraController::scrollSpeed);
+		this->setSpeed(omoba::AXIS_Z,-1*omoba::CameraController::scrollSpeed);
 
 	else if ( mousePosY >= windowSizeY - omoba::CameraController::scrollAreaSize )
-		this->setNodeSpeed(omoba::AXIS_Z,omoba::CameraController::scrollSpeed);
+		this->setSpeed(omoba::AXIS_Z,omoba::CameraController::scrollSpeed);
 
 	else
-		this->setNodeSpeed(omoba::AXIS_Z,0);
+		this->setSpeed(omoba::AXIS_Z,0);
 
 	//	Mouse wheel
 	/*

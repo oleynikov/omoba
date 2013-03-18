@@ -151,8 +151,8 @@ void			Game::createCamera(void)
 	//	Creating camera controller
 	this->cameraController = new CameraController();
 	this->cameraController->setNode(cameraNode);
-	this->cameraController->moveNodeBy(Ogre::Vector3(0,500,300));
-	this->cameraController->aimNodeTo(Ogre::Vector3::ZERO);
+	this->cameraController->moveBy(Ogre::Vector3(0,500,500));
+	this->cameraController->lookAt(Ogre::Vector3::ZERO);
 	
 	//	Registering camera controller to recieve input events
 	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_MOVED,this->cameraController);
@@ -178,13 +178,14 @@ void			Game::createViewport(void)
 void			Game::createScene(void)
 {
 
-	Ogre::Entity* ogreHead = this->oSceneManager->createEntity ( "Head" , "ogrehead.mesh" );
+	Ogre::Entity* ogreHead = this->oSceneManager->createEntity ( "Head" , "robot.mesh" );
 	Ogre::SceneNode* headNode = this->oSceneManager->getRootSceneNode()->createChildSceneNode();
+	headNode->setScale(Ogre::Vector3(2,2,2));
 	headNode->attachObject(ogreHead);
 
 	this->playerController = new PlayerController(this->oSceneManager,this->camera);
 	this->playerController->setNode(headNode);
-	
+
 	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_PRESSED,this->playerController);
 	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_RELEASED,this->playerController);
 	this->oRoot->addFrameListener(this->playerController);

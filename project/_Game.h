@@ -16,6 +16,7 @@
 
 // Temp include
 #include <OgreMeshManager.h>
+#include <OgreAnimationState.h>
 
 namespace omoba
 {

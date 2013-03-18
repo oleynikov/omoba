@@ -8,13 +8,16 @@ using namespace omoba;
 					camera(camera),
 					mouseButtonSelect(OIS::MouseButtonID::MB_Right)
 {
+
+	this->setViewDirection(Ogre::Vector3::UNIT_X);
+
 }
 
 			PlayerController::~PlayerController(void)
 {
 }
 void		PlayerController::mousePressHandler(const OIS::MouseEvent& mouseEvent)
-{
+{ 
 
 	if ( mouseEvent.state.buttonDown(this->mouseButtonSelect) )
 	{
@@ -29,7 +32,7 @@ void		PlayerController::mousePressHandler(const OIS::MouseEvent& mouseEvent)
 		if ( this->getCameraRayIntersection(viewportPoint,this->getNode(),intersection) )
 			this->getNode()->showBoundingBox(true);
 		else if ( intersection != Ogre::Vector3::ZERO )
-			this->pushNodeBy(intersection,100);
+			this->launchTo(intersection,100);
 
 	}
 
@@ -40,7 +43,8 @@ void		PlayerController::mouseReleaseHandler(const OIS::MouseEvent& mouseEvent)
 	this->getNode()->showBoundingBox(false);
 
 }
-bool		PlayerController::getCameraRayIntersection	(	
+bool		PlayerController::getCameraRayIntersection
+														(	
 															const Ogre::Vector2& viewportPoint,
 															const Ogre::SceneNode* targetNode,
 															Ogre::Vector3& intersectionPoint
