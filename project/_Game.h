@@ -55,7 +55,6 @@ namespace omoba
 			Ogre::RenderWindow*		oRenderWindow;
 			Ogre::SceneManager*		oSceneManager;
 			InputDispatcher*		inputDispatcher;
-			Ogre::Camera*			camera;
 			CameraController*		cameraController;
 			//PlayerController*		playerController;
 			Cursor*					cursor;

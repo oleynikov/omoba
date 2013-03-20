@@ -6,17 +6,30 @@ const Ogre::Real				CameraController::scrollSpeed = 200;
 const int						CameraController::scrollAreaSize = 10;
 const OIS::MouseButtonID		CameraController::cameraCaptureButton = OIS::MouseButtonID::MB_Middle;
 
-								CameraController::CameraController ( void )
+
+
+								CameraController::CameraController ( Ogre::SceneManager* sceneManager )
 									:
-										cameraCaptured(false)
+										SceneNodeShifter ( sceneManager ),
+										camera ( 0 ),
+										cameraCaptured ( false )
 {
 
 	this->holdViewDirection = false;
 	this->viewDirection = Ogre::Vector3::NEGATIVE_UNIT_Z;
 
+	this->camera = sceneManager->createCamera ( "camera" );
+	this->node->attachObject ( this->camera );
+
 }
 								CameraController::~CameraController ( void )
 {
+
+}
+Ogre::Camera*					CameraController::getCamera ( void ) const
+{
+
+	return this->camera;
 
 }
 void							CameraController::mouseMoveHandler ( const OIS::MouseEvent& mouseEvent )
@@ -101,61 +114,3 @@ bool							CameraController::frameRenderingQueued ( const Ogre::FrameEvent& fram
 	return true;
 
 }
-
-/*
-
-	Camera control by WASD keys
-
-void							omoba::CameraController::keyPressHandler(const OIS::KeyEvent& keyEvent)
-{
-
-	OIS::KeyCode keyCode = keyEvent.key;
-	
-	switch ( keyCode )
-	{
-
-		case OIS::KeyCode::KC_A : this->pushNodeBy( omoba::Axis::AXIS_X , -1 * omoba::CameraController::scrollSpeed ); break;
-		case OIS::KeyCode::KC_D : this->pushNodeBy( omoba::Axis::AXIS_X , omoba::CameraController::scrollSpeed ); break;
-		case OIS::KeyCode::KC_S : this->pushNodeBy( omoba::Axis::AXIS_Z , omoba::CameraController::scrollSpeed ); break;
-		case OIS::KeyCode::KC_W : this->pushNodeBy( omoba::Axis::AXIS_Z , -1 * omoba::CameraController::scrollSpeed ); break;
-
-	}
-
-}
-
-void							omoba::CameraController::keyReleaseHandler(const OIS::KeyEvent& keyEvent)
-{
-
-	//	Released key code
-	OIS::KeyCode keyCode = keyEvent.key;
-
-	//	[A] or [D] key was released
-	if
-	(
-		keyCode == OIS::KeyCode::KC_A
-			||
-		keyCode == OIS::KeyCode::KC_D
-	)
-	{
-
-		//	Stopping camera by X-axis
-		this->pushNodeBy( omoba::Axis::AXIS_X , 0 );
-
-	}
-
-	//	[W] or [S] key was released
-	else if
-	(
-		keyCode == OIS::KeyCode::KC_S
-			||
-		keyCode == OIS::KeyCode::KC_W
-	)
-	{
-
-		//	Stopping camera by Z-axis
-		this->pushNodeBy( omoba::Axis::AXIS_Z , 0 );
-
-	}
-
-}
-*/

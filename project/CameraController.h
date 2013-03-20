@@ -9,17 +9,19 @@ namespace omoba
 
 	class CameraController
 		:
-            public InputListener,
 			public SceneNodeShifter,
-			public Ogre::FrameListener
+			public Ogre::FrameListener,
+            public InputListener
     
 	{
 
 		public:
             
-												CameraController ( void );
+												CameraController ( Ogre::SceneManager* sceneManager );
 
 												~CameraController ( void );
+
+			Ogre::Camera*						getCamera ( void ) const;
 
 			virtual void						mouseMoveHandler ( const OIS::MouseEvent& mouseEvent );
 
@@ -31,6 +33,8 @@ namespace omoba
 
             
 		private:
+
+			Ogre::Camera*						camera;
 
 			bool								cameraCaptured;
 

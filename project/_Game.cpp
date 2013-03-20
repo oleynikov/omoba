@@ -10,7 +10,6 @@ using namespace omoba;
 						oRenderWindow(0),
 						oSceneManager(0),
 						inputDispatcher(0),
-						camera(0),
 						cameraController(0),
 						//playerController(0),
 						cursor(0)
@@ -143,14 +142,8 @@ void			Game::createInputDispatcher(void)
 void			Game::createCamera(void)
 {
 
-	//	Creating camera and  camera node
-	this->camera = this->oSceneManager->createCamera ( "CameraMain" );
-	Ogre::SceneNode* cameraNode = this->oSceneManager->getRootSceneNode()->createChildSceneNode( "CameraSceneNode" );
-	cameraNode->attachObject(this->camera);
-
 	//	Creating camera controller
-	this->cameraController = new CameraController();
-	this->cameraController->setNode(cameraNode);
+	this->cameraController = new CameraController(this->oSceneManager);
 	this->cameraController->setPosition(Ogre::Vector3(0,300,300));
 	this->cameraController->lookAt(Ogre::Vector3::ZERO);
 	
@@ -167,12 +160,12 @@ void			Game::createViewport(void)
 {
 
 	// Create one viewport, entire window
-	Ogre::Viewport* viewport = this->oRenderWindow->addViewport(this->camera);
+	Ogre::Viewport* viewport = this->oRenderWindow->addViewport(this->cameraController->getCamera());
 	viewport->setBackgroundColour(Ogre::ColourValue(0,0,0));
 	 
 	// Alter the camera aspect ratio to match the viewport
 	Ogre::Real cameraAspectRatio(Ogre::Real(viewport->getActualWidth()) / Ogre::Real(viewport->getActualHeight()));
-	this->camera->setAspectRatio(cameraAspectRatio);
+	this->cameraController->getCamera()->setAspectRatio(cameraAspectRatio);
 
 }
 void			Game::createScene(void)

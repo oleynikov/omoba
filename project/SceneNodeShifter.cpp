@@ -66,6 +66,7 @@ Ogre::Vector3		SceneNodeShifter::getViewDirection ( void ) const
 
 }
 
+
 void				SceneNodeShifter::setViewDirection ( const Ogre::Vector3& viewDirection )
 {
 
