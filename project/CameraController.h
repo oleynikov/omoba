@@ -1,28 +1,41 @@
 #pragma once
 
-#include "ASceneNodeShifterInteractive.h"
+#include "InputListener.h"
+#include "SceneNodeShifter.h"
 
 namespace omoba
 {
 
 	class CameraController
 		:
-			public ASceneNodeShifterInteractive
+            public InputListener,
+			public SceneNodeShifter
+    
 	{
 
 		public:
-												CameraController(void);
-												~CameraController(void);
-			virtual void						mouseMoveHandler(const OIS::MouseEvent&);
-			virtual void						mousePressHandler(const OIS::MouseEvent&);
-			virtual void						mouseReleaseHandler(const OIS::MouseEvent&);
+            
+												CameraController ( void );
 
+												~CameraController ( void );
+
+			virtual void						mouseMoveHandler ( const OIS::MouseEvent& mouseEvent);
+
+			virtual void						mousePressHandler(const OIS::MouseEvent& mouseEvent);
+
+			virtual void						mouseReleaseHandler(const OIS::MouseEvent& mouseEvent);
+
+
+            
 		private:
+
 			bool								cameraCaptured;
-			static const OIS::MouseButtonID		cameraCaptureButton;
+
 			static const Ogre::Real				scrollSpeed;
-			static const Ogre::Radian			rotationAngle;
+
 			static const int					scrollAreaSize;
+            
+			static const OIS::MouseButtonID		cameraCaptureButton;
 
 	};
 

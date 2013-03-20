@@ -11,7 +11,7 @@
 #include <OgreOverlayManager.h>
 #include "InputDispatcher.h"
 #include "CameraController.h"
-#include "PlayerController.h"
+//#include "PlayerController.h"
 #include "Cursor.h"
 
 // Temp include
@@ -57,7 +57,7 @@ namespace omoba
 			InputDispatcher*		inputDispatcher;
 			Ogre::Camera*			camera;
 			CameraController*		cameraController;
-			PlayerController*		playerController;
+			//PlayerController*		playerController;
 			Cursor*					cursor;
 
 	};

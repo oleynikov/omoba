@@ -12,7 +12,7 @@ using namespace omoba;
 						inputDispatcher(0),
 						camera(0),
 						cameraController(0),
-						playerController(0),
+						//playerController(0),
 						cursor(0)
 {
 }
@@ -177,7 +177,7 @@ void			Game::createViewport(void)
 }
 void			Game::createScene(void)
 {
-
+/*
 	Ogre::Entity* ogreHead = this->oSceneManager->createEntity ( "Head" , "robot.mesh" );
 	Ogre::SceneNode* headNode = this->oSceneManager->getRootSceneNode()->createChildSceneNode();
 	headNode->setScale(Ogre::Vector3(2,2,2));
@@ -189,6 +189,9 @@ void			Game::createScene(void)
 	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_PRESSED,this->playerController);
 	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_RELEASED,this->playerController);
 	this->oRoot->addFrameListener(this->playerController);
+*/
+
+
 
 	//	Set ambient light
 	this->oSceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
