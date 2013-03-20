@@ -55,20 +55,36 @@ void							CameraController::mouseMoveHandler ( const OIS::MouseEvent& mouseEven
 
 	//	X - axix
 	if ( mousePosX <= CameraController::scrollAreaSize )
-		this->setMoveSpeed ( AXIS_RAY_X_NEGATIVE , CameraController::scrollSpeed );
+		this->setMoveSpeed
+		(
+			Ogre::Ray ( Ogre::Vector3::ZERO , Ogre::Vector3::NEGATIVE_UNIT_X ),
+			CameraController::scrollSpeed
+		);
 
 	else if ( mousePosX >= windowSizeX - omoba::CameraController::scrollAreaSize )
-		this->setMoveSpeed ( AXIS_RAY_X , CameraController::scrollSpeed );
+		this->setMoveSpeed
+		(
+			Ogre::Ray ( Ogre::Vector3::ZERO , Ogre::Vector3::UNIT_X ),
+			CameraController::scrollSpeed
+		);
 
 	else
 		this->stop();
 
 	//	Y - axis
 	if ( mousePosY <= CameraController::scrollAreaSize )
-		this->setMoveSpeed ( AXIS_RAY_Z_NEGATIVE , CameraController::scrollSpeed );
+		this->setMoveSpeed
+		(
+			Ogre::Ray ( Ogre::Vector3::ZERO , Ogre::Vector3::NEGATIVE_UNIT_Z ),
+			CameraController::scrollSpeed
+		);
 
 	else if ( mousePosY >= windowSizeY - omoba::CameraController::scrollAreaSize )
-		this->setMoveSpeed ( AXIS_RAY_Z , CameraController::scrollSpeed );
+		this->setMoveSpeed
+		(
+			Ogre::Ray ( Ogre::Vector3::ZERO , Ogre::Vector3::UNIT_Z ),
+			CameraController::scrollSpeed
+		);
 
 	else
 		this->stop();

@@ -32,7 +32,7 @@ void		PlayerController::mousePressHandler(const OIS::MouseEvent& mouseEvent)
 		if ( this->getCameraRayIntersection(viewportPoint,this->getNode(),intersection) )
 			this->getNode()->showBoundingBox(true);
 		else if ( intersection != Ogre::Vector3::ZERO )
-			this->launchTo(intersection,100);
+			this->pushTo(intersection,100);
 
 	}
 

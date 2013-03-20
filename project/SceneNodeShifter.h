@@ -2,6 +2,7 @@
 
 #include "OgreSceneManager.h"
 #include "Segment.h"
+#include "Ray.h"
 
 namespace omoba
 {
@@ -10,7 +11,7 @@ namespace omoba
 	{
 
 		public:
-									SceneNodeShifter ( Ogre::SceneManager* sceneManager = 0 , Ogre::String& nodeName = "" );
+									SceneNodeShifter ( Ogre::SceneManager* sceneManager = 0 );
 
 									~SceneNodeShifter ( void );
 
@@ -22,7 +23,7 @@ namespace omoba
 
 			void					setPosition ( const Ogre::Vector3& position );
 
-			void					getViewDirection ( void ) const;
+			Ogre::Vector3			getViewDirection ( void ) const;
             
 			void					setViewDirection ( const Ogre::Vector3& viewDirection );
             
@@ -32,7 +33,7 @@ namespace omoba
 
 			void					moveBy ( const Ogre::Vector3& distance );
 
-			void					getMoveSpeed ( void ) const;
+			Ogre::Vector3			getMoveSpeed ( void ) const;
 
 			void					setMoveSpeed ( const Ogre::Vector3& moveSpeed );
 
@@ -55,7 +56,7 @@ namespace omoba
             
             void                    addTime ( Ogre::Real& time);
 
-            void                    checkNodeSet ( void );
+            void                    checkNodeSet ( void ) const;
 
 
             

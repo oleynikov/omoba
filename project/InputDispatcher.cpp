@@ -36,26 +36,26 @@ using namespace omoba;
 	this->inputManager = 0;
 
 }
-void	InputDispatcher::registerListener(const InputEvent& inputEvent, AInputListener* inputListener)
+void	InputDispatcher::registerListener(const InputEvent& inputEvent, InputListener* inputListener)
 {
 
 	switch ( inputEvent )
 	{
 
 		case INPUT_EVENT_KEY_PRESSED: 
-			this->signalKeyPressed.connect(boost::bind(&AInputListener::keyPressHandler,inputListener,_1)); break;
+			this->signalKeyPressed.connect(boost::bind(&InputListener::keyPressHandler,inputListener,_1)); break;
 
 		case INPUT_EVENT_KEY_RELEASED: 
-			this->signalKeyReleased.connect(boost::bind(&AInputListener::keyReleaseHandler,inputListener,_1)); break;
+			this->signalKeyReleased.connect(boost::bind(&InputListener::keyReleaseHandler,inputListener,_1)); break;
 
 		case INPUT_EVENT_MOUSE_MOVED:
-			this->signalMouseMoved.connect(boost::bind(&AInputListener::mouseMoveHandler,inputListener,_1)); break;
+			this->signalMouseMoved.connect(boost::bind(&InputListener::mouseMoveHandler,inputListener,_1)); break;
 
 		case INPUT_EVENT_MOUSE_PRESSED:
-			this->signalMousePressed.connect(boost::bind(&AInputListener::mousePressHandler,inputListener,_1)); break;
+			this->signalMousePressed.connect(boost::bind(&InputListener::mousePressHandler,inputListener,_1)); break;
 
 		case INPUT_EVENT_MOUSE_RELEASED:
-			this->signalMouseReleased.connect(boost::bind(&AInputListener::mouseReleaseHandler,inputListener,_1)); break;
+			this->signalMouseReleased.connect(boost::bind(&InputListener::mouseReleaseHandler,inputListener,_1)); break;
 
 	}
 

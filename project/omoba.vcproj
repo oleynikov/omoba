@@ -181,24 +181,20 @@
 				>
 			</File>
 			<File
-				RelativePath=".\SpriteMovable.cpp"
+				RelativePath=".\InputListener.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Ray.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SceneNodeShifter.cpp"
 				>
 			</File>
 			<Filter
 				Name="Abstractions"
 				>
-				<File
-					RelativePath=".\AInputListener.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\ASceneNodeShifter.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\ASceneNodeShifterInteractive.cpp"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="GameCore"
@@ -235,10 +231,6 @@
 			<Filter
 				Name="Game"
 				>
-				<File
-					RelativePath=".\Sprite.cpp"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -251,24 +243,20 @@
 				>
 			</File>
 			<File
-				RelativePath=".\SpriteMovable.h"
+				RelativePath=".\InputListener.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Ray.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SceneNodeShifter.h"
 				>
 			</File>
 			<Filter
 				Name="Abstractions"
 				>
-				<File
-					RelativePath=".\AInputListener.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ASceneNodeShifter.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ASceneNodeShifterInteractive.h"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="GameCore"
@@ -305,10 +293,6 @@
 			<Filter
 				Name="Game"
 				>
-				<File
-					RelativePath=".\Sprite.h"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter

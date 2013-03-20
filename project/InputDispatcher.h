@@ -8,7 +8,7 @@
 #include <OISEvents.h>
 #include <boost/signals2.hpp>
 #include <boost/bind.hpp>
-#include "AInputListener.h"
+#include "InputListener.h"
 
 namespace omoba
 {
@@ -38,7 +38,7 @@ namespace omoba
 									InputDispatcher(Ogre::RenderWindow&);
 									~InputDispatcher(void);
 			void					initiate(void);
-			void					registerListener(const InputEvent&, AInputListener*);
+			void					registerListener(const InputEvent&, InputListener*);
 			void					updateRenderWindow(Ogre::RenderWindow*);
 
 		private:

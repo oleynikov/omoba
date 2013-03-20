@@ -160,7 +160,7 @@ void			Game::createCamera(void)
 	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_RELEASED,this->cameraController);
 
 	//	Registering camera controller to recieve frame events
-	this->oRoot->addFrameListener ( this->cameraController );
+	//this->oRoot->addFrameListener ( this->cameraController );
 
 }
 void			Game::createViewport(void)

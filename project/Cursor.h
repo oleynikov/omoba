@@ -3,14 +3,14 @@
 #include <OgreOverlay.h>
 #include <OgreOverlayContainer.h>
 #include <OgreOverlayManager.h>
-#include "AInputListener.h"
+#include "InputListener.h"
 
 namespace omoba
 {
 
 	class Cursor
 		:
-			public AInputListener
+			public InputListener
 	{
 
 		public:
