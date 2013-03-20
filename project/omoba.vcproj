@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="omoba"
-	ProjectGUID="{EF531EF9-237E-41C2-9148-84FE6DDFB8BB}"
+	ProjectGUID="{BF7F051B-20E5-47E1-A613-B8C810A7E9BD}"
 	RootNamespace="omoba"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
@@ -62,7 +62,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain_d.lib OIS_d.lib"
-				LinkIncremental="2"
+				LinkIncremental="0"
 				AdditionalLibraryDirectories="$(OGRE_HOME)\lib\$(ConfigurationName);$(OGRE_HOME)\boost\lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -137,7 +137,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain.lib OIS.lib"
-				LinkIncremental="1"
+				LinkIncremental="0"
 				AdditionalLibraryDirectories="$(OGRE_HOME)\lib\$(ConfigurationName);$(OGRE_HOME)\boost\lib"
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -177,11 +177,31 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\_Game.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Animation.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CameraController.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Cursor.cpp"
 				>
 			</File>
 			<File
+				RelativePath=".\InputDispatcher.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\InputListener.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PlayerController.cpp"
 				>
 			</File>
 			<File
@@ -192,46 +212,10 @@
 				RelativePath=".\SceneNodeShifter.cpp"
 				>
 			</File>
-			<Filter
-				Name="Abstractions"
+			<File
+				RelativePath=".\Segment.cpp"
 				>
-			</Filter>
-			<Filter
-				Name="GameCore"
-				>
-				<File
-					RelativePath=".\_Game.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Animation.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CameraController.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\InputDispatcher.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\PlayerController.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Tools"
-				>
-				<File
-					RelativePath=".\Segment.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Game"
-				>
-			</Filter>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -239,11 +223,31 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\_Game.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Animation.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CameraController.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Cursor.h"
 				>
 			</File>
 			<File
+				RelativePath=".\InputDispatcher.h"
+				>
+			</File>
+			<File
 				RelativePath=".\InputListener.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PlayerController.h"
 				>
 			</File>
 			<File
@@ -254,46 +258,10 @@
 				RelativePath=".\SceneNodeShifter.h"
 				>
 			</File>
-			<Filter
-				Name="Abstractions"
+			<File
+				RelativePath=".\Segment.h"
 				>
-			</Filter>
-			<Filter
-				Name="GameCore"
-				>
-				<File
-					RelativePath=".\_Game.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Animation.h"
-					>
-				</File>
-				<File
-					RelativePath=".\CameraController.h"
-					>
-				</File>
-				<File
-					RelativePath=".\InputDispatcher.h"
-					>
-				</File>
-				<File
-					RelativePath=".\PlayerController.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Tools"
-				>
-				<File
-					RelativePath=".\Segment.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Game"
-				>
-			</Filter>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

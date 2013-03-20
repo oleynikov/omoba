@@ -1,5 +1,6 @@
 #pragma once
 
+#include <OgreFrameListener.h>
 #include "InputListener.h"
 #include "SceneNodeShifter.h"
 
@@ -9,7 +10,8 @@ namespace omoba
 	class CameraController
 		:
             public InputListener,
-			public SceneNodeShifter
+			public SceneNodeShifter,
+			public Ogre::FrameListener
     
 	{
 
@@ -19,12 +21,13 @@ namespace omoba
 
 												~CameraController ( void );
 
-			virtual void						mouseMoveHandler ( const OIS::MouseEvent& mouseEvent);
+			virtual void						mouseMoveHandler ( const OIS::MouseEvent& mouseEvent );
 
-			virtual void						mousePressHandler(const OIS::MouseEvent& mouseEvent);
+			virtual void						mousePressHandler ( const OIS::MouseEvent& mouseEvent );
 
-			virtual void						mouseReleaseHandler(const OIS::MouseEvent& mouseEvent);
+			virtual void						mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent );
 
+			virtual bool						frameRenderingQueued ( const Ogre::FrameEvent& frameEvent );
 
             
 		private:

@@ -151,16 +151,16 @@ void			Game::createCamera(void)
 	//	Creating camera controller
 	this->cameraController = new CameraController();
 	this->cameraController->setNode(cameraNode);
-	this->cameraController->moveBy(Ogre::Vector3(0,500,500));
+	this->cameraController->setPosition(Ogre::Vector3(0,300,300));
 	this->cameraController->lookAt(Ogre::Vector3::ZERO);
 	
 	//	Registering camera controller to recieve input events
-	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_MOVED,this->cameraController);
-	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_PRESSED,this->cameraController);
-	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_RELEASED,this->cameraController);
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_MOVED,this->cameraController );
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED,this->cameraController );
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED,this->cameraController );
 
 	//	Registering camera controller to recieve frame events
-	//this->oRoot->addFrameListener ( this->cameraController );
+	this->oRoot->addFrameListener ( this->cameraController );
 
 }
 void			Game::createViewport(void)

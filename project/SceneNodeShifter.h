@@ -7,6 +7,15 @@
 namespace omoba
 {
 
+	enum AXIS
+	{
+
+		AXIS_X,
+		AXIS_Y,
+		AXIS_Z
+
+	};
+
 	class SceneNodeShifter
 	{
 
@@ -39,6 +48,8 @@ namespace omoba
 
 			void					setMoveSpeed ( const Ogre::Ray& moveRay , const Ogre::Real& moveSpeed );
 
+			void					setMoveSpeedComponent ( const AXIS axis , const Ogre::Real moveSpeed );
+			
 			void					pushTo ( const Ogre::Vector3& destination , const Ogre::Real& moveSpeed );
             
 			void					rotate ( const Ogre::Vector3& axis , const Ogre::Radian& angle , Ogre::Node::TransformSpace = Ogre::Node::TS_PARENT );
@@ -54,7 +65,7 @@ namespace omoba
 
             void                    updateOrientation ( void );
             
-            void                    addTime ( Ogre::Real& time);
+            void                    addTime ( Ogre::Real time);
 
             void                    checkNodeSet ( void ) const;
 

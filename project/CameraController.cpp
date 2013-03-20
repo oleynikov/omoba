@@ -6,22 +6,19 @@ const Ogre::Real				CameraController::scrollSpeed = 200;
 const int						CameraController::scrollAreaSize = 10;
 const OIS::MouseButtonID		CameraController::cameraCaptureButton = OIS::MouseButtonID::MB_Middle;
 
-
-
 								CameraController::CameraController ( void )
 									:
 										cameraCaptured(false)
 {
 
 	this->holdViewDirection = false;
+	this->viewDirection = Ogre::Vector3::NEGATIVE_UNIT_Z;
 
 }
-                                
 								CameraController::~CameraController ( void )
 {
 
 }
-                                
 void							CameraController::mouseMoveHandler ( const OIS::MouseEvent& mouseEvent )
 {
 
@@ -55,39 +52,23 @@ void							CameraController::mouseMoveHandler ( const OIS::MouseEvent& mouseEven
 
 	//	X - axix
 	if ( mousePosX <= CameraController::scrollAreaSize )
-		this->setMoveSpeed
-		(
-			Ogre::Ray ( Ogre::Vector3::ZERO , Ogre::Vector3::NEGATIVE_UNIT_X ),
-			CameraController::scrollSpeed
-		);
+		this->setMoveSpeedComponent ( AXIS_X , -1 * CameraController::scrollSpeed );
 
 	else if ( mousePosX >= windowSizeX - omoba::CameraController::scrollAreaSize )
-		this->setMoveSpeed
-		(
-			Ogre::Ray ( Ogre::Vector3::ZERO , Ogre::Vector3::UNIT_X ),
-			CameraController::scrollSpeed
-		);
+		this->setMoveSpeedComponent ( AXIS_X , CameraController::scrollSpeed );
 
 	else
-		this->stop();
+		this->setMoveSpeedComponent ( AXIS_X , 0 );
 
 	//	Y - axis
 	if ( mousePosY <= CameraController::scrollAreaSize )
-		this->setMoveSpeed
-		(
-			Ogre::Ray ( Ogre::Vector3::ZERO , Ogre::Vector3::NEGATIVE_UNIT_Z ),
-			CameraController::scrollSpeed
-		);
+		this->setMoveSpeedComponent ( AXIS_Z , -1 * CameraController::scrollSpeed );
 
 	else if ( mousePosY >= windowSizeY - omoba::CameraController::scrollAreaSize )
-		this->setMoveSpeed
-		(
-			Ogre::Ray ( Ogre::Vector3::ZERO , Ogre::Vector3::UNIT_Z ),
-			CameraController::scrollSpeed
-		);
+		this->setMoveSpeedComponent ( AXIS_Z , CameraController::scrollSpeed );
 
 	else
-		this->stop();
+		this->setMoveSpeedComponent ( AXIS_Z , 0 );
 
 }
 
@@ -100,6 +81,7 @@ void							CameraController::mousePressHandler ( const OIS::MouseEvent& mouseEve
 
 }
 
+
 void							CameraController::mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent )
 {
 
@@ -109,6 +91,16 @@ void							CameraController::mouseReleaseHandler ( const OIS::MouseEvent& mouseE
 
 }
 
+
+
+bool							CameraController::frameRenderingQueued ( const Ogre::FrameEvent& frameEvent )
+{
+
+	this->addTime ( frameEvent.timeSinceLastFrame );
+
+	return true;
+
+}
 
 /*
 
