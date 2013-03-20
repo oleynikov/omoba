@@ -180,6 +180,10 @@
 				RelativePath=".\Cursor.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\SpriteMovable.cpp"
+				>
+			</File>
 			<Filter
 				Name="Abstractions"
 				>
@@ -204,6 +208,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Animation.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CameraController.cpp"
 					>
 				</File>
@@ -224,6 +232,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Game"
+				>
+				<File
+					RelativePath=".\Sprite.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -232,6 +248,10 @@
 			>
 			<File
 				RelativePath=".\Cursor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SpriteMovable.h"
 				>
 			</File>
 			<Filter
@@ -258,6 +278,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Animation.h"
+					>
+				</File>
+				<File
 					RelativePath=".\CameraController.h"
 					>
 				</File>
@@ -275,6 +299,14 @@
 				>
 				<File
 					RelativePath=".\Segment.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Game"
+				>
+				<File
+					RelativePath=".\Sprite.h"
 					>
 				</File>
 			</Filter>
