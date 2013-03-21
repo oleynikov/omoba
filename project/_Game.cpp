@@ -11,7 +11,6 @@ using namespace omoba;
 						oSceneManager(0),
 						inputDispatcher(0),
 						cameraController(0),
-						//playerController(0),
 						cursor(0)
 {
 }

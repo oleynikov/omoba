@@ -9,10 +9,10 @@
 #include <OgreRenderWindow.h>
 #include <OgreWindowEventUtilities.h>
 #include <OgreOverlayManager.h>
+
+#include "Cursor.h"
 #include "InputDispatcher.h"
 #include "CameraController.h"
-//#include "PlayerController.h"
-#include "Cursor.h"
 
 // Temp include
 #include <OgreMeshManager.h>
@@ -56,7 +56,6 @@ namespace omoba
 			Ogre::SceneManager*		oSceneManager;
 			InputDispatcher*		inputDispatcher;
 			CameraController*		cameraController;
-			//PlayerController*		playerController;
 			Cursor*					cursor;
 
 	};

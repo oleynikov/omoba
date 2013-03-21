@@ -1,25 +1,23 @@
 #pragma once
 
-#include <OgreFrameListener.h>
 #include "InputListener.h"
-#include "SceneNodeShifter.h"
+#include "SceneNode.h"
 
 namespace omoba
 {
 
-	class CameraController
+	class Camera
 		:
-			public SceneNodeShifter,
-			public Ogre::FrameListener,
+			public SceneNode,
             public InputListener
     
 	{
 
 		public:
             
-												CameraController ( Ogre::SceneManager* sceneManager );
+												Camera ( Ogre::SceneManager* sceneManager );
 
-												~CameraController ( void );
+												~Camera ( void );
 
 			Ogre::Camera*						getCamera ( void ) const;
 
@@ -29,7 +27,6 @@ namespace omoba
 
 			virtual void						mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent );
 
-			virtual bool						frameRenderingQueued ( const Ogre::FrameEvent& frameEvent );
 
             
 		private:

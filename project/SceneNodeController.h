@@ -1,6 +1,7 @@
 #pragma once
 
-#include "OgreSceneManager.h"
+#include <OgreSceneManager.h>
+#include <OgreFrameListener.h>
 #include "Segment.h"
 #include "Ray.h"
 
@@ -16,13 +17,17 @@ namespace omoba
 
 	};
 
-	class SceneNodeShifter
+	class SceneNodeController
+        :
+            public Ogre::FrameListener
+    
 	{
 
 		public:
-									SceneNodeShifter ( Ogre::SceneManager* sceneManager = 0 );
+            
+									SceneNodeController ( Ogre::SceneManager* sceneManager = 0 );
 
-									~SceneNodeShifter ( void );
+									~SceneNodeController ( void );
 
 			Ogre::SceneNode*		getNode ( void ) const;
 
@@ -61,13 +66,14 @@ namespace omoba
 
             
 		protected:
+
 			void					updateIsMoving ( void );
 
             void                    updateOrientation ( void );
             
-            void                    addTime ( Ogre::Real time);
-
             void                    checkNodeSet ( void ) const;
+
+			virtual bool            frameRenderingQueued ( const Ogre::FrameEvent& frameEvent );
 
 
             

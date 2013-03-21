@@ -1,18 +1,18 @@
-#include "CameraController.h"
+#include "Camera.h"
 
 using namespace omoba;
 
-const Ogre::Real				CameraController::scrollSpeed = 200;
-const int						CameraController::scrollAreaSize = 10;
-const OIS::MouseButtonID		CameraController::cameraCaptureButton = OIS::MouseButtonID::MB_Middle;
+const Ogre::Real				Camera::scrollSpeed = 200;
+const int						Camera::scrollAreaSize = 10;
+const OIS::MouseButtonID		Camera::cameraCaptureButton = OIS::MouseButtonID::MB_Middle;
 
 
 
-								CameraController::CameraController ( Ogre::SceneManager* sceneManager )
+								Camera::Camera ( Ogre::SceneManager* sceneManager )
 									:
 										SceneNodeShifter ( sceneManager ),
-										camera ( 0 ),
-										cameraCaptured ( false )
+										cameraCaptured ( false ),
+										camera ( 0 )
 {
 
 	this->holdViewDirection = false;
@@ -22,17 +22,20 @@ const OIS::MouseButtonID		CameraController::cameraCaptureButton = OIS::MouseButt
 	this->node->attachObject ( this->camera );
 
 }
-								CameraController::~CameraController ( void )
+
+								Camera::~Camera ( void )
 {
 
 }
-Ogre::Camera*					CameraController::getCamera ( void ) const
+
+Ogre::Camera*					Camera::getCamera ( void ) const
 {
 
 	return this->camera;
 
 }
-void							CameraController::mouseMoveHandler ( const OIS::MouseEvent& mouseEvent )
+
+void							Camera::mouseMoveHandler ( const OIS::MouseEvent& mouseEvent )
 {
 
 	//  Captured camera mode
@@ -64,53 +67,41 @@ void							CameraController::mouseMoveHandler ( const OIS::MouseEvent& mouseEven
     //  When the cursor leaves the scroll area we stop the camera
 
 	//	X - axix
-	if ( mousePosX <= CameraController::scrollAreaSize )
-		this->setMoveSpeedComponent ( AXIS_X , -1 * CameraController::scrollSpeed );
+	if ( mousePosX <= Camera::scrollAreaSize )
+		this->setMoveSpeedComponent ( AXIS_X , -1 * Camera::scrollSpeed );
 
-	else if ( mousePosX >= windowSizeX - omoba::CameraController::scrollAreaSize )
-		this->setMoveSpeedComponent ( AXIS_X , CameraController::scrollSpeed );
+	else if ( mousePosX >= windowSizeX - omoba::Camera::scrollAreaSize )
+		this->setMoveSpeedComponent ( AXIS_X , Camera::scrollSpeed );
 
 	else
 		this->setMoveSpeedComponent ( AXIS_X , 0 );
 
 	//	Y - axis
-	if ( mousePosY <= CameraController::scrollAreaSize )
-		this->setMoveSpeedComponent ( AXIS_Z , -1 * CameraController::scrollSpeed );
+	if ( mousePosY <= Camera::scrollAreaSize )
+		this->setMoveSpeedComponent ( AXIS_Z , -1 * Camera::scrollSpeed );
 
-	else if ( mousePosY >= windowSizeY - omoba::CameraController::scrollAreaSize )
-		this->setMoveSpeedComponent ( AXIS_Z , CameraController::scrollSpeed );
+	else if ( mousePosY >= windowSizeY - omoba::Camera::scrollAreaSize )
+		this->setMoveSpeedComponent ( AXIS_Z , Camera::scrollSpeed );
 
 	else
 		this->setMoveSpeedComponent ( AXIS_Z , 0 );
 
 }
 
-void							CameraController::mousePressHandler ( const OIS::MouseEvent& mouseEvent )
+void							Camera::mousePressHandler ( const OIS::MouseEvent& mouseEvent )
 {
 
 	// Listening for OIS::MouseButtonID::MB_Right press
-	if ( mouseEvent.state.buttonDown ( CameraController::cameraCaptureButton ) )
+	if ( mouseEvent.state.buttonDown ( Camera::cameraCaptureButton ) )
 		this->cameraCaptured = true;
 
 }
 
-
-void							CameraController::mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent )
+void							Camera::mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent )
 {
 
 	// Listening for OIS::MouseButtonID::MB_Right release
-	if ( ! mouseEvent.state.buttonDown ( CameraController::cameraCaptureButton ) )
+	if ( ! mouseEvent.state.buttonDown ( Camera::cameraCaptureButton ) )
 		this->cameraCaptured = false;
-
-}
-
-
-
-bool							CameraController::frameRenderingQueued ( const Ogre::FrameEvent& frameEvent )
-{
-
-	this->addTime ( frameEvent.timeSinceLastFrame );
-
-	return true;
 
 }
