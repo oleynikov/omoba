@@ -2,11 +2,13 @@
 
 using namespace omoba;
 
-		InputDispatcher::InputDispatcher(Ogre::RenderWindow& renderWindow)
+							InputDispatcher::InputDispatcher(Ogre::RenderWindow& renderWindow)
 	:
 		inputManager(0),
 		keyboard(0),
-		mouse(0)
+		mouse(0),
+		sceneManager ( 0 ),
+		camera ( 0 )
 {
 
 	size_t windowHandler = 0;
@@ -26,7 +28,7 @@ using namespace omoba;
 
 }
 
-		InputDispatcher::~InputDispatcher(void)
+							InputDispatcher::~InputDispatcher ( void )
 {
 
 	this->inputManager->destroyInputObject( this->mouse );
@@ -36,7 +38,7 @@ using namespace omoba;
 	this->inputManager = 0;
 
 }
-void	InputDispatcher::registerListener(const InputEvent& inputEvent, InputListener* inputListener)
+void						InputDispatcher::registerListener ( const InputEvent& inputEvent, InputListener* inputListener )
 {
 
 	switch ( inputEvent )
@@ -57,10 +59,19 @@ void	InputDispatcher::registerListener(const InputEvent& inputEvent, InputListen
 		case INPUT_EVENT_MOUSE_RELEASED:
 			this->signalMouseReleased.connect(boost::bind(&InputListener::mouseReleaseHandler,inputListener,_1)); break;
 
+		case INPUT_EVENT_MOUSE_MOVED_ON_OBJECT:
+			this->signalMouseMovedOnObject.connect(boost::bind(&InputListener::mouseMoveOnObjectHandler,inputListener,_1)); break;
+
+		case INPUT_EVENT_MOUSE_PRESSED_ON_OBJECT:
+			this->signalMousePressedOnObject.connect(boost::bind(&InputListener::mousePressOnObjectHandler,inputListener,_1)); break;
+
+		case INPUT_EVENT_MOUSE_RELEASED_ON_OBJECT:
+			this->signalMouseReleasedOnObject.connect(boost::bind(&InputListener::mouseReleaseOnObjectHandler,inputListener,_1)); break;
+
 	}
 
 }
-void	InputDispatcher::updateRenderWindow(Ogre::RenderWindow* renderWindow)
+void						InputDispatcher::updateRenderWindow ( Ogre::RenderWindow* renderWindow )
 {
 
 	unsigned int
@@ -79,42 +90,69 @@ void	InputDispatcher::updateRenderWindow(Ogre::RenderWindow* renderWindow)
     mousState.height = height;
 
 }
-bool	InputDispatcher::keyPressed(const OIS::KeyEvent& keyEvent)
+void						InputDispatcher::setSceneManager ( Ogre::SceneManager* sceneManager )
+{
+
+	this->sceneManager = sceneManager;
+
+}
+void						InputDispatcher::setCamera ( Ogre::Camera* camera )
+{
+
+	this->camera = camera;
+
+}
+bool						InputDispatcher::keyPressed ( const OIS::KeyEvent& keyEvent )
 {
 
 	this->signalKeyPressed(keyEvent);
     return true;
 
 }
-bool	InputDispatcher::keyReleased(const OIS::KeyEvent& keyEvent)
+bool						InputDispatcher::keyReleased ( const OIS::KeyEvent& keyEvent )
 {
 
 	this->signalKeyReleased(keyEvent);
     return true;
 
 }
-bool	InputDispatcher::mouseMoved(const OIS::MouseEvent& mouseEvent)
+bool						InputDispatcher::mouseMoved ( const OIS::MouseEvent& mouseEvent )
 {
 
 	this->signalMouseMoved(mouseEvent);
+
+	Ogre::Vector2 viewportMousePosition = this->getViewportMousePosition ( mouseEvent );
+	Ogre::RaySceneQueryResult& rayQueryResult = this->getCameraRayIntersector ( viewportMousePosition );
+	this->signalMouseMovedOnObject ( rayQueryResult );
+
 	return true;
 
 }
-bool	InputDispatcher::mousePressed(const OIS::MouseEvent& mouseEvent, OIS::MouseButtonID buttonId)
+bool						InputDispatcher::mousePressed ( const OIS::MouseEvent& mouseEvent, OIS::MouseButtonID buttonId )
 {
 
-	this->signalMousePressed(mouseEvent);
+	this->signalMousePressed ( mouseEvent );
+
+	Ogre::Vector2 viewportMousePosition = this->getViewportMousePosition ( mouseEvent );
+	Ogre::RaySceneQueryResult& rayQueryResult = this->getCameraRayIntersector ( viewportMousePosition );
+	this->signalMousePressedOnObject ( rayQueryResult );
+
 	return true;
 
 }
-bool	InputDispatcher::mouseReleased(const OIS::MouseEvent& mouseEvent, OIS::MouseButtonID buttonId)
+bool						InputDispatcher::mouseReleased ( const OIS::MouseEvent& mouseEvent, OIS::MouseButtonID buttonId )
 {
 
 	this->signalMouseReleased(mouseEvent);
+
+	Ogre::Vector2 viewportMousePosition = this->getViewportMousePosition ( mouseEvent );
+	Ogre::RaySceneQueryResult& rayQueryResult = this->getCameraRayIntersector ( viewportMousePosition );
+	this->signalMouseReleasedOnObject ( rayQueryResult );
+
 	return true;
 
 }
-bool	InputDispatcher::frameRenderingQueued(const Ogre::FrameEvent& frameEvent)
+bool						InputDispatcher::frameRenderingQueued ( const Ogre::FrameEvent& frameEvent )
 {
 
 	this->keyboard->capture();
@@ -123,7 +161,7 @@ bool	InputDispatcher::frameRenderingQueued(const Ogre::FrameEvent& frameEvent)
 	return true;
 
 }
-void	InputDispatcher::initiate(void)
+void						InputDispatcher::initiate ( void )
 {
 
 	OIS::MouseState& mouseState = const_cast<OIS::MouseState&>(this->mouse->getMouseState());
@@ -133,5 +171,35 @@ void	InputDispatcher::initiate(void)
 	OIS::MouseEvent mouseEvent(0,mouseState);
 
 	this->signalMouseMoved(mouseEvent);
+
+}
+
+Ogre::Vector2				InputDispatcher::getViewportMousePosition ( const OIS::MouseEvent& mouseEvent )
+{
+
+	float viewportX = float ( mouseEvent.state.X.abs ) / float ( mouseEvent.state.width );
+	float viewportY = float ( mouseEvent.state.Y.abs ) / float ( mouseEvent.state.height );
+	
+	return Ogre::Vector2 ( viewportX , viewportY );
+
+}
+Ogre::RaySceneQueryResult&	InputDispatcher::getCameraRayIntersector ( const Ogre::Vector2& viewportPoint )
+{
+
+	if ( ! this->sceneManager )
+		throw ExcSceneManagerNotSet();
+		
+	if ( ! this->camera )
+		throw ExcCameraNotSet();
+
+	Ogre::MovableObject* intersector = 0;
+
+	//then send a raycast straight out from the camera at the mouse's position
+	Ogre::Ray mouseRay = this->camera->getCameraToViewportRay ( viewportPoint.x , viewportPoint.y );
+	Ogre::RaySceneQuery* cameraRayQuery = this->sceneManager->createRayQuery ( mouseRay );
+	Ogre::RaySceneQueryResult& cameraRayQueryResult = cameraRayQuery->execute();
+	Ogre::RaySceneQueryResult::iterator itr = cameraRayQueryResult.begin();
+
+	return cameraRayQueryResult;
 
 }

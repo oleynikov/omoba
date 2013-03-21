@@ -2,7 +2,7 @@
 
 #include <OgreEntity.h>
 #include "InputListener.h"
-#include "SceneNodeShifter.h"
+#include "SceneNodeController.h"
 
 namespace omoba
 {

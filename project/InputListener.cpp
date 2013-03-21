@@ -21,3 +21,15 @@ void					InputListener::mousePressHandler ( const OIS::MouseEvent& mouseEvent )
 void					InputListener::mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent )
 {
 }
+
+void					InputListener::mouseMoveOnObjectHandler ( const Ogre::RaySceneQueryResult& rayQueryResult )
+{
+}
+
+void					InputListener::mousePressOnObjectHandler ( const Ogre::RaySceneQueryResult& rayQueryResult )
+{
+}
+
+void					InputListener::mouseReleaseOnObjectHandler ( const Ogre::RaySceneQueryResult& rayQueryResult )
+{
+}

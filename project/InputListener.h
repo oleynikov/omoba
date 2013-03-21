@@ -2,6 +2,7 @@
 
 #include <OISKeyboard.h>
 #include <OISMouse.h>
+#include <OgreSceneQuery.h>
 
 namespace omoba
 {
@@ -20,6 +21,14 @@ namespace omoba
 			virtual void	mousePressHandler ( const OIS::MouseEvent& mouseEvent );
 
 			virtual void	mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent );
+
+			virtual void	mouseMoveOnObjectHandler ( const Ogre::RaySceneQueryResult& rayQueryResult );
+
+			virtual void	mousePressOnObjectHandler ( const Ogre::RaySceneQueryResult& rayQueryResult );
+
+			virtual void	mouseReleaseOnObjectHandler ( const Ogre::RaySceneQueryResult& rayQueryResult );
+
+
 
 	};
 

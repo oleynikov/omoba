@@ -2,6 +2,8 @@
 
 #include <OgreRenderWindow.h>
 #include <OgreFrameListener.h>
+#include <OgreSceneQuery.h>
+#include <OgreSceneManager.h>
 #include <OISInputManager.h>
 #include <OISKeyboard.h>
 #include <OISMouse.h>
@@ -13,15 +15,15 @@
 namespace omoba
 {
 
-	typedef boost::signals2::signal<void(const OIS::KeyEvent&)>		SignalKeyEvent;
+	typedef boost::signals2::signal<void(const OIS::KeyEvent&)>					SignalKeyEvent;
     
-	typedef boost::signals2::signal<void(const OIS::MouseEvent&)>	SignalMouseEvent;
+	typedef boost::signals2::signal<void(const OIS::MouseEvent&)>				SignalMouseEvent;
 
-    typedef boost::signals2::signal<void(const Ogre::Movable&)>     SignalMousePressedOnObject;
+	typedef boost::signals2::signal<void(const Ogre::RaySceneQueryResult&)>		SignalMousePressedOnObject;
 
-    typedef boost::signals2::signal<void(const Ogre::Movable&)>     SignalMouseReleasedOnObject;
+	typedef boost::signals2::signal<void(const Ogre::RaySceneQueryResult&)>		SignalMouseReleasedOnObject;
 
-    typedef boost::signals2::signal<void(const Ogre::Movable&)>     SignalMouseMovedOnObject;
+	typedef boost::signals2::signal<void(const Ogre::RaySceneQueryResult&)>		SignalMouseMovedOnObject;
 
 
 
@@ -36,7 +38,13 @@ namespace omoba
 
 		INPUT_EVENT_MOUSE_PRESSED,
 
-		INPUT_EVENT_MOUSE_RELEASED
+		INPUT_EVENT_MOUSE_RELEASED,
+
+		INPUT_EVENT_MOUSE_MOVED_ON_OBJECT,
+
+		INPUT_EVENT_MOUSE_PRESSED_ON_OBJECT,
+
+		INPUT_EVENT_MOUSE_RELEASED_ON_OBJECT,
                 
 	};
 
@@ -63,6 +71,10 @@ namespace omoba
 
 			void                            updateRenderWindow ( Ogre::RenderWindow* renderWindow);
 
+			void							setSceneManager ( Ogre::SceneManager* sceneManager );
+
+			void							setCamera ( Ogre::Camera* camera );
+
 
 
 		private:
@@ -79,6 +91,10 @@ namespace omoba
 
 			virtual bool                    frameRenderingQueued(const Ogre::FrameEvent&);
 
+			Ogre::Vector2					getViewportMousePosition ( const OIS::MouseEvent& mouseEvent );
+
+			Ogre::RaySceneQueryResult&		getCameraRayIntersector ( const Ogre::Vector2& viewportPoint );
+
 
 
             SignalKeyEvent                  signalKeyPressed;
@@ -91,19 +107,27 @@ namespace omoba
 
 			SignalMouseEvent                signalMouseReleased;
 
-            SignalMousePressedOnObject      signalMousePressedOnObject;
-
-            SignalMouseReleasedOnObject     signalMouseReleasedOnObject;
-
             SignalMouseMovedOnObject        signalMouseMovedOnObject;
 
+			SignalMousePressedOnObject      signalMousePressedOnObject;
+
+            SignalMouseReleasedOnObject     signalMouseReleasedOnObject;
             
-                    
+
+
 			OIS::InputManager*              inputManager;
 
 			OIS::Keyboard*                  keyboard;
 
 			OIS::Mouse*                     mouse;
+
+			Ogre::SceneManager*				sceneManager;
+
+			Ogre::Camera*					camera;
+
+			class							ExcSceneManagerNotSet { };
+
+			class							ExcCameraNotSet { };
 
 	};
 

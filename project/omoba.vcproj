@@ -176,92 +176,100 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath=".\_Game.cpp"
+			<Filter
+				Name="Tools"
 				>
-			</File>
-			<File
-				RelativePath=".\Animation.cpp"
+				<File
+					RelativePath=".\Ray.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Segment.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Game"
 				>
-			</File>
-			<File
-				RelativePath=".\CameraController.cpp"
+				<File
+					RelativePath=".\_Game.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CameraController.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Cursor.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\InputDispatcher.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Abstractions"
 				>
-			</File>
-			<File
-				RelativePath=".\Cursor.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\InputDispatcher.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\InputListener.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\PlayerController.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Ray.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\SceneNodeShifter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Segment.cpp"
-				>
-			</File>
+				<File
+					RelativePath=".\InputListener.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\SceneNodeController.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\_Game.h"
+			<Filter
+				Name="Tools"
 				>
-			</File>
-			<File
-				RelativePath=".\Animation.h"
+				<File
+					RelativePath=".\Ray.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Segment.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Game"
 				>
-			</File>
-			<File
-				RelativePath=".\CameraController.h"
+				<File
+					RelativePath=".\_Game.h"
+					>
+				</File>
+				<File
+					RelativePath=".\CameraController.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Cursor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\InputDispatcher.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Abstractions"
 				>
-			</File>
-			<File
-				RelativePath=".\Cursor.h"
-				>
-			</File>
-			<File
-				RelativePath=".\InputDispatcher.h"
-				>
-			</File>
-			<File
-				RelativePath=".\InputListener.h"
-				>
-			</File>
-			<File
-				RelativePath=".\PlayerController.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Ray.h"
-				>
-			</File>
-			<File
-				RelativePath=".\SceneNodeShifter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Segment.h"
-				>
-			</File>
+				<File
+					RelativePath=".\InputListener.h"
+					>
+				</File>
+				<File
+					RelativePath=".\SceneNodeController.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"

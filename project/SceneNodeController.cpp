@@ -13,7 +13,7 @@ using namespace omoba;
 {
 
     if ( sceneManager )
-    	this->node = sceneManager->getRootSceneNodeController()->createChildSceneNodeController ( "root" );
+    	this->node = sceneManager->getRootSceneNode()->createChildSceneNode ( "root" );
 
 }
 
@@ -24,14 +24,14 @@ using namespace omoba;
 
 }
 
-Ogre::SceneNodeController*	SceneNodeController::getNode ( void ) const
+Ogre::SceneNode*	SceneNodeController::getNode ( void ) const
 {
 
 	return this->node;
 
 }
 
-void				SceneNodeController::setNode ( Ogre::SceneNodeController* node )
+void				SceneNodeController::setNode ( Ogre::SceneNode* node )
 {
 
 	this->node = node;
