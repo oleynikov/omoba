@@ -5,15 +5,16 @@ using namespace omoba;
 					SceneNodeController::SceneNodeController ( Ogre::SceneManager* sceneManager )
                         :
                             node                ( 0 ),
-                            isMoving            ( false ),
-                            moveSpeed           ( Ogre::Vector3::ZERO ),
-                            moveDestination     ( Ogre::Vector3::ZERO ),
                             viewDirection       ( Ogre::Vector3::UNIT_Z ),
-                            holdViewDirection   ( true )
+                            holdViewDirection   ( true ),
+                            isMoving            ( false ),
+							moveMode			( MOVE_BY_PATH ),
+                            moveVector			( Ogre::Vector3::ZERO ),
+							moveSpeed			( 0 )
 {
 
     if ( sceneManager )
-    	this->node = sceneManager->getRootSceneNode()->createChildSceneNode ( "root" );
+    	this->node = sceneManager->getRootSceneNode()->createChildSceneNode ( "OMOBA_ROOT_NODE" );
 
 }
 
@@ -24,29 +25,81 @@ using namespace omoba;
 
 }
 
-Ogre::SceneNode*	SceneNodeController::getNode ( void ) const
+
+Ogre::SceneNode&	SceneNodeController::getNode ( void ) const
 {
 
-	return this->node;
+	this->checkNodeSet();
+	
+	return *(this->node);
 
 }
 
-void				SceneNodeController::setNode ( Ogre::SceneNode* node )
+Ogre::Vector3&		SceneNodeController::getViewDirection ( void ) const
 {
 
-	this->node = node;
-
-	if ( ! node )
-		this->stop();
+	return this->viewDirection;
 
 }
 
-Ogre::Vector3		SceneNodeController::getPosition ( void ) const
+bool				SceneNodeController::getIsMoving ( void ) const
+{
+
+    return this->isMoving;
+
+}
+
+Ogre::Vector3&		SceneNodeController::getPosition ( void ) const
 {
 
     this->checkNodeSet();
 
 	return this->node->getPosition();
+
+}
+
+Ogre::Vector3&		SceneNodeController::getMoveVector ( void ) const
+{
+
+    return this->moveVector;
+
+}
+
+MovePath&			SceneNodeController::getMovePath ( void ) const
+{
+
+	return this->movePath;
+	
+}
+
+Ogre::Real&			SceneNodeController::getMoveSpeed ( void ) const
+{
+
+	return this->moveSpeed;
+	
+}
+
+
+void				SceneNodeController::setNode ( Ogre::SceneNode& node )
+{
+
+	this->node = *node;
+
+}
+
+void				SceneNodeController::setViewDirection ( const Ogre::Vector3& viewDirection )
+{
+
+	this->viewDirection = viewDirection;
+
+}
+
+void				SceneNodeController::setMoving ( bool isMoving )
+{
+
+	this->isMoving = isMoving;
+	
+	this->updateOrientation();
 
 }
 
@@ -59,81 +112,37 @@ void				SceneNodeController::setPosition ( const Ogre::Vector3& position )
 
 }
 
-Ogre::Vector3		SceneNodeController::getViewDirection ( void ) const
+void				SceneNodeController::setMoveVector ( const Ogre::Vector3& moveVector )
 {
 
-	return this->viewDirection;
+    this->moveVector = moveVector;
 
 }
 
-void				SceneNodeController::setViewDirection ( const Ogre::Vector3& viewDirection )
+void				SceneNodeController::setMoveVector ( const Ogre::Ray& moveRay , const Ogre::Real& moveSpeed );
 {
 
-	this->viewDirection = viewDirection;
+    this->setMoveVector ( Segment::getPointVector ( moveRay.getOrigin() , moveRay.getDirection() , moveSpeed ) );
 
 }
 
-bool				SceneNodeController::getIsMoving ( void ) const
+void				SceneNodeController::setMoveVectorComponent ( const AXIS axis , const Ogre::Real value )
 {
 
-    return this->isMoving;
-
-}
-
-void                SceneNodeController::stop ( void )
-{
-
-    this->setMoveSpeed ( Ogre::Vector3::ZERO );
-
-}
-
-void				SceneNodeController::moveBy ( const Ogre::Vector3& distance )
-{
-
-    this -> node -> translate ( distance );
-
-}
-
-Ogre::Vector3		SceneNodeController::getMoveSpeed ( void ) const
-{
-
-    return this -> moveSpeed;
-
-}
-
-void				SceneNodeController::setMoveSpeed ( const Ogre::Vector3& speed )
-{
-
-    this->moveSpeed = speed;
-    this->updateIsMoving();
-    this->updateOrientation();
-
-}
-
-void				SceneNodeController::setMoveSpeed ( const Ogre::Ray& moveRay, const Ogre::Real& moveSpeed )
-{
-
-    Ogre :: Vector3 speed = Segment :: getPointVector ( moveRay.getOrigin() , moveRay.getDirection() , moveSpeed );
-
-    this -> setMoveSpeed ( speed );
-
-}
-
-void				SceneNodeController::setMoveSpeedComponent ( AXIS axis , const Ogre::Real moveSpeed )
-{
-
-	Ogre::Vector3 moveSpeedNew = this->moveSpeed;
+	Ogre::Vector3 moveVectorNew = this->moveVector;
 
 	switch ( axis )
 	{
 
-		case AXIS_X : moveSpeedNew.x = moveSpeed; break;
-		case AXIS_Y : moveSpeedNew.y = moveSpeed; break;
-		case AXIS_Z : moveSpeedNew.z = moveSpeed; break;
+		case AXIS_X : moveVectorNew.x = value; break;
+		
+		case AXIS_Y : moveVectorNew.y = value; break;
+		
+		case AXIS_Z : moveVectorNew.z = value; break;
 
 	}
 
-	this->setMoveSpeed ( moveSpeedNew );
+	this->setMoveVector ( moveVectorNew );
 
 }
 
@@ -141,55 +150,60 @@ void				SceneNodeController::setMovePath ( const MovePath& movePath )
 {
 
 	this->movePath = movePath;
+	
+}
+
+void				SceneNodeController::setMovePath ( const Ogre::Vector3 destination )
+{
+
+	this->movePath.clear();
+	
+	this->movePath.push_back ( destination );
 
 }
 
-void				SceneNodeController::pushTo ( const Ogre::Vector3& destination , const Ogre::Real& moveSpeed )
+
+void				SceneNodeController::moveBy ( const Ogre::Vector3& distance )
 {
 
-	this -> setMoveSpeed ( Segment :: getPointVector ( this -> getPosition() , destination , moveSpeed ) );
-	this -> moveDestination = destination;
+	this->checkNodeSet();
+	
+    this->node->translate ( distance );
 
 }
 
 void                SceneNodeController::rotate ( const Ogre::Vector3& axis , const Ogre::Radian& angle , Ogre::Node::TransformSpace relativeTo )
 {
 
-    this -> node -> rotate ( axis , angle , relativeTo );
+	this->checkNodeSet();
+	
+    this->node->rotate ( axis , angle , relativeTo );
     
 }
 
 void				SceneNodeController::lookAt ( const Ogre::Vector3& point , Ogre::Node::TransformSpace ralativeTo , const Ogre::Vector3& viewDirection )
 {
 
+	this->checkNodeSet();
+	
     //  `viewDirection` defaults to the value of `viewDirection` class member
 	Ogre::Vector3 actualViewDirection =
-		( viewDirection == Ogre :: Vector3 :: ZERO )
+		( viewDirection == Ogre::Vector3::ZERO )
 			?
 		this->viewDirection
 			:
 		viewDirection;
 
-    this -> node -> lookAt ( point , ralativeTo , actualViewDirection );
+    this->node->lookAt ( point , ralativeTo , actualViewDirection );
     
 }
 
-void                SceneNodeController::updateIsMoving ( void )
+
+void                SceneNodeController::checkNodeSet ( void ) const
 {
 
-    //  Updates `nodeMoving` state depending on the `moveSpeed`
-
-    this -> isMoving =	(
-							this -> moveSpeed . x != 0
-                                ||
-                            this -> moveSpeed . y != 0
-                                ||
-                            this -> moveSpeed . z != 0
-                        )
-                            ?
-                        true
-                            :
-                        false;
+    if ( ! this->node )
+        throw excNodeNotDefined();
 
 }
 
@@ -198,25 +212,29 @@ void                SceneNodeController::updateOrientation ( void )
 
     //  Updates node orientation if needed
 
-    if ( this -> holdViewDirection )
+    if ( this->holdViewDirection )
     {
-
-		this -> lookAt  (
-                            this -> moveDestination,
-                            Ogre :: Node :: TS_PARENT,
-                            this -> viewDirection
-                        );
+	
+		Ogre::Vector3 lookPoint;
+	
+		switch ( this->moveMode )
+		{
+		
+			case MOVE_BY_VECTOR:	lookPoint = this->getPosition() + this->moveVector; break;
+			
+			case MOVE_BY_PATH:		this->movePath.front(); break;
+			
+		}
+		
+		this->lookAt
+		(
+			this->lookPoint,
+			Ogre::Node::TS_PARENT,
+			this->viewDirection
+		);
 
     }
     
-}
-
-void                SceneNodeController::checkNodeSet ( void ) const
-{
-
-    if ( ! this->node )
-        throw excNodeNotDefined();
-
 }
 
 bool                SceneNodeController::frameRenderingQueued ( const Ogre::FrameEvent& frameEvent )
@@ -247,4 +265,11 @@ bool                SceneNodeController::frameRenderingQueued ( const Ogre::Fram
 
     return true;
     
+}
+
+void				SceneNodeController::switchMoveMode ( const SceneNodeMoveMode moveMode )
+{
+
+	this->moveMove = moveMode;
+
 }
