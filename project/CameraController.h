@@ -9,27 +9,26 @@ namespace omoba
 	class CameraController
 		:
 			public SceneNodeController,
-            public InputListener
-    
+			public InputListener
+
 	{
 
 		public:
-            
+
 												CameraController ( Ogre::SceneManager* sceneManager );
 
 												~CameraController ( void );
 
 			Ogre::Camera*						getCamera ( void ) const;
 
-			virtual void						mouseMoveHandler ( const OIS::MouseEvent& mouseEvent );
+			virtual void						mouseMoveHandler ( const MouseEvent& mouseEvent , const RayQueryResult& rayQueryResult );
 
-			virtual void						mousePressHandler ( const OIS::MouseEvent& mouseEvent );
+			virtual void						mousePressHandler ( const MouseEvent& mouseEvent , const RayQueryResult& rayQueryResult );
 
-			virtual void						mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent );
+			virtual void						mouseReleaseHandler ( const MouseEvent& mouseEvent , const RayQueryResult& rayQueryResult );
 
-			virtual void						mousePressOnObjectHandler ( const Ogre::RaySceneQueryResult& mouseEvent );
 
-            
+
 		private:
 
 			Ogre::Camera*						camera;
@@ -39,7 +38,7 @@ namespace omoba
 			static const Ogre::Real				scrollSpeed;
 
 			static const int					scrollAreaSize;
-            
+			
 			static const OIS::MouseButtonID		cameraCaptureButton;
 
 	};

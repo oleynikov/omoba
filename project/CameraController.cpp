@@ -4,15 +4,6 @@ using namespace omoba;
 
 
 
-void	CameraController::mousePressOnObjectHandler ( const Ogre::RaySceneQueryResult& mouseEvent )
-{
-
-	int size = mouseEvent.size();
-
-}
-
-
-
 const Ogre::Real				CameraController::scrollSpeed = 200;
 const int						CameraController::scrollAreaSize = 10;
 const OIS::MouseButtonID		CameraController::cameraCaptureButton = OIS::MouseButtonID::MB_Middle;
@@ -46,7 +37,7 @@ Ogre::Camera*					CameraController::getCamera ( void ) const
 
 }
 
-void							CameraController::mouseMoveHandler ( const OIS::MouseEvent& mouseEvent )
+void							CameraController::mouseMoveHandler ( const MouseEvent& mouseEvent , const RayQueryResult& rayQueryResult )
 {
 
 	//  Captured camera mode
@@ -75,7 +66,7 @@ void							CameraController::mouseMoveHandler ( const OIS::MouseEvent& mouseEven
 	int mousePosY = mouseEvent.state.Y.abs;
 
 	//  If the cursor is in the scroll area than we start moving the camera.
-    //  When the cursor leaves the scroll area we stop the camera
+	//  When the cursor leaves the scroll area we stop the camera
 
 	//	X - axix
 	if ( mousePosX <= CameraController::scrollAreaSize )
@@ -99,7 +90,7 @@ void							CameraController::mouseMoveHandler ( const OIS::MouseEvent& mouseEven
 
 }
 
-void							CameraController::mousePressHandler ( const OIS::MouseEvent& mouseEvent )
+void							CameraController::mousePressHandler ( const MouseEvent& mouseEvent , const RayQueryResult& rayQueryResult )
 {
 
 	// Listening for OIS::MouseButtonID::MB_Right press
@@ -108,7 +99,7 @@ void							CameraController::mousePressHandler ( const OIS::MouseEvent& mouseEve
 
 }
 
-void							CameraController::mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent )
+void							CameraController::mouseReleaseHandler ( const MouseEvent& mouseEvent , const RayQueryResult& rayQueryResult )
 {
 
 	// Listening for OIS::MouseButtonID::MB_Right release

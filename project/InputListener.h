@@ -1,8 +1,6 @@
 #pragma once
 
-#include <OISKeyboard.h>
-#include <OISMouse.h>
-#include <OgreSceneQuery.h>
+#include "InputDispatcher.h"
 
 namespace omoba
 {
@@ -12,23 +10,15 @@ namespace omoba
 
 		public:
 
-			virtual void	keyPressHandler ( const OIS::KeyEvent& keyEvent );
+			virtual void	keyPressHandler ( const KeyEvent& keyEvent );
 
-			virtual void	keyReleaseHandler ( const OIS::KeyEvent& keyEvent );
+			virtual void	keyReleaseHandler ( const KeyEvent& keyEvent );
 
-			virtual void	mouseMoveHandler ( const OIS::MouseEvent& mouseEvent );
+			virtual void	mouseMoveHandler ( const MouseEvent& mouseEvent , const RayQueryResult& rayQueryResult );
 
-			virtual void	mousePressHandler ( const OIS::MouseEvent& mouseEvent );
+			virtual void	mousePressHandler ( const MouseEvent& mouseEvent , const RayQueryResult& rayQueryResult );
 
-			virtual void	mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent );
-
-			virtual void	mouseMoveOnObjectHandler ( const Ogre::RaySceneQueryResult& rayQueryResult );
-
-			virtual void	mousePressOnObjectHandler ( const Ogre::RaySceneQueryResult& rayQueryResult );
-
-			virtual void	mouseReleaseOnObjectHandler ( const Ogre::RaySceneQueryResult& rayQueryResult );
-
-
+			virtual void	mouseReleaseHandler ( const MouseEvent& mouseEvent , const RayQueryResult& rayQueryResult );
 
 	};
 

@@ -10,24 +10,25 @@
 #include <OISEvents.h>
 #include <boost/signals2.hpp>
 #include <boost/bind.hpp>
-#include "InputListener.h"
 
 namespace omoba
 {
 
-	typedef boost::signals2::signal<void(const OIS::KeyEvent&)>					SignalKeyEvent;
-    
-	typedef boost::signals2::signal<void(const OIS::MouseEvent&)>				SignalMouseEvent;
-
-	typedef boost::signals2::signal<void(const Ogre::RaySceneQueryResult&)>		SignalMousePressedOnObject;
-
-	typedef boost::signals2::signal<void(const Ogre::RaySceneQueryResult&)>		SignalMouseReleasedOnObject;
-
-	typedef boost::signals2::signal<void(const Ogre::RaySceneQueryResult&)>		SignalMouseMovedOnObject;
 
 
+	typedef OIS::MouseEvent																MouseEvent;
 
-    enum InputEvent
+	typedef OIS::KeyEvent																KeyEvent;
+
+	typedef Ogre::RaySceneQueryResult													RayQueryResult;
+
+	typedef boost::signals2::signal<void(const KeyEvent&)>								SignalKeyEvent;
+
+	typedef boost::signals2::signal<void(const MouseEvent&, const RayQueryResult&)>		SignalMouseEvent;
+
+
+
+	enum InputEvent
 	{
 
 		INPUT_EVENT_KEY_PRESSED,
@@ -36,90 +37,80 @@ namespace omoba
 
 		INPUT_EVENT_MOUSE_MOVED,
 
-		INPUT_EVENT_MOUSE_PRESSED,
+		INPUT_EVENT_MOUSE_PRESSED
 
-		INPUT_EVENT_MOUSE_RELEASED,
+		INPUT_EVENT_MOUSE_RELEASED
 
-		INPUT_EVENT_MOUSE_MOVED_ON_OBJECT,
-
-		INPUT_EVENT_MOUSE_PRESSED_ON_OBJECT,
-
-		INPUT_EVENT_MOUSE_RELEASED_ON_OBJECT,
-                
 	};
 
-    
+
+
+	class InputListener;
+
+
 
 	class InputDispatcher
 		:
 			public OIS::KeyListener,
 			public OIS::MouseListener,
 			public Ogre::FrameListener
-    
+
 	{
 
 
 		public:
 
-                                            InputDispatcher ( Ogre::RenderWindow& );
+											InputDispatcher ( Ogre::RenderWindow& );
 
-                                            ~InputDispatcher ( void );
+											~InputDispatcher ( void );
 
-			void                            initiate ( void );
-
-			void                            registerListener ( const InputEvent&, InputListener* inputListener );
-
-			void                            updateRenderWindow ( Ogre::RenderWindow* renderWindow);
+			void							initiate ( void );
 
 			void							setSceneManager ( Ogre::SceneManager* sceneManager );
 
 			void							setCamera ( Ogre::Camera* camera );
 
+			void							registerListener ( const InputEvent&, InputListener* inputListener );
+
+			void							updateRenderWindow ( Ogre::RenderWindow* renderWindow);
+
 
 
 		private:
 
-			virtual bool                    keyPressed(const OIS::KeyEvent&);
+			virtual bool					keyPressed(const OIS::KeyEvent&);
 
-			virtual bool                    keyReleased(const OIS::KeyEvent&);
+			virtual bool					keyReleased(const OIS::KeyEvent&);
 
-			virtual bool                    mouseMoved(const OIS::MouseEvent&);
+			virtual bool					mouseMoved(const OIS::MouseEvent&);
 
-			virtual bool                    mousePressed(const OIS::MouseEvent&, OIS::MouseButtonID);
+			virtual bool					mousePressed(const OIS::MouseEvent&, OIS::MouseButtonID);
 
-			virtual bool                    mouseReleased(const OIS::MouseEvent&, OIS::MouseButtonID);
+			virtual bool					mouseReleased(const OIS::MouseEvent&, OIS::MouseButtonID);
 
-			virtual bool                    frameRenderingQueued(const Ogre::FrameEvent&);
+			virtual bool					frameRenderingQueued(const Ogre::FrameEvent&);
 
-			Ogre::Vector2					getViewportMousePosition ( const OIS::MouseEvent& mouseEvent );
-
-			Ogre::RaySceneQueryResult&		getCameraRayIntersector ( const Ogre::Vector2& viewportPoint );
+			Ogre::RaySceneQueryResult&		getCameraRayIntersections ( const OIS::MouseEvent& mouseEvent );
 
 
 
-            SignalKeyEvent                  signalKeyPressed;
+			SignalKeyEvent					signalKeyPressed;
 
-			SignalKeyEvent                  signalKeyReleased;
+			SignalKeyEvent					signalKeyReleased;
 
-			SignalMouseEvent                signalMouseMoved;
+			SignalMouseEvent				signalMouseMoved;
 
-			SignalMouseEvent                signalMousePressed;
+			SignalMouseEvent				signalMousePressed;
 
-			SignalMouseEvent                signalMouseReleased;
-
-            SignalMouseMovedOnObject        signalMouseMovedOnObject;
-
-			SignalMousePressedOnObject      signalMousePressedOnObject;
-
-            SignalMouseReleasedOnObject     signalMouseReleasedOnObject;
-            
+			SignalMouseEvent				signalMouseReleased;
 
 
-			OIS::InputManager*              inputManager;
 
-			OIS::Keyboard*                  keyboard;
+			OIS::InputManager*				inputManager;
 
-			OIS::Mouse*                     mouse;
+			OIS::Keyboard*					keyboard;
+
+			OIS::Mouse*						mouse;
 
 			Ogre::SceneManager*				sceneManager;
 
