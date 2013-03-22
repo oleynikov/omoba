@@ -8,6 +8,14 @@
 namespace omoba
 {
 
+
+
+	typedef Ogre::Vector3						MovePoint;
+	
+	typedef std::vector<MovePoint>				MovePath;
+
+	
+	
 	enum AXIS
 	{
 
@@ -17,14 +25,16 @@ namespace omoba
 
 	};
 
+	
+	
 	class SceneNodeController
-        :
-            public Ogre::FrameListener
-    
+		:
+			public Ogre::FrameListener
+	
 	{
 
 		public:
-            
+			
 									SceneNodeController ( Ogre::SceneManager* sceneManager = 0 );
 
 									~SceneNodeController ( void );
@@ -38,12 +48,14 @@ namespace omoba
 			void					setPosition ( const Ogre::Vector3& position );
 
 			Ogre::Vector3			getViewDirection ( void ) const;
-            
+			
 			void					setViewDirection ( const Ogre::Vector3& viewDirection );
-            
+			
 			bool					getIsMoving ( void ) const;
-            
-            void                    stop ( void );
+			
+			void					go ( void );
+			
+			void					stop ( void );
 
 			void					moveBy ( const Ogre::Vector3& distance );
 
@@ -55,35 +67,39 @@ namespace omoba
 
 			void					setMoveSpeedComponent ( const AXIS axis , const Ogre::Real moveSpeed );
 			
+			void					setMovePath ( const MovePath& movePath );
+			
 			void					pushTo ( const Ogre::Vector3& destination , const Ogre::Real& moveSpeed );
-            
+			
 			void					rotate ( const Ogre::Vector3& axis , const Ogre::Radian& angle , Ogre::Node::TransformSpace = Ogre::Node::TS_PARENT );
 
 			void					lookAt ( const Ogre::Vector3& point , Ogre::Node::TransformSpace = Ogre::Node::TS_PARENT , const Ogre::Vector3& = Ogre::Vector3::ZERO );
 
-            class                   excNodeNotDefined { };
+			class					excNodeNotDefined { };
 
 
-            
+			
 		protected:
 
 			void					updateIsMoving ( void );
 
-            void                    updateOrientation ( void );
-            
-            void                    checkNodeSet ( void ) const;
+			void					updateOrientation ( void );
+			
+			void					checkNodeSet ( void ) const;
 
-			virtual bool            frameRenderingQueued ( const Ogre::FrameEvent& frameEvent );
+			virtual bool			frameRenderingQueued ( const Ogre::FrameEvent& frameEvent );
 
 
-            
+			
 			Ogre::SceneNode*		node;
 
 			bool					isMoving;
 
-			Ogre::Vector3			moveSpeed;
-
-			Ogre::Vector3			moveDestination;
+			Ogre::Vector3			moveVector;
+			
+			MovePath				movePath;
+			
+			Ogre::Real				moveSpeed;
 
 			Ogre::Vector3			viewDirection;
 

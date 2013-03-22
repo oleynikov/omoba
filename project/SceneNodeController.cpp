@@ -137,6 +137,13 @@ void				SceneNodeController::setMoveSpeedComponent ( AXIS axis , const Ogre::Rea
 
 }
 
+void				SceneNodeController::setMovePath ( const MovePath& movePath )
+{
+
+	this->movePath = movePath;
+
+}
+
 void				SceneNodeController::pushTo ( const Ogre::Vector3& destination , const Ogre::Real& moveSpeed )
 {
 

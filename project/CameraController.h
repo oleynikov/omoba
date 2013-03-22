@@ -29,7 +29,7 @@ namespace omoba
 
 
 
-		private:
+		protected:
 
 			Ogre::Camera*						camera;
 
