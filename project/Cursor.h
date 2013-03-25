@@ -21,7 +21,7 @@ namespace omoba
 
 										~Cursor ( void );
 
-			virtual void				mouseMoveHandler ( const MouseEvent& mouseEvent , const RayQueryResult& rayQueryResult );
+			virtual void				mouseMoveHandler ( const OIS::MouseEvent& mouseEvent );
 
 
 

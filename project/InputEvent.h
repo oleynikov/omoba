@@ -1,0 +1,23 @@
+#pragma once
+
+
+
+namespace omoba
+{
+
+	enum InputEvent
+	{
+
+		INPUT_EVENT_KEY_PRESSED,
+
+		INPUT_EVENT_KEY_RELEASED,
+
+		INPUT_EVENT_MOUSE_MOVED,
+
+		INPUT_EVENT_MOUSE_PRESSED,
+
+		INPUT_EVENT_MOUSE_RELEASED
+
+	};
+	
+};

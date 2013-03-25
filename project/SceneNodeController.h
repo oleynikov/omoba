@@ -27,6 +27,8 @@ namespace omoba
 
 	};
 	
+	
+	
 	enum SceneNodeMoveMode
 	{
 	

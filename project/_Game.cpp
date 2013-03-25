@@ -2,29 +2,32 @@
 
 using namespace omoba;
 
-				Game::Game(void)
+				Game::Game ( void )
 					:
-						oPluginsCfg(Ogre::StringUtil::BLANK),
-						oResourcesCfg(Ogre::StringUtil::BLANK),
-						oRoot(0),
-						oRenderWindow(0),
-						oSceneManager(0),
-						cameraController(0),
-						inputDispatcher(0),
-						cursor(0)
+						pluginsCfg ( Ogre::StringUtil::BLANK ),
+						resourcesCfg ( Ogre::StringUtil::BLANK ),
+						root ( 0 ),
+						renderWindow ( 0 ),
+						sceneManager ( 0 ),
+						cameraman ( 0 ),
+						inputDispatcher ( 0 ),
+						cursor ( 0 ) 
 {
+
 }
+
 				Game::~Game(void)
 {
 
 	//Remove ourself as a Window listener
-	Ogre::WindowEventUtilities::removeWindowEventListener ( this->oRenderWindow , this );
+	Ogre::WindowEventUtilities::removeWindowEventListener ( this->renderWindow , this );
 
-	this->windowClosed(this->oRenderWindow);
+	this->windowClosed ( this->renderWindow );
 
-	delete this->oRoot;
+	delete this->root;
 
 }
+
 void			Game::initiate(void)
 {
 
@@ -34,44 +37,47 @@ void			Game::initiate(void)
 	this->createRenderWindow();
 	this->initializeResources();
 	this->createSceneManager();
-	this->createInputDispatcher();
 	this->createCamera();
 	this->createViewport();
+	this->createInputDispatcher();
 	this->createScene();
 	this->createCursor();
 	this->startRendering();
 
 }
+
 void			Game::setCfgFiles(void)
 {
 
 	#ifdef _DEBUG
-		this->oPluginsCfg = "plugins_d.cfg";
-		this->oResourcesCfg = "resources_d.cfg";
+		this->pluginsCfg = "plugins_d.cfg";
+		this->resourcesCfg = "resources_d.cfg";
 	#else
-		this->oPluginsCfg = "plugins.cfg";
-		this->oResourcesCfg = "resources.cfg";
+		this->pluginsCfg = "plugins.cfg";
+		this->resourcesCfg = "resources.cfg";
 	#endif
 
 }
+
 void			Game::createRoot(void)
 {
  
-    this->oRoot = new Ogre::Root(this->oPluginsCfg);
+    this->root = new Ogre::Root ( this->pluginsCfg );
 
 }
+
 void			Game::defineResources(void)
 {
 
 	// Load resource paths from config file
 	Ogre::ConfigFile resourcesCfg;
-	resourcesCfg.load(this->oResourcesCfg);
+	resourcesCfg.load ( this->resourcesCfg );
 
 	// Go through all sections & settings in the file
 	Ogre::ConfigFile::SectionIterator seci = resourcesCfg.getSectionIterator();
 	 
 	Ogre::String secName, typeName, archName;
-	while (seci.hasMoreElements())
+	while ( seci.hasMoreElements() )
 	{
 		secName = seci.peekNextKey();
 		Ogre::ConfigFile::SettingsMultiMap *settings = seci.getNext();
@@ -86,6 +92,7 @@ void			Game::defineResources(void)
 	}
 
 }
+
 void			Game::createRenderWindow(void) 
 {
 
@@ -94,19 +101,20 @@ void			Game::createRenderWindow(void)
 	(
 		!
 		(
-			this->oRoot->restoreConfig()
+			this->root->restoreConfig()
 				||
-			this->oRoot->showConfigDialog()
+			this->root->showConfigDialog()
 		)
 	)
 	throw "Exit from config dialog";
 
-	this->oRenderWindow = this->oRoot->initialise ( true , "omoba early alpha" );
+	this->renderWindow = this->root->initialise ( true , "omoba early alpha" );
 
 	//Register as a Window listener
-	Ogre::WindowEventUtilities::addWindowEventListener ( this->oRenderWindow , this );
+	Ogre::WindowEventUtilities::addWindowEventListener ( this->renderWindow , this );
 
 }
+
 void			Game::initializeResources(void)
 {
 
@@ -118,81 +126,82 @@ void			Game::initializeResources(void)
 
 }
 
-
-
 void			Game::createSceneManager(void)
 {
 
 	// Create the SceneManager, in this case a generic one
-	this->oSceneManager = this->oRoot->createSceneManager ( "DefaultSceneManager" );
+	this->sceneManager = this->root->createSceneManager ( "OMOBA_SCENE_MANAGER_MAIN" );
 
 }
-void			Game::createInputDispatcher(void)
-{
 
-	this->inputDispatcher = new InputDispatcher(*this->oRenderWindow);
-	this->inputDispatcher->setSceneManager ( this->oSceneManager );
-
-	this->oRoot->addFrameListener ( this->inputDispatcher );
-
-	//Set initial mouse clipping size
-	this->windowResized ( this->oRenderWindow );
-
-}
 void			Game::createCamera(void)
 {
 
 	//	Creating camera controller
-	this->cameraController = new CameraController(this->oSceneManager);
-	this->cameraController->setPosition(Ogre::Vector3(0,300,300));
-	this->cameraController->lookAt(Ogre::Vector3::ZERO);
+	this->cameraman = new CameraController ( this->sceneManager );
+	this->cameraman->setPosition ( Ogre::Vector3 ( 0 , 300 , 300 ) );
+	this->cameraman->lookAt ( Ogre::Vector3::ZERO );
 	
-	//	Registering camera controller to recieve input events
-	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_MOVED,this->cameraController );
-	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED,this->cameraController );
-	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED,this->cameraController );
-
 	//	Registering camera controller to recieve frame events
-	this->oRoot->addFrameListener ( this->cameraController );
-
-	this->inputDispatcher->setCamera ( this->cameraController->getCamera() );
+	this->root->addFrameListener ( this->cameraman );
 
 }
+
 void			Game::createViewport(void)
 {
 
 	// Create one viewport, entire window
-	Ogre::Viewport* viewport = this->oRenderWindow->addViewport(this->cameraController->getCamera());
-	viewport->setBackgroundColour(Ogre::ColourValue(0,0,0));
+	Ogre::Viewport* viewport = this->renderWindow->addViewport ( this->cameraman->getCamera() );
+	viewport->setBackgroundColour ( Ogre::ColourValue ( 0 , 0 , 0 ) );
 	 
 	// Alter the camera aspect ratio to match the viewport
-	Ogre::Real cameraAspectRatio(Ogre::Real(viewport->getActualWidth()) / Ogre::Real(viewport->getActualHeight()));
-	this->cameraController->getCamera()->setAspectRatio(cameraAspectRatio);
+	Ogre::Real cameraAspectRatio ( Ogre::Real ( viewport->getActualWidth() ) / Ogre::Real ( viewport->getActualHeight() ) );
+	this->cameraman->getCamera()->setAspectRatio ( cameraAspectRatio );
 
 }
+
+void			Game::createInputDispatcher(void)
+{
+
+	this->inputDispatcher = new InputDispatcher ( *this->renderWindow );
+	this->inputDispatcher->setSceneManager ( this->sceneManager );
+	this->inputDispatcher->setCamera ( this->cameraman->getCamera() );
+
+	this->root->addFrameListener ( this->inputDispatcher );
+
+	//Set initial mouse clipping size
+	this->windowResized ( this->renderWindow );
+
+	//	Registering camera controller to recieve input events
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_MOVED , this->cameraman );
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , this->cameraman );
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , this->cameraman );
+	
+}
+
 void			Game::createScene(void)
 {
 
-	Ogre::Entity* ogreHead = this->oSceneManager->createEntity ( "Head" , "robot.mesh" );
-	Ogre::SceneNode* headNode = this->oSceneManager->getRootSceneNode()->createChildSceneNode();
+	Ogre::Entity* ogreHead = this->sceneManager->createEntity ( "Head" , "robot.mesh" );
+	Ogre::SceneNode* headNode = this->sceneManager->getRootSceneNode()->createChildSceneNode();
 	headNode->setScale(Ogre::Vector3(2,2,2));
 	headNode->attachObject(ogreHead);
 /*
-	this->playerController = new PlayerController(this->oSceneManager,this->camera);
+	this->playerController = new PlayerController(this->sceneManager,this->camera);
 	this->playerController->setNode(headNode);
 
 	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_PRESSED,this->playerController);
 	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_RELEASED,this->playerController);
-	this->oRoot->addFrameListener(this->playerController);
+	this->root->addFrameListener(this->playerController);
 */
 
 
 
 	//	Set ambient light
-	this->oSceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
+	this->sceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
 	 
 	//	Create a light
-	Ogre::Light* l = this->oSceneManager->createLight("MainLight");
+	Ogre::Light* l = this->sceneManager->createLight("MainLight");
 	l->setPosition(20,80,50);
 
 	//	Create plain
@@ -204,12 +213,13 @@ void			Game::createScene(void)
 		plane, 1500, 1500, 20, 20, true, 1, 5, 5,
 		Ogre::Vector3::UNIT_Z
 	);
-	Ogre::Entity* entGround = this->oSceneManager->createEntity("Ground", "ground");
-	this->oSceneManager->getRootSceneNode()->createChildSceneNode()->attachObject(entGround);
+	Ogre::Entity* entGround = this->sceneManager->createEntity("Ground", "ground");
+	this->sceneManager->getRootSceneNode()->createChildSceneNode()->attachObject(entGround);
 	entGround->setMaterialName("Examples/Rockwall");
 	entGround->setCastShadows(false);
 
 }
+
 void			Game::createCursor(void)
 {
 
@@ -217,30 +227,33 @@ void			Game::createCursor(void)
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_MOVED , this->cursor );
 
 }
+
 void			Game::startRendering(void)
 {
 
 	this->inputDispatcher->initiate();
-	this->oRoot->startRendering();
+	this->root->startRendering();
 
 }
+
 void			Game::windowResized(Ogre::RenderWindow* renderWindow)
 {
 
 	this->inputDispatcher->updateRenderWindow(renderWindow);
 
 }
+
 void			Game::windowClosed(Ogre::RenderWindow* renderWindow)
 {
 
 	//Unattach OIS before window shutdown (very important under Linux)
 	//Only close for window that created OIS
-	if ( renderWindow == this->oRenderWindow )
+	if ( renderWindow == this->renderWindow )
     {
 		if ( this->inputDispatcher )
 		{
 
-			this->oRoot->removeFrameListener(this->inputDispatcher);
+			this->root->removeFrameListener(this->inputDispatcher);
 			delete this->inputDispatcher;
 			this->inputDispatcher = 0;
 
@@ -248,7 +261,7 @@ void			Game::windowClosed(Ogre::RenderWindow* renderWindow)
 
     }
 
-	this->oRoot->queueEndRendering();
+	this->root->queueEndRendering();
 
 }
 

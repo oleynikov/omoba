@@ -22,9 +22,9 @@ namespace omoba
 
 												~SpriteController ( void );
 
-			virtual void						mousePressHandler ( const MouseEvent& mouseEvent , const RayQueryResult& rayQueryResult );
+			virtual void						mousePressHandler ( const OIS::MouseEvent& mouseEvent );
 
-			virtual void						mouseReleaseHandler ( const MouseEvent& mouseEvent , const RayQueryResult& rayQueryResult );
+			virtual void						mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent );
 
 
 

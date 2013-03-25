@@ -13,28 +13,12 @@ namespace omoba
 
 
 
-	typedef boost::signals2::signal<void(const KeyEvent&)>								SignalKeyEvent;
+	typedef boost::signals2::signal<void(const OIS::KeyEvent&)>		SignalKeyEvent;
 
-	typedef boost::signals2::signal<void(const MouseEvent&, const RayQueryResult&)>		SignalMouseEvent;
-
-
-
-	enum InputEvent
-	{
-
-		INPUT_EVENT_KEY_PRESSED,
-
-		INPUT_EVENT_KEY_RELEASED,
-
-		INPUT_EVENT_MOUSE_MOVED,
-
-		INPUT_EVENT_MOUSE_PRESSED,
-
-		INPUT_EVENT_MOUSE_RELEASED
-
-	};
+	typedef boost::signals2::signal<void(const OIS::MouseEvent&)>	SignalMouseEvent;
 
 
+	
 	class InputDispatcher
 		:
 			public OIS::KeyListener,
@@ -51,31 +35,25 @@ namespace omoba
 
 			void							initiate ( void );
 
-			void							setSceneManager ( Ogre::SceneManager* sceneManager );
+			void							registerListener ( const InputEvent inputEvent , InputListener& inputListener );
 
-			void							setCamera ( Ogre::Camera* camera );
-
-			void							registerListener ( const InputEvent inputEvent, InputListener* inputListener );
-
-			void							updateRenderWindow ( Ogre::RenderWindow* renderWindow);
+			void							updateRenderWindow ( Ogre::RenderWindow& renderWindow);
 
 
 
 		private:
 
-			virtual bool					keyPressed(const OIS::KeyEvent&);
+			virtual bool					keyPressed ( const OIS::KeyEvent& keyEvent );
 
-			virtual bool					keyReleased(const OIS::KeyEvent&);
+			virtual bool					keyReleased ( const OIS::KeyEvent& keyEvent );
 
-			virtual bool					mouseMoved(const OIS::MouseEvent&);
+			virtual bool					mouseMoved ( const OIS::MouseEvent& mouseEvent );
 
-			virtual bool					mousePressed(const OIS::MouseEvent&, OIS::MouseButtonID);
+			virtual bool					mousePressed ( const OIS::MouseEvent& mouseEvent );
 
-			virtual bool					mouseReleased(const OIS::MouseEvent&, OIS::MouseButtonID);
+			virtual bool					mouseReleased ( const OIS::MouseEvent& mouseEvent );
 
-			virtual bool					frameRenderingQueued(const Ogre::FrameEvent&);
-
-			Ogre::RaySceneQueryResult&		getCameraRayIntersections ( const OIS::MouseEvent& mouseEvent );
+			virtual bool					frameRenderingQueued ( const Ogre::FrameEvent& );
 
 
 
@@ -97,13 +75,7 @@ namespace omoba
 
 			OIS::Mouse*						mouse;
 
-			Ogre::SceneManager*				sceneManager;
-
-			Ogre::Camera*					camera;
-
-			class							ExcSceneManagerNotSet { };
-
-			class							ExcCameraNotSet { };
+			
 
 	};
 

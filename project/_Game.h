@@ -9,7 +9,7 @@
 #include <OgreOverlayManager.h>
 
 #include "InputDispatcher.h"
-#include "CameraController.h"
+#include "Cameraman.h"
 #include "Cursor.h"
 
 // Temp include
@@ -26,34 +26,62 @@ namespace omoba
 	{
 
 		public:
-									Game(void);
-			virtual					~Game(void);
-			void					initiate(void);
-			void					setCfgFiles(void);
-			void					createRoot(void);
-			void					defineResources(void);
-			void					createRenderWindow(void);
-			void					initializeResources(void);
-			void					createSceneManager(void);
-			void					createInputDispatcher(void);
-			void					createCamera(void);
-			void					createViewport(void);
-			void					createScene(void);
-			void					createCursor(void);
-			void					startRendering(void);
+		
+									Game ( void );
+									
+			virtual					~Game ( void );
+			
+			void					initiate ( void );
+			
+			void					setCfgFiles ( void );
+			
+			void					createRoot ( void );
+			
+			void					defineResources ( void );
+		
+			void					createRenderWindow ( void );
+			
+			void					initializeResources ( void );
+			
+			void					createSceneManager ( void );
+			
+			void					createCamera ( void );
+
+			void					createViewport ( void );
+
+			void					createInputDispatcher ( void );
+			
+			void					createScene ( void );
+			
+			void					createCursor ( void );
+			
+			void					startRendering ( void );
+			
+			
 
 		protected:
-			virtual void			windowResized(Ogre::RenderWindow*);
-			virtual void			windowClosed(Ogre::RenderWindow*);
+		
+			virtual void			windowResized ( Ogre::RenderWindow* );
+			
+			virtual void			windowClosed ( Ogre::RenderWindow* );
 
+			
+			
 		private:
-			Ogre::String			oPluginsCfg;
-			Ogre::String			oResourcesCfg;
-			Ogre::Root*				oRoot;
-			Ogre::RenderWindow*		oRenderWindow;
-			Ogre::SceneManager*		oSceneManager;
-			CameraController*		cameraController;
+			Ogre::String			pluginsCfg;
+			
+			Ogre::String			resourcesCfg;
+			
+			Ogre::Root*				root;
+			
+			Ogre::RenderWindow*		renderWindow;
+			
+			Ogre::SceneManager*		sceneManager;
+			
+			Cameraman*				cameraman;
+			
 			InputDispatcher*		inputDispatcher;
+			
 			Cursor*					cursor;
 
 	};
