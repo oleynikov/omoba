@@ -181,7 +181,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\CameraController.cpp"
+				RelativePath=".\Cameraman.cpp"
 				>
 			</File>
 			<File
@@ -190,6 +190,10 @@
 			</File>
 			<File
 				RelativePath=".\InputDispatcher.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\InputEvent.cpp"
 				>
 			</File>
 			<File
@@ -208,10 +212,6 @@
 				RelativePath=".\Segment.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\SpriteController.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -223,7 +223,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\CameraController.h"
+				RelativePath=".\Cameraman.h"
 				>
 			</File>
 			<File
@@ -232,6 +232,10 @@
 			</File>
 			<File
 				RelativePath=".\InputDispatcher.h"
+				>
+			</File>
+			<File
+				RelativePath=".\InputEvent.h"
 				>
 			</File>
 			<File
@@ -248,10 +252,6 @@
 			</File>
 			<File
 				RelativePath=".\Segment.h"
-				>
-			</File>
-			<File
-				RelativePath=".\SpriteController.h"
 				>
 			</File>
 		</Filter>

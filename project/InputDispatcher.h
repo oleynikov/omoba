@@ -6,6 +6,7 @@
 #include <OISInputManager.h>
 #include <boost/signals2.hpp>
 #include <boost/bind.hpp>
+#include "InputEvent.h"
 #include "InputListener.h"
 
 namespace omoba
@@ -49,9 +50,9 @@ namespace omoba
 
 			virtual bool					mouseMoved ( const OIS::MouseEvent& mouseEvent );
 
-			virtual bool					mousePressed ( const OIS::MouseEvent& mouseEvent );
+			virtual bool					mousePressed ( const OIS::MouseEvent& mouseEvent , OIS::MouseButtonID buttonId );
 
-			virtual bool					mouseReleased ( const OIS::MouseEvent& mouseEvent );
+			virtual bool					mouseReleased ( const OIS::MouseEvent& mouseEvent , OIS::MouseButtonID buttonId );
 
 			virtual bool					frameRenderingQueued ( const Ogre::FrameEvent& );
 

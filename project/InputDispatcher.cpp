@@ -45,16 +45,13 @@ void	InputDispatcher::initiate ( void )
 	mouseState.X.abs = mouseState.width / 2;
 	mouseState.Y.abs = mouseState.height / 2;
 
-	OIS::MouseEvent mouseEvent ( 0 , mouseState );
-	RayQueryResult rayQueryResult;
-
-	this->signalMouseMoved ( mouseEvent , rayQueryResult );
+	this->signalMouseMoved ( OIS::MouseEvent ( 0 , mouseState ) );
 
 }
 
 void	InputDispatcher::registerListener ( const InputEvent inputEvent, InputListener& inputListener )
 {
-
+/*
 	switch ( inputEvent )
 	{
 
@@ -65,16 +62,16 @@ void	InputDispatcher::registerListener ( const InputEvent inputEvent, InputListe
 			this->signalKeyReleased.connect(boost::bind(&InputListener::keyReleaseHandler,&inputListener,_1)); break;
 
 		case INPUT_EVENT_MOUSE_MOVED:
-			this->signalMouseMoved.connect(boost::bind(&InputListener::mouseMoveHandler,&inputListener,_1,_2)); break;
+			this->signalMouseMoved.connect(boost::bind(&InputListener::mouseMoveHandler,&inputListener,_1)); break;
 
 		case INPUT_EVENT_MOUSE_PRESSED:
-			this->signalMousePressed.connect(boost::bind(&InputListener::mousePressHandler,&inputListener,_1,_2)); break;
+			this->signalMousePressed.connect(boost::bind(&InputListener::mousePressHandler,&inputListener,_1)); break;
 
 		case INPUT_EVENT_MOUSE_RELEASED:
-			this->signalMouseReleased.connect(boost::bind(&InputListener::mouseReleaseHandler,&inputListener,_1,_2)); break;
+			this->signalMouseReleased.connect(boost::bind(&InputListener::mouseReleaseHandler,&inputListener,_1)); break;
 
 	}
-
+*/
 }
 
 void	InputDispatcher::updateRenderWindow ( Ogre::RenderWindow& renderWindow )
@@ -121,7 +118,7 @@ bool	InputDispatcher::mouseMoved ( const OIS::MouseEvent& mouseEvent )
 
 }
 
-bool	InputDispatcher::mousePressed ( const OIS::MouseEvent& mouseEvent )
+bool	InputDispatcher::mousePressed ( const OIS::MouseEvent& mouseEvent , OIS::MouseButtonID buttonId )
 {
 
 	this->signalMousePressed ( mouseEvent );
@@ -129,7 +126,7 @@ bool	InputDispatcher::mousePressed ( const OIS::MouseEvent& mouseEvent )
 
 }
 
-bool	InputDispatcher::mouseReleased ( const OIS::MouseEvent& mouseEvent )
+bool	InputDispatcher::mouseReleased ( const OIS::MouseEvent& mouseEvent , OIS::MouseButtonID buttonId )
 {
 
 	this->signalMouseReleased ( mouseEvent );

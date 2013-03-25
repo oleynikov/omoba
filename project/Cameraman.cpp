@@ -12,7 +12,7 @@ const OIS::MouseButtonID		Cameraman::cameraCaptureButton = OIS::MouseButtonID::M
 
 								Cameraman::Cameraman ( Ogre::SceneManager& sceneManager )
 									:
-										SceneNodeController ( sceneManager ),
+										SceneNodeController ( &sceneManager ),
 										cameraCaptured ( false ),
 										camera ( 0 )
 {

@@ -138,7 +138,7 @@ void			Game::createCamera(void)
 {
 
 	//	Creating camera controller
-	this->cameraman = new CameraController ( this->sceneManager );
+	this->cameraman = new Cameraman ( *this->sceneManager );
 	this->cameraman->setPosition ( Ogre::Vector3 ( 0 , 300 , 300 ) );
 	this->cameraman->lookAt ( Ogre::Vector3::ZERO );
 	
@@ -164,18 +164,15 @@ void			Game::createInputDispatcher(void)
 {
 
 	this->inputDispatcher = new InputDispatcher ( *this->renderWindow );
-	this->inputDispatcher->setSceneManager ( this->sceneManager );
-	this->inputDispatcher->setCamera ( this->cameraman->getCamera() );
-
 	this->root->addFrameListener ( this->inputDispatcher );
 
 	//Set initial mouse clipping size
 	this->windowResized ( this->renderWindow );
 
 	//	Registering camera controller to recieve input events
-	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_MOVED , this->cameraman );
-	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , this->cameraman );
-	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , this->cameraman );
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_MOVED , *this->cameraman );
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *this->cameraman );
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *this->cameraman );
 	
 }
 
@@ -224,7 +221,7 @@ void			Game::createCursor(void)
 {
 
 	this->cursor = new Cursor();
-	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_MOVED , this->cursor );
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_MOVED , *this->cursor );
 
 }
 
@@ -239,7 +236,7 @@ void			Game::startRendering(void)
 void			Game::windowResized(Ogre::RenderWindow* renderWindow)
 {
 
-	this->inputDispatcher->updateRenderWindow(renderWindow);
+	this->inputDispatcher->updateRenderWindow ( *renderWindow );
 
 }
 
