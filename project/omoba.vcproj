@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="omoba"
-	ProjectGUID="{BF7F051B-20E5-47E1-A613-B8C810A7E9BD}"
+	ProjectGUID="{E366C78A-8E9B-4290-B24A-47D7CDF27C7B}"
 	RootNamespace="omoba"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="include;&quot;$(OGRE_HOME)\include&quot;;&quot;$(OGRE_HOME)\include\OIS&quot;;&quot;$(OGRE_HOME)\include\OGRE&quot;;&quot;$(OGRE_HOME)\boost&quot;;&quot;C:\Program Files\boost\boost_1_51&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Program Files\boost\boost_1_51&quot;;include;&quot;$(OGRE_HOME)\include&quot;;&quot;$(OGRE_HOME)\include\OIS&quot;;&quot;$(OGRE_HOME)\include\OGRE&quot;;&quot;$(OGRE_HOME)\boost&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,7 +62,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain_d.lib OIS_d.lib"
-				LinkIncremental="0"
+				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(OGRE_HOME)\lib\$(ConfigurationName);$(OGRE_HOME)\boost\lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -117,7 +117,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="include;&quot;$(OGRE_HOME)\include&quot;;&quot;$(OGRE_HOME)\include\OIS&quot;;&quot;$(OGRE_HOME)\include\OGRE&quot;;&quot;$(OGRE_HOME)\boost&quot;;&quot;C:\Program Files\boost\boost_1_51&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Program Files\boost\boost_1_51&quot;;include;&quot;$(OGRE_HOME)\include&quot;;&quot;$(OGRE_HOME)\include\OIS&quot;;&quot;$(OGRE_HOME)\include\OGRE&quot;;&quot;$(OGRE_HOME)\boost&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -137,7 +137,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain.lib OIS.lib"
-				LinkIncremental="0"
+				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(OGRE_HOME)\lib\$(ConfigurationName);$(OGRE_HOME)\boost\lib"
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -176,100 +176,84 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<Filter
-				Name="Tools"
+			<File
+				RelativePath=".\_Game.cpp"
 				>
-				<File
-					RelativePath=".\Ray.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Segment.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Game"
+			</File>
+			<File
+				RelativePath=".\CameraController.cpp"
 				>
-				<File
-					RelativePath=".\_Game.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CameraController.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Cursor.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\InputDispatcher.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Abstractions"
+			</File>
+			<File
+				RelativePath=".\Cursor.cpp"
 				>
-				<File
-					RelativePath=".\InputListener.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\SceneNodeController.cpp"
-					>
-				</File>
-			</Filter>
+			</File>
+			<File
+				RelativePath=".\InputDispatcher.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\InputListener.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Ray.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SceneNodeController.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Segment.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SpriteController.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<Filter
-				Name="Tools"
+			<File
+				RelativePath=".\_Game.h"
 				>
-				<File
-					RelativePath=".\Ray.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Segment.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Game"
+			</File>
+			<File
+				RelativePath=".\CameraController.h"
 				>
-				<File
-					RelativePath=".\_Game.h"
-					>
-				</File>
-				<File
-					RelativePath=".\CameraController.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Cursor.h"
-					>
-				</File>
-				<File
-					RelativePath=".\InputDispatcher.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Abstractions"
+			</File>
+			<File
+				RelativePath=".\Cursor.h"
 				>
-				<File
-					RelativePath=".\InputListener.h"
-					>
-				</File>
-				<File
-					RelativePath=".\SceneNodeController.h"
-					>
-				</File>
-			</Filter>
+			</File>
+			<File
+				RelativePath=".\InputDispatcher.h"
+				>
+			</File>
+			<File
+				RelativePath=".\InputListener.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Ray.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SceneNodeController.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Segment.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SpriteController.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

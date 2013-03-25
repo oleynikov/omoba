@@ -1,5 +1,3 @@
-#pragma once
-
 #include <OgreRoot.h>
 #include <OgreConfigFile.h>
 #include <OgreEntity.h>
@@ -10,9 +8,9 @@
 #include <OgreWindowEventUtilities.h>
 #include <OgreOverlayManager.h>
 
-#include "Cursor.h"
 #include "InputDispatcher.h"
 #include "CameraController.h"
+#include "Cursor.h"
 
 // Temp include
 #include <OgreMeshManager.h>
@@ -54,8 +52,8 @@ namespace omoba
 			Ogre::Root*				oRoot;
 			Ogre::RenderWindow*		oRenderWindow;
 			Ogre::SceneManager*		oSceneManager;
-			InputDispatcher*		inputDispatcher;
 			CameraController*		cameraController;
+			InputDispatcher*		inputDispatcher;
 			Cursor*					cursor;
 
 	};

@@ -2,7 +2,7 @@
 
 using namespace omoba;
 
-void					InputListener::keyPressHandler ( const OIS::KeyEvent& keyEvent )
+void					InputListener::keyPressHandler ( const KeyEvent& keyEvent )
 {
 
 }

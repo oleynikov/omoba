@@ -33,9 +33,9 @@ using namespace omoba;
 		delete this->cursorLayer;
 
 }
-void		Cursor::mouseMoveHandler(const OIS::MouseEvent& mouseEvent)
+void		Cursor::mouseMoveHandler ( const MouseEvent& mouseEvent , const RayQueryResult& rayQueryResult )
 {
 
-	this->cursorContainer->setPosition(mouseEvent.state.X.abs,mouseEvent.state.Y.abs);
+	this->cursorContainer->setPosition ( mouseEvent.state.X.abs , mouseEvent.state.Y.abs );
 
 }

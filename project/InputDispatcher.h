@@ -1,26 +1,17 @@
 #pragma once
 
 #include <OgreRenderWindow.h>
-#include <OgreFrameListener.h>
-#include <OgreSceneQuery.h>
 #include <OgreSceneManager.h>
+#include <OgreFrameListener.h>
 #include <OISInputManager.h>
-#include <OISKeyboard.h>
-#include <OISMouse.h>
-#include <OISEvents.h>
 #include <boost/signals2.hpp>
 #include <boost/bind.hpp>
+#include "InputListener.h"
 
 namespace omoba
 {
 
 
-
-	typedef OIS::MouseEvent																MouseEvent;
-
-	typedef OIS::KeyEvent																KeyEvent;
-
-	typedef Ogre::RaySceneQueryResult													RayQueryResult;
 
 	typedef boost::signals2::signal<void(const KeyEvent&)>								SignalKeyEvent;
 
@@ -37,16 +28,11 @@ namespace omoba
 
 		INPUT_EVENT_MOUSE_MOVED,
 
-		INPUT_EVENT_MOUSE_PRESSED
+		INPUT_EVENT_MOUSE_PRESSED,
 
 		INPUT_EVENT_MOUSE_RELEASED
 
 	};
-
-
-
-	class InputListener;
-
 
 
 	class InputDispatcher
@@ -57,10 +43,9 @@ namespace omoba
 
 	{
 
-
 		public:
 
-											InputDispatcher ( Ogre::RenderWindow& );
+											InputDispatcher ( Ogre::RenderWindow& renderWindow );
 
 											~InputDispatcher ( void );
 
@@ -70,7 +55,7 @@ namespace omoba
 
 			void							setCamera ( Ogre::Camera* camera );
 
-			void							registerListener ( const InputEvent&, InputListener* inputListener );
+			void							registerListener ( const InputEvent inputEvent, InputListener* inputListener );
 
 			void							updateRenderWindow ( Ogre::RenderWindow* renderWindow);
 

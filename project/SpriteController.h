@@ -3,7 +3,8 @@
 #include <OgreEntity.h>
 #include "InputListener.h"
 #include "SceneNodeController.h"
-#include "StdVector.h"
+
+
 
 namespace omoba
 {
@@ -22,6 +23,8 @@ namespace omoba
 												~SpriteController ( void );
 
 			virtual void						mousePressHandler ( const MouseEvent& mouseEvent , const RayQueryResult& rayQueryResult );
+
+			virtual void						mouseReleaseHandler ( const MouseEvent& mouseEvent , const RayQueryResult& rayQueryResult );
 
 
 

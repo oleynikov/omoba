@@ -12,7 +12,7 @@ namespace omoba
 
 	typedef Ogre::Vector3						MovePoint;
 	
-	typedef std::vector<MovePoint>				MovePath;
+	typedef std::deque<MovePoint>				MovePath;
 
 	
 	
@@ -30,9 +30,9 @@ namespace omoba
 	enum SceneNodeMoveMode
 	{
 	
-		MOVE_BY_VECTOR,
+		MOVE_MODE_BY_VECTOR,
 		
-		MOVE_BY_PATH
+		MOVE_MODE_BY_PATH
 		
 	};
 
@@ -46,86 +46,88 @@ namespace omoba
 	
 	
 	
-		class						excNodeNotDefined { };
+		class							excNodeNotDefined { };
 
 		
 
 		public:
 			
-									SceneNodeController ( Ogre::SceneManager* sceneManager = 0 );
+										SceneNodeController ( Ogre::SceneManager* sceneManager = 0 );
 
-									~SceneNodeController ( void );
+										~SceneNodeController ( void );
 
 			
-			Ogre::SceneNode&		getNode ( void ) const;
+			Ogre::SceneNode&			getNode ( void ) const;
 
-			Ogre::Vector3&			getViewDirection ( void ) const;
+			const Ogre::Vector3&		getViewDirection ( void ) const;
 
-			bool					getMoving ( void ) const;
+			bool						getMoving ( void ) const;
 
-			Ogre::Vector3&			getPosition ( void ) const;
+			const Ogre::Vector3&		getPosition ( void ) const;
 
-			Ogre::vector3&			getMoveVector ( void ) const;
+			const Ogre::Vector3&		getMoveVector ( void ) const;
 			
-			MovePath&				getMovePath ( void ) const;
+			const MovePath&				getMovePath ( void ) const;
 			
-			Ogre::Real&				getMoveSpeed ( void ) const;
+			const Ogre::Real&			getMoveSpeed ( void ) const;
 			
 			
-			void					setNode ( Ogre::SceneNode& node );
+			void						setNode ( Ogre::SceneNode& node );
 
-			void					setViewDirection ( const Ogre::Vector3& viewDirection );
+			void						setViewDirection ( const Ogre::Vector3& viewDirection );
 			
-			void					setMoving ( bool isMoving );
+			void						setMoving ( bool isMoving );
 
-			void					setPosition ( const Ogre::Vector3& position );
+			void						setPosition ( const Ogre::Vector3& position );
 
-			void					setMoveVector ( const Ogre::Vector3& moveVector );
+			void						setMoveVector ( const Ogre::Vector3& moveVector );
 
-			void					setMoveVector ( const Ogre::Ray& moveRay , const Ogre::Real& moveSpeed );
+			void						setMoveVector ( const Ogre::Ray& moveRay , const Ogre::Real& moveSpeed );
 
-			void					setMoveVectorComponent ( const AXIS axis , const Ogre::Real value );
+			void						setMoveVectorComponent ( const AXIS axis , const Ogre::Real value );
 
-			void					setMovePath ( const MovePath& movePath );
+			void						setMovePath ( const MovePath& movePath );
 			
-			void					setMovePath ( const Ogre::Vector3 destination );
+			void						setMovePath ( const Ogre::Vector3 destination );
 
 		
-			void					moveBy ( const Ogre::Vector3& distance );
+			void						moveBy ( const Ogre::Vector3& distance );
 
-			void					rotate ( const Ogre::Vector3& axis , const Ogre::Radian& angle , Ogre::Node::TransformSpace = Ogre::Node::TS_PARENT );
+			void						moveBy ( const Ogre::Ray& ray , const Ogre::Real& distance );
 
-			void					lookAt ( const Ogre::Vector3& point , Ogre::Node::TransformSpace = Ogre::Node::TS_PARENT , const Ogre::Vector3& = Ogre::Vector3::ZERO );
+			void						rotate ( const Ogre::Vector3& axis , const Ogre::Radian& angle , Ogre::Node::TransformSpace = Ogre::Node::TS_PARENT );
 
-			void					switchMoveMode ( const SceneNodeMoveMode moveMode );
+			void						lookAt ( const Ogre::Vector3& point , Ogre::Node::TransformSpace = Ogre::Node::TS_PARENT , const Ogre::Vector3& = Ogre::Vector3::ZERO );
+
+			void						switchMoveMode ( const SceneNodeMoveMode moveMode );
 
 			
 			
 		protected:
 
-			void					checkNodeSet ( void ) const;
+			void						checkNodeSet ( void ) const;
 
-			void					updateOrientation ( void );
+			void						updateOrientation ( void );
 
-			virtual bool			frameRenderingQueued ( const Ogre::FrameEvent& frameEvent );
+			virtual bool				frameRenderingQueued ( const Ogre::FrameEvent& frameEvent );
 
 
 			
-			Ogre::SceneNode*		node;
+			Ogre::SceneNode*			node;
 
-			Ogre::Vector3			viewDirection;
+			Ogre::Vector3				viewDirection;
 
-			bool					holdViewDirection;
+			bool						holdViewDirection;
 
-			bool					isMoving;
+			bool						isMoving;
 			
-			SceneNodeMoveMode		moveMode;
+			SceneNodeMoveMode			moveMode;
 
-			Ogre::Vector3			moveVector;
+			Ogre::Vector3				moveVector;
 			
-			MovePath				movePath;
+			MovePath					movePath;
 			
-			Ogre::Real				moveSpeed;
+			Ogre::Real					moveSpeed;
 			
 			
 			

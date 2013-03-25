@@ -2,14 +2,14 @@
 
 using namespace omoba;
 
-const			SpriteController::mouseButtonSelect			= OIS::MouseButtonID::MB_Left;
+const OIS::MouseButtonID	SpriteController::mouseButtonSelect			= OIS::MouseButtonID::MB_Left;
 
-const			SpriteController::mouseButtonSetTarget		= OIS::MouseButtonID::MB_Right;
+const OIS::MouseButtonID	SpriteController::mouseButtonSetTarget		= OIS::MouseButtonID::MB_Right;
 
 
 				SpriteController::SpriteController ( Ogre::SceneManager* sceneManager , const Ogre::String& meshName )
 					:
-						SceneNodeShifter ( sceneManager )
+						SceneNodeController ( sceneManager )
 {
 
 	//  Units shall look where they go
@@ -20,7 +20,7 @@ const			SpriteController::mouseButtonSetTarget		= OIS::MouseButtonID::MB_Right;
 
 	//  Creating an entity
 	Ogre::Entity* entity = sceneManager->createEntity ( "entity" , meshName );
-	this->getNode()->attachObject ( entity );
+	this->getNode().attachObject ( entity );
 
 }
 
@@ -41,7 +41,7 @@ void			SpriteController::mousePressHandler ( const MouseEvent& mouseEvent , cons
 	)
 	{
 	
-		this->getNode()->showBoundingBox ( true );
+		this->getNode().showBoundingBox ( true );
 		
 	}
 
@@ -50,19 +50,19 @@ void			SpriteController::mousePressHandler ( const MouseEvent& mouseEvent , cons
 void			SpriteController::mouseReleaseHandler ( const MouseEvent& mouseEvent , const RayQueryResult& rayQueryResult )
 {
 
-	this->getNode()->showBoundingBox(false);
+	this->getNode().showBoundingBox(false);
 
 }
 
 bool			SpriteController::containsInRayQueryResult ( const RayQueryResult& rayQueryResult )
 {
 
-	Ogre::RaySceneQueryResult::iterator resultItr = rayQueryResult.begin();
+	Ogre::RaySceneQueryResult::const_iterator resultItr = rayQueryResult.begin();
 	
 	for ( ; resultItr != rayQueryResult.end() ; resultItr++ )
 	{
 
-		if ( resultItr->movable && resultItr->movable->getParentSceneNode() == this->getNode() )
+		if ( resultItr->movable && resultItr->movable->getParentSceneNode() == &this->getNode() )
 			return true;
 			
 	}

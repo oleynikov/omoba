@@ -23,6 +23,9 @@ const OIS::MouseButtonID		CameraController::cameraCaptureButton = OIS::MouseButt
 	this->camera = sceneManager->createCamera ( "camera" );
 	this->node->attachObject ( this->camera );
 
+	this->switchMoveMode ( MOVE_MODE_BY_VECTOR );
+	this->setMoving ( true );
+
 }
 
 								CameraController::~CameraController ( void )
@@ -70,23 +73,23 @@ void							CameraController::mouseMoveHandler ( const MouseEvent& mouseEvent , c
 
 	//	X - axix
 	if ( mousePosX <= CameraController::scrollAreaSize )
-		this->setMoveSpeedComponent ( AXIS_X , -1 * CameraController::scrollSpeed );
+		this->setMoveVectorComponent ( AXIS_X , -1 * CameraController::scrollSpeed );
 
 	else if ( mousePosX >= windowSizeX - CameraController::scrollAreaSize )
-		this->setMoveSpeedComponent ( AXIS_X , CameraController::scrollSpeed );
+		this->setMoveVectorComponent ( AXIS_X , CameraController::scrollSpeed );
 
 	else
-		this->setMoveSpeedComponent ( AXIS_X , 0 );
+		this->setMoveVectorComponent ( AXIS_X , 0 );
 
 	//	Y - axis
 	if ( mousePosY <= CameraController::scrollAreaSize )
-		this->setMoveSpeedComponent ( AXIS_Z , -1 * CameraController::scrollSpeed );
+		this->setMoveVectorComponent ( AXIS_Z , -1 * CameraController::scrollSpeed );
 
 	else if ( mousePosY >= windowSizeY - CameraController::scrollAreaSize )
-		this->setMoveSpeedComponent ( AXIS_Z , CameraController::scrollSpeed );
+		this->setMoveVectorComponent ( AXIS_Z , CameraController::scrollSpeed );
 
 	else
-		this->setMoveSpeedComponent ( AXIS_Z , 0 );
+		this->setMoveVectorComponent ( AXIS_Z , 0 );
 
 }
 

@@ -9,8 +9,8 @@ using namespace omoba;
 						oRoot(0),
 						oRenderWindow(0),
 						oSceneManager(0),
-						inputDispatcher(0),
 						cameraController(0),
+						inputDispatcher(0),
 						cursor(0)
 {
 }
@@ -172,12 +172,12 @@ void			Game::createViewport(void)
 }
 void			Game::createScene(void)
 {
-/*
+
 	Ogre::Entity* ogreHead = this->oSceneManager->createEntity ( "Head" , "robot.mesh" );
 	Ogre::SceneNode* headNode = this->oSceneManager->getRootSceneNode()->createChildSceneNode();
 	headNode->setScale(Ogre::Vector3(2,2,2));
 	headNode->attachObject(ogreHead);
-
+/*
 	this->playerController = new PlayerController(this->oSceneManager,this->camera);
 	this->playerController->setNode(headNode);
 
@@ -214,7 +214,7 @@ void			Game::createCursor(void)
 {
 
 	this->cursor = new Cursor();
-	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_MOVED,this->cursor);
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_MOVED , this->cursor );
 
 }
 void			Game::startRendering(void)
@@ -254,12 +254,12 @@ void			Game::windowClosed(Ogre::RenderWindow* renderWindow)
 
 //---------------------------------------------------------------------------------
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	#define WIN32_LEAN_AND_MEAN
-	#include "windows.h"
+#define WIN32_LEAN_AND_MEAN
+#include "windows.h"
 #endif
  
 #ifdef __cplusplus
-	extern "C" {
+extern "C" {
 #endif
  
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
@@ -271,26 +271,18 @@ void			Game::windowClosed(Ogre::RenderWindow* renderWindow)
         // Create application object
         Game app;
  
-        try
-		{
+        try 
+        {
             app.initiate();
+        } catch( Ogre::Exception& e ) {
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+            MessageBox( NULL, e.getFullDescription().c_str(), "An exception has occured!", MB_OK | MB_ICONERROR| MB_TASKMODAL);
+#else
+            std::cerr << "An exception has occured: " << e.getFullDescription().c_str() << std::endl;
+#endif
         }
-		catch( Ogre::Exception& e )
-		{
-			#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-				MessageBox( NULL, e.getFullDescription().c_str(), "An exception has occured!", MB_OK | MB_ICONERROR | MB_TASKMODAL);
-			#else
-	            std::cerr << "An exception has occured: " <<
-		            e.getFullDescription().c_str() << std::endl;
-			#endif
-        }
-		catch(...)
-		{
-
-		}
  
         return 0;
-
     }
  
 #ifdef __cplusplus
