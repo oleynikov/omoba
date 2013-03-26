@@ -20,7 +20,7 @@ const OIS::MouseButtonID	Sprite::mouseButtonSetTarget = OIS::MouseButtonID::MB_R
 	//  this->moveSpeed = 200
 
 	//  Creating an entity
-	Ogre::Entity* entity = sceneManager.createEntity ( meshName , meshName + ".mesh" );
+	Ogre::Entity* entity = sceneManager.createEntity ( meshName , meshName );
 	this->getNode().attachObject ( entity );
 
 }
@@ -73,7 +73,7 @@ void			Sprite::mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent )
 
 }
 
-void			Sprite::walkThePath ( const MovePath& movePath )
+void			Sprite::walkThePath ( const Ogre::Vector3 movePath )
 {
 
 	this->setMovePath ( movePath );

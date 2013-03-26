@@ -34,14 +34,17 @@ namespace omoba
 
 												~Sprite ( void );
 
-			void								walkThePath ( const MovePath& movePath );
+			void								walkThePath ( const Ogre::Vector3 movePath );
 
 			virtual void						mousePressHandler ( const OIS::MouseEvent& mouseEvent );
 	
 			virtual void						mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent );
+
+
+			SignalMousePressed					signalMousePressed;
+
+
 	
-
-
 		protected:
 		
 			bool								selected;
@@ -49,9 +52,7 @@ namespace omoba
 			static const OIS::MouseButtonID		mouseButtonSelect;
 
 			static const OIS::MouseButtonID		mouseButtonSetTarget;
-			
-			SignalMousePressed					signalMousePressed;	
-			
+						
 			
 			
 	};

@@ -197,38 +197,8 @@ void			Game::createInputDispatcher(void)
 void			Game::createScene(void)
 {
 
-	Sprite* robot = new Sprite ( *this->sceneManager , "robot" );
-	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *robot );
-	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *robot );
-	
-
-	/*
-
-	Ogre::Entity* ogreHead = this->sceneManager->createEntity ( "Head" , "robot.mesh" );
-	Ogre::SceneNode* headNode = this->sceneManager->getRootSceneNode()->createChildSceneNode();
-	headNode->setScale(Ogre::Vector3(2,2,2));
-	headNode->attachObject(ogreHead);
-
-	this->playerController = new PlayerController(this->sceneManager,this->camera);
-	this->playerController->setNode(headNode);
-
-	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_PRESSED,this->playerController);
-	this->inputDispatcher->registerListener(INPUT_EVENT_MOUSE_RELEASED,this->playerController);
-	this->root->addFrameListener(this->playerController);
-*/
-
-
-
 	//	Set ambient light
 	this->sceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
-	 
-	//	Create a light
-	Ogre::Light* l = this->sceneManager->createLight("MainLight");
-	l->setPosition(20,80,50);
-
-
-
-
 
 	//	Create plain
 	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
@@ -239,11 +209,18 @@ void			Game::createScene(void)
 		plane, 1500, 1500, 20, 20, true, 1, 5, 5,
 		Ogre::Vector3::UNIT_Z
 	);
-	Ogre::Entity* entGround = this->sceneManager->createEntity("Ground", "ground");
-	this->sceneManager->getRootSceneNode()->createChildSceneNode()->attachObject(entGround);
-	entGround->setMaterialName("Examples/Rockwall");
-	entGround->setCastShadows(false);
 
+	Sprite* ground = new Sprite ( *this->sceneManager , "ground" );
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *ground );
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *ground );
+
+	// Create player
+	Sprite* robot = new Sprite ( *this->sceneManager , "robot.mesh" );
+	robot->setViewDirection ( Ogre::Vector3::UNIT_X );
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *robot );
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *robot );
+	ground->signalMousePressed.connect ( boost::bind ( &Sprite::walkThePath , robot , _1 ) );
+	
 }
 
 void			Game::startRendering(void)
