@@ -63,9 +63,9 @@ namespace omoba
 
 			const Ogre::Vector3&		getViewDirection ( void ) const;
 
-			bool						getMoving ( void ) const;
+			bool&						getMoving ( void ) const;
 
-			const Ogre::Vector3&		getPosition ( void ) const;
+			const Ogre::Vector3			getPosition ( void ) const;
 
 			const Ogre::Vector3&		getMoveVector ( void ) const;
 			

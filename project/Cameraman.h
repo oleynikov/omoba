@@ -19,7 +19,7 @@ namespace omoba
 
 												~Cameraman ( void );
 
-			Ogre::Camera*						getCamera ( void ) const;
+			Ogre::Camera&						getCamera ( void ) const;
 
 			virtual void						mouseMoveHandler ( const OIS::MouseEvent& mouseEvent );
 

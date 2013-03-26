@@ -33,10 +33,10 @@ const OIS::MouseButtonID		Cameraman::cameraCaptureButton = OIS::MouseButtonID::M
 
 }
 
-Ogre::Camera*					Cameraman::getCamera ( void ) const
+Ogre::Camera&					Cameraman::getCamera ( void ) const
 {
 
-	return this->camera;
+	return &this->camera;
 
 }
 

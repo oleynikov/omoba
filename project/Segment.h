@@ -10,6 +10,7 @@ namespace omoba
 	{
 
 		public:
+		
 			static Ogre::Real		getLength
 														(
 																const Ogre::Vector3&	segmentBegin,

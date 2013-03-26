@@ -42,14 +42,14 @@ const Ogre::Vector3&		SceneNodeController::getViewDirection ( void ) const
 
 }
 
-bool						SceneNodeController::getMoving ( void ) const
+bool&						SceneNodeController::getMoving ( void ) const
 {
 
     return this->isMoving;
 
 }
 
-const Ogre::Vector3&		SceneNodeController::getPosition ( void ) const
+const Ogre::Vector3			SceneNodeController::getPosition ( void ) const
 {
 
     this->checkNodeSet();

@@ -8,13 +8,12 @@
 #include <OgreWindowEventUtilities.h>
 #include <OgreOverlayManager.h>
 
+#include "CameraRayIntersectionCalculator.h"
 #include "InputDispatcher.h"
 #include "Cameraman.h"
 #include "Cursor.h"
 
-// Temp include
-#include <OgreMeshManager.h>
-#include <OgreAnimationState.h>
+
 
 namespace omoba
 {
@@ -48,12 +47,14 @@ namespace omoba
 			void					createCamera ( void );
 
 			void					createViewport ( void );
+			
+			void					configureCameraRayIntersectionCalculator ( void );
 
 			void					createInputDispatcher ( void );
 			
-			void					createScene ( void );
-			
 			void					createCursor ( void );
+			
+			void					createScene ( void );
 			
 			void					startRendering ( void );
 			
@@ -80,10 +81,10 @@ namespace omoba
 			
 			Cameraman*				cameraman;
 			
-			InputDispatcher*		inputDispatcher;
-			
 			Cursor*					cursor;
 
+			InputDispatcher*		inputDispatcher;
+			
 	};
 
 };

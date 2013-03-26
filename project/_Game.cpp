@@ -39,9 +39,10 @@ void			Game::initiate(void)
 	this->createSceneManager();
 	this->createCamera();
 	this->createViewport();
+	this->createCursor();
+	this->configureCameraRayIntersectionCalculator();
 	this->createInputDispatcher();
 	this->createScene();
-	this->createCursor();
 	this->startRendering();
 
 }
@@ -151,12 +152,26 @@ void			Game::createViewport(void)
 {
 
 	// Create one viewport, entire window
-	Ogre::Viewport* viewport = this->renderWindow->addViewport ( this->cameraman->getCamera() );
+	Ogre::Viewport* viewport = this->renderWindow->addViewport ( &this->cameraman->getCamera() );
 	viewport->setBackgroundColour ( Ogre::ColourValue ( 0 , 0 , 0 ) );
 	 
 	// Alter the camera aspect ratio to match the viewport
 	Ogre::Real cameraAspectRatio ( Ogre::Real ( viewport->getActualWidth() ) / Ogre::Real ( viewport->getActualHeight() ) );
-	this->cameraman->getCamera()->setAspectRatio ( cameraAspectRatio );
+	this->cameraman->getCamera().setAspectRatio ( cameraAspectRatio );
+
+}
+
+void			Game::createCursor(void)
+{
+
+	this->cursor = new Cursor();
+
+}
+
+void			Game::configureCameraRayIntersectionCalculator ( void )
+{
+
+	CameraRayIntersectionCalculator::getSingleton()->configure ( this->sceneManager , &this->cameraMan->getCamera() );
 
 }
 
@@ -173,6 +188,9 @@ void			Game::createInputDispatcher(void)
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_MOVED , *this->cameraman );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *this->cameraman );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *this->cameraman );
+	
+	//	Registering camera controller to recieve input events
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_MOVED , *this->cursor );
 	
 }
 
@@ -214,14 +232,6 @@ void			Game::createScene(void)
 	this->sceneManager->getRootSceneNode()->createChildSceneNode()->attachObject(entGround);
 	entGround->setMaterialName("Examples/Rockwall");
 	entGround->setCastShadows(false);
-
-}
-
-void			Game::createCursor(void)
-{
-
-	this->cursor = new Cursor();
-	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_MOVED , *this->cursor );
 
 }
 
