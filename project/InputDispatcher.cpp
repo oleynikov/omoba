@@ -51,7 +51,7 @@ void	InputDispatcher::initiate ( void )
 
 void	InputDispatcher::registerListener ( const InputEvent inputEvent, InputListener& inputListener )
 {
-/*
+
 	switch ( inputEvent )
 	{
 
@@ -71,7 +71,7 @@ void	InputDispatcher::registerListener ( const InputEvent inputEvent, InputListe
 			this->signalMouseReleased.connect(boost::bind(&InputListener::mouseReleaseHandler,&inputListener,_1)); break;
 
 	}
-*/
+
 }
 
 void	InputDispatcher::updateRenderWindow ( Ogre::RenderWindow& renderWindow )

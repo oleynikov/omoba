@@ -130,7 +130,7 @@ void			Game::createSceneManager(void)
 {
 
 	// Create the SceneManager, in this case a generic one
-	this->sceneManager = this->root->createSceneManager ( "OMOBA_SCENE_MANAGER_MAIN" );
+	this->sceneManager = this->root->createSceneManager ( "DefaultSceneManager" );
 
 }
 
