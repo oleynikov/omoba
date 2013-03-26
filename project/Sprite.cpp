@@ -7,9 +7,9 @@ const OIS::MouseButtonID	Sprite::mouseButtonSelect = OIS::MouseButtonID::MB_Left
 const OIS::MouseButtonID	Sprite::mouseButtonSetTarget = OIS::MouseButtonID::MB_Right;
 
 
-				Sprite::Sprite ( Ogre::SceneManager& sceneManager , const Ogre::String& meshName )
+				Sprite::Sprite ( Ogre::SceneManager& sceneManager , Ogre::String meshName )
 					:
-						SceneNodeController ( *sceneManager ),
+						SceneNodeController ( &sceneManager , meshName ),
 						selected ( false )
 {
 
@@ -20,7 +20,7 @@ const OIS::MouseButtonID	Sprite::mouseButtonSetTarget = OIS::MouseButtonID::MB_R
 	//  this->moveSpeed = 200
 
 	//  Creating an entity
-	Ogre::Entity* entity = sceneManager->createEntity ( "entity" , meshName );
+	Ogre::Entity* entity = sceneManager.createEntity ( meshName , meshName + ".mesh" );
 	this->getNode().attachObject ( entity );
 
 }
@@ -30,7 +30,7 @@ const OIS::MouseButtonID	Sprite::mouseButtonSetTarget = OIS::MouseButtonID::MB_R
 
 }
 
-void			Sprite::mousePressHandler ( const MouseEvent& mouseEvent );
+void			Sprite::mousePressHandler ( const OIS::MouseEvent& mouseEvent )
 { 
 
 	//	Checking if mouse pressed on this sprite
@@ -39,11 +39,11 @@ void			Sprite::mousePressHandler ( const MouseEvent& mouseEvent );
 	try
 	{
 	
-		intersectionPoint = CameraRayIntersectionCalculator::getIntersectionWith ( *this );
+		intersectionPoint = CameraRayIntersectionCalculator::getSingleton().getIntersectionWith ( mouseEvent , this->getNode() );
 		
 	}
 	
-	catch ( ExcNoIntersections )
+	catch ( CameraRayIntersectionCalculator::ExcNoIntersections )
 	{
 	
 		//	Mouse pressed somewhere else
@@ -63,6 +63,14 @@ void			Sprite::mousePressHandler ( const MouseEvent& mouseEvent );
 		
 	}
 	
+}
+
+void			Sprite::mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent )
+{
+
+	this->selected = false;
+	this->getNode().showBoundingBox ( false );
+
 }
 
 void			Sprite::walkThePath ( const MovePath& movePath )

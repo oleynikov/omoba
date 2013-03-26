@@ -30,7 +30,7 @@ namespace omoba
 
 		public:
 
-												Sprite ( Ogre::SceneManager& sceneManager , const Ogre::String& meshName );
+												Sprite ( Ogre::SceneManager& sceneManager , Ogre::String meshName );
 
 												~Sprite ( void );
 
@@ -38,7 +38,9 @@ namespace omoba
 
 			virtual void						mousePressHandler ( const OIS::MouseEvent& mouseEvent );
 	
+			virtual void						mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent );
 	
+
 
 		protected:
 		

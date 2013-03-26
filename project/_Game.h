@@ -7,11 +7,13 @@
 #include <OgreRenderWindow.h>
 #include <OgreWindowEventUtilities.h>
 #include <OgreOverlayManager.h>
+#include <OgreMeshManager.h>
 
 #include "CameraRayIntersectionCalculator.h"
 #include "InputDispatcher.h"
 #include "Cameraman.h"
 #include "Cursor.h"
+#include "Sprite.h"
 
 
 

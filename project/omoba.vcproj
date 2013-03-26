@@ -185,6 +185,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CameraRayIntersectionCalculator.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Cursor.cpp"
 				>
 			</File>
@@ -212,6 +216,10 @@
 				RelativePath=".\Segment.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\Sprite.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -224,6 +232,10 @@
 			</File>
 			<File
 				RelativePath=".\Cameraman.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CameraRayIntersectionCalculator.h"
 				>
 			</File>
 			<File
@@ -252,6 +264,10 @@
 			</File>
 			<File
 				RelativePath=".\Segment.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sprite.h"
 				>
 			</File>
 		</Filter>

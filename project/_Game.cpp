@@ -139,7 +139,7 @@ void			Game::createCamera(void)
 {
 
 	//	Creating camera controller
-	this->cameraman = new Cameraman ( *this->sceneManager );
+	this->cameraman = new Cameraman ( *this->sceneManager , "OMOBA_CAMERA_MAIN" );
 	this->cameraman->setPosition ( Ogre::Vector3 ( 0 , 300 , 300 ) );
 	this->cameraman->lookAt ( Ogre::Vector3::ZERO );
 	
@@ -171,7 +171,7 @@ void			Game::createCursor(void)
 void			Game::configureCameraRayIntersectionCalculator ( void )
 {
 
-	CameraRayIntersectionCalculator::getSingleton()->configure ( this->sceneManager , &this->cameraMan->getCamera() );
+	CameraRayIntersectionCalculator::getSingleton().configure ( this->sceneManager , &this->cameraman->getCamera() );
 
 }
 
@@ -197,11 +197,18 @@ void			Game::createInputDispatcher(void)
 void			Game::createScene(void)
 {
 
+	Sprite* robot = new Sprite ( *this->sceneManager , "robot" );
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *robot );
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *robot );
+	
+
+	/*
+
 	Ogre::Entity* ogreHead = this->sceneManager->createEntity ( "Head" , "robot.mesh" );
 	Ogre::SceneNode* headNode = this->sceneManager->getRootSceneNode()->createChildSceneNode();
 	headNode->setScale(Ogre::Vector3(2,2,2));
 	headNode->attachObject(ogreHead);
-/*
+
 	this->playerController = new PlayerController(this->sceneManager,this->camera);
 	this->playerController->setNode(headNode);
 
@@ -218,6 +225,10 @@ void			Game::createScene(void)
 	//	Create a light
 	Ogre::Light* l = this->sceneManager->createLight("MainLight");
 	l->setPosition(20,80,50);
+
+
+
+
 
 	//	Create plain
 	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);

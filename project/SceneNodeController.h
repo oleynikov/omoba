@@ -54,7 +54,7 @@ namespace omoba
 
 		public:
 			
-										SceneNodeController ( Ogre::SceneManager* sceneManager = 0 );
+										SceneNodeController ( Ogre::SceneManager* sceneManager , Ogre::String nodeName );
 
 										~SceneNodeController ( void );
 
@@ -63,7 +63,7 @@ namespace omoba
 
 			const Ogre::Vector3&		getViewDirection ( void ) const;
 
-			bool&						getMoving ( void ) const;
+			bool						getMoving ( void ) const;
 
 			const Ogre::Vector3			getPosition ( void ) const;
 

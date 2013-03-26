@@ -2,7 +2,7 @@
 
 using namespace omoba;
 
-							SceneNodeController::SceneNodeController ( Ogre::SceneManager* sceneManager )
+							SceneNodeController::SceneNodeController ( Ogre::SceneManager* sceneManager , Ogre::String nodeName )
                         :
                             node                ( 0 ),
                             viewDirection       ( Ogre::Vector3::UNIT_Z ),
@@ -14,7 +14,7 @@ using namespace omoba;
 {
 
     if ( sceneManager )
-    	this->node = sceneManager->getRootSceneNode()->createChildSceneNode ( "OMOBA_ROOT_NODE" );
+    	this->node = sceneManager->getRootSceneNode()->createChildSceneNode ( nodeName );
 
 }
 
@@ -42,7 +42,7 @@ const Ogre::Vector3&		SceneNodeController::getViewDirection ( void ) const
 
 }
 
-bool&						SceneNodeController::getMoving ( void ) const
+bool						SceneNodeController::getMoving ( void ) const
 {
 
     return this->isMoving;
