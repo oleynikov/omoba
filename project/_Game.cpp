@@ -219,7 +219,7 @@ void			Game::createScene(void)
 	robot->setViewDirection ( Ogre::Vector3::UNIT_X );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *robot );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *robot );
-	ground->signalMousePressed.connect ( boost::bind ( &Sprite::walkThePath , robot , _1 ) );
+	ground->signalMousePressed.connect ( boost::bind ( &Sprite::setMovementPath , robot , _1 ) );
 	
 }
 

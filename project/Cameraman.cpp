@@ -10,21 +10,20 @@ const OIS::MouseButtonID		Cameraman::cameraCaptureButton = OIS::MouseButtonID::M
 
 
 
-								Cameraman::Cameraman ( Ogre::SceneManager& sceneManager , Ogre::String cameraName )
+								Cameraman::Cameraman ( Ogre::SceneManager& sceneManager , Ogre::String& cameraName )
 									:
-										SceneNodeController ( &sceneManager, cameraName ),
+										SceneNodeController ( sceneManager , cameraName ),
 										cameraCaptured ( false ),
 										camera ( 0 )
 {
 
-	this->holdViewDirection = false;
-	this->viewDirection = Ogre::Vector3::NEGATIVE_UNIT_Z;
-
+	this->setNodeViewDirection ( Ogre::Vector3::NEGATIVE_UNIT_Z );
+	this->setNodeHoldViewDirection ( false );
+	this->setNodeMovementMode ( MOVEMENT_MODE_BY_VECTOR );
+	this->getNodeMoving ( true );
+	
 	this->camera = sceneManager.createCamera ( cameraName );
 	this->node->attachObject ( this->camera );
-
-	this->switchMoveMode ( MOVE_MODE_BY_VECTOR );
-	this->setMoving ( true );
 
 }
 
@@ -50,7 +49,7 @@ void							Cameraman::mouseMoveHandler ( const OIS::MouseEvent& mouseEvent )
 		int mouseDeltaX = mouseEvent.state.X.rel;
 		int mouseDeltaY = mouseEvent.state.Y.rel;
 
-		this->moveBy ( Ogre::Vector3 ( mouseDeltaX , 0 , mouseDeltaY ) );
+		this->moveNodeBy ( Ogre::Vector3 ( mouseDeltaX , 0 , mouseDeltaY ) );
 
 		return;
 
@@ -73,23 +72,23 @@ void							Cameraman::mouseMoveHandler ( const OIS::MouseEvent& mouseEvent )
 
 	//	X - axix
 	if ( mousePosX <= Cameraman::scrollAreaSize )
-		this->setMoveVectorComponent ( AXIS_X , -1 * Cameraman::scrollSpeed );
+		this->setNodeMovementVectorComponent ( AXIS_X , -1 * Cameraman::scrollSpeed );
 
 	else if ( mousePosX >= windowSizeX - Cameraman::scrollAreaSize )
-		this->setMoveVectorComponent ( AXIS_X , Cameraman::scrollSpeed );
+		this->setNodeMovementVectorComponent ( AXIS_X , Cameraman::scrollSpeed );
 
 	else
-		this->setMoveVectorComponent ( AXIS_X , 0 );
+		this->setNodeMovementVectorComponent ( AXIS_X , 0 );
 
 	//	Y - axis
 	if ( mousePosY <= Cameraman::scrollAreaSize )
-		this->setMoveVectorComponent ( AXIS_Z , -1 * Cameraman::scrollSpeed );
+		this->setNodeMovementVectorComponent ( AXIS_Z , -1 * Cameraman::scrollSpeed );
 
 	else if ( mousePosY >= windowSizeY - Cameraman::scrollAreaSize )
-		this->setMoveVectorComponent ( AXIS_Z , Cameraman::scrollSpeed );
+		this->setNodeMovementVectorComponent ( AXIS_Z , Cameraman::scrollSpeed );
 
 	else
-		this->setMoveVectorComponent ( AXIS_Z , 0 );
+		this->setNodeMovementVectorComponent ( AXIS_Z , 0 );
 
 }
 

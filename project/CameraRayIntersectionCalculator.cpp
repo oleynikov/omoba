@@ -73,21 +73,14 @@ Ogre::Vector3								CameraRayIntersectionCalculator::getIntersectionWith ( cons
 		try
 		{
 
-			if ( itr->movable )
+			if ( itr->movable && sceneNode.getAttachedObject ( itr->movable->getName() ) )
 			{
 
-				Ogre::String movableName = itr->movable->getName();
+				Ogre::Ray cameraRay = this->getCameraToViewportRay ( mouseEvent );
 
-				if ( sceneNode.getAttachedObject ( movableName ) )
-				{
-			
-					Ogre::Ray cameraRay = this->getCameraToViewportRay ( mouseEvent );
+				Ogre::Vector3 result = Segment::getPointPosition ( cameraRay.getOrigin() , cameraRay.getDirection() , itr->distance );
 
-					Ogre::Vector3 result = Segment::getPointPosition ( cameraRay.getOrigin() , cameraRay.getDirection() , itr->distance );
-
-					return result;
-
-				}
+				return result;
 
 			}
 
@@ -113,6 +106,7 @@ Ogre::Vector3								CameraRayIntersectionCalculator::getIntersectionWith ( cons
 {
 
 }
+
 CameraRayIntersectionCalculator&			CameraRayIntersectionCalculator::operator= ( CameraRayIntersectionCalculator& rho )
 {
 

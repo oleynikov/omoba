@@ -7,21 +7,20 @@ const OIS::MouseButtonID	Sprite::mouseButtonSelect = OIS::MouseButtonID::MB_Left
 const OIS::MouseButtonID	Sprite::mouseButtonSetTarget = OIS::MouseButtonID::MB_Right;
 
 
-				Sprite::Sprite ( Ogre::SceneManager& sceneManager , Ogre::String meshName )
+				Sprite::Sprite ( Ogre::SceneManager& sceneManager , Ogre::String& meshName )
 					:
-						SceneNodeController ( &sceneManager , meshName ),
+						SceneNodeController ( sceneManager , meshName ),
 						selected ( false )
 {
 
-	//  Units shall look where they go
-	this->holdViewDirection = true;
-
-	//  Default move speed for all units is 200
-	//  this->moveSpeed = 200
-
 	//  Creating an entity
 	Ogre::Entity* entity = sceneManager.createEntity ( meshName , meshName );
+	
+	//	Attaching it to the SceneNodeController...
 	this->getNode().attachObject ( entity );
+	
+	//	and to the AnimationController
+	this->setAnimationEntity ( *entity );
 
 }
 
@@ -73,10 +72,16 @@ void			Sprite::mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent )
 
 }
 
-void			Sprite::walkThePath ( const Ogre::Vector3 movePath )
+void			Sprite::setMovementPath ( const Ogre::Vector3& spriteMovementPath )
 {
 
-	this->setMovePath ( movePath );
-	this->setMoving ( true );
+	//	Launching the sprite along the path
+	this->setNodeMovementPath ( spriteMovementPath );
+	this->setNodeMoving ( true );
+	
+	//	Enabling the animation
+	this->setAnimationName ( "OMOBA_ANIMATION_WALK" );
+	this->setAnimationLoop ( true );
+	this->setAnimationRunning ( true );
 
 }
