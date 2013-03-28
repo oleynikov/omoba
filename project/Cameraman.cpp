@@ -109,3 +109,12 @@ void							Cameraman::mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent )
 		this->cameraCaptured = false;
 
 }
+
+bool							Cameraman::frameRenderingQueued ( const Ogre::FrameEvent& frameEvent )
+{
+
+	this->addNodeMovementTime ( frameEvent.timeSinceLastFrame );
+	
+	return true;
+
+}

@@ -70,11 +70,12 @@ void			Sprite::mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent )
 
 }
 
-void			Sprite::groundDestinationSelectHandler ( const Ogre::Vector3 groundDestination )
+void			Sprite::groundDestinationSelectHandler ( const Ogre::Vector3& groundDestination )
 {
 
 	//	Launching the sprite along the path
 	this->setNodeMovementPath ( groundDestination );
+	this->setNodeMovementSpeed ( 1 );
 	this->setNodeMoving ( true );
 	
 	//	Enabling the animation
@@ -84,12 +85,22 @@ void			Sprite::groundDestinationSelectHandler ( const Ogre::Vector3 groundDestin
 
 }
 
-virtual bool	Sprite::frameRenderingQueued ( const Ogre::FrameEvent& frameEvent )
+bool	Sprite::frameRenderingQueued ( const Ogre::FrameEvent& frameEvent )
 {
 
-	this->addNodeMovementTime ( frameEvent.timeSinceLastFrame );
-	this->addAnimationTime ( frameEvent.timeSinceLastFrame );
-	
+	try
+	{
+
+		this->addNodeMovementTime ( frameEvent.timeSinceLastFrame );
+		this->addAnimationTime ( frameEvent.timeSinceLastFrame );
+
+	}
+
+	catch ( ... )
+	{
+
+	}
+
 	return true;
 
 }

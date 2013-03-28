@@ -202,14 +202,14 @@ void			Game::createScene(void)
 	this->sceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
 	
 	//	Create ground controller
-	this->groundController = new groundController ( *this->sceneManager );
+	this->groundController = new GroundController ( *this->sceneManager );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_MOVED , *this->groundController );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *this->groundController );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *this->groundController );
 
 	// Create player
 	Sprite* robot = new Sprite ( *this->sceneManager , "robot.mesh" );
-	this->root->addFrameListener ( roobot );
+	this->root->addFrameListener ( robot );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *robot );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *robot );
 	this->groundController->registerEventListener ( GROUND_EVENT_DESTINATION_SELECTED , *robot );

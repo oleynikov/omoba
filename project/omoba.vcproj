@@ -197,6 +197,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Ground.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\InputDispatcher.cpp"
 				>
 			</File>
@@ -248,6 +252,10 @@
 			</File>
 			<File
 				RelativePath=".\Cursor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Ground.h"
 				>
 			</File>
 			<File

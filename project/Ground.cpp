@@ -28,7 +28,7 @@ void							GroundEventListener::groundAreaSelectHandler ( const Ogre::Vector3& g
 	
 */
 
-const OIS::MouseButtonID		GroundController::buttonSelectDestination	= OIS::MouseButtonID::MB_Left;
+const OIS::MouseButtonID		GroundController::buttonSelectDestination	= OIS::MouseButtonID::MB_Right;
 
 const OIS::MouseButtonID		GroundController::buttonSelectArea			= OIS::MouseButtonID::MB_Left;	
 
@@ -65,6 +65,7 @@ const OIS::MouseButtonID		GroundController::buttonSelectArea			= OIS::MouseButto
 	
 	//  Creating an entity
 	Ogre::Entity* groundEntity = sceneManager.createEntity ( "OMOBA_ENTITY_GROUND" , "OMOBA_MESH_GROUND" );
+	groundEntity->setMaterialName("Examples/Rockwall");
 	
 	//	Attaching entity to the SceneNodeController...
 	this->getNode().attachObject ( groundEntity );
@@ -79,24 +80,34 @@ const OIS::MouseButtonID		GroundController::buttonSelectArea			= OIS::MouseButto
 void							GroundController::mouseMoveHandler ( const OIS::MouseEvent& mouseEvent )
 {
 
-	//	Calculating intersection point of the camera ray with the ground
-	Ogre::Vector3 intersectionPoint = CameraRayIntersectionCalculator::getSingleton().getIntersectionWith ( mouseEvent , this->getNode() );
-	
-	// Listening for target selection
-	if ( mouseEvent.state.buttonDown ( GroundController::buttonSelectDestination ) )
-		signalDestinationSelected ( intersectionPoint );
-	
-	//	Listening for area selection
-	if
-	(
-		this->groundSelectionInProcess
-			&&
-		this->mouseEvent.state.buttonDown ( GroundController::buttonSelectArea )
-	)
+	try
 	{
 
-		this->signalAreaSelected ( this->groundSelectionPointOne , intersectionPoint );
+		//	Calculating intersection point of the camera ray with the ground
+		Ogre::Vector3 intersectionPoint = CameraRayIntersectionCalculator::getSingleton().getIntersectionWith ( mouseEvent , this->getNode() );
 		
+		// Listening for target selection
+		if ( mouseEvent.state.buttonDown ( GroundController::buttonSelectDestination ) )
+			signalDestinationSelected ( intersectionPoint );
+		
+		//	Listening for area selection
+		if
+		(
+			this->groundSelectionInProcess
+				&&
+			mouseEvent.state.buttonDown ( GroundController::buttonSelectArea )
+		)
+		{
+
+			this->signalAreaSelected ( this->groundSelectionPointOne , intersectionPoint );
+			
+		}
+
+	}
+
+	catch ( CameraRayIntersectionCalculator::ExcNoIntersections )
+	{
+
 	}
 
 }
@@ -104,20 +115,29 @@ void							GroundController::mouseMoveHandler ( const OIS::MouseEvent& mouseEven
 void							GroundController::mousePressHandler ( const OIS::MouseEvent& mouseEvent )
 {
 
-	//	Calculating intersection point of the camera ray with the ground
-	Ogre::Vector3 intersectionPoint = CameraRayIntersectionCalculator::getSingleton().getIntersectionWith ( mouseEvent , this->getNode() );
-	
-	// Listening for target selection
-	if ( mouseEvent.state.buttonDown ( GroundController::buttonSelectDestination ) )
-		signalDestinationSelected ( intersectionPoint );
-	
-	//	Listening for selection begin
-	if ( mouseEvent.state.buttonDown ( GroundController::buttonSelectArea ) )
+	try
 	{
 
-		this->groundSelectionInProcess = true;
-		this->groundSelectionPointOne = intersectionPoint;
+		//	Calculating intersection point of the camera ray with the ground
+		Ogre::Vector3 intersectionPoint = CameraRayIntersectionCalculator::getSingleton().getIntersectionWith ( mouseEvent , this->getNode() );
 		
+		// Listening for target selection
+		if ( mouseEvent.state.buttonDown ( GroundController::buttonSelectDestination ) )
+			signalDestinationSelected ( intersectionPoint );
+		
+		//	Listening for selection begin
+		if ( mouseEvent.state.buttonDown ( GroundController::buttonSelectArea ) )
+		{
+
+			this->groundSelectionInProcess = true;
+			this->groundSelectionPointOne = intersectionPoint;
+			
+		}
+	}
+
+	catch ( CameraRayIntersectionCalculator::ExcNoIntersections )
+	{
+
 	}
 
 }
@@ -128,18 +148,27 @@ void							GroundController::mouseReleaseHandler ( const OIS::MouseEvent& mouseE
 	// Listening for OIS::MouseButtonID::MB_Right release
 	if ( mouseEvent.state.buttonDown ( GroundController::buttonSelectArea ) )
 	{
-	
-		//	Calculating intersection point of the camera ray with the ground
-		Ogre::Vector3 intersectionPoint = CameraRayIntersectionCalculator::getSingleton().getIntersectionWith ( mouseEvent , this->getNode() );
 
-		this->groundSelectionInProcess = false;
-		this->signalAreaSelected ( this->groundSelectionPointOne , intersectionPoint );
-		
+		try
+		{
+	
+			//	Calculating intersection point of the camera ray with the ground
+			Ogre::Vector3 intersectionPoint = CameraRayIntersectionCalculator::getSingleton().getIntersectionWith ( mouseEvent , this->getNode() );
+
+			this->groundSelectionInProcess = false;
+			this->signalAreaSelected ( this->groundSelectionPointOne , intersectionPoint );
+		}
+
+		catch ( CameraRayIntersectionCalculator::ExcNoIntersections )
+		{
+
+		}
+
 	}
 
 }
 
-void							GroundController::registerEventListener ( const GroundEvent groundEvent , const GroundEventListener& groundListener )
+void							GroundController::registerEventListener ( const GroundEvent groundEvent , GroundEventListener& groundListener )
 {
 
 	switch ( groundEvent )

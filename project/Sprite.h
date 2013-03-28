@@ -35,7 +35,7 @@ namespace omoba
 	
 			virtual void						mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent );
 			
-			virtual void						groundDestinationSelectHandler ( const Ogre::Vector3 groundDestination );
+			virtual void						groundDestinationSelectHandler ( const Ogre::Vector3& groundDestination );
 
 		private:
 

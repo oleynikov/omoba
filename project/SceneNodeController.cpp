@@ -174,6 +174,13 @@ void						SceneNodeController::setNodeMovementPath ( const Ogre::Vector3& nodeMo
 
 }
 
+void						SceneNodeController::setNodeMovementSpeed ( const Ogre::Real& nodeMovementSpeed )
+{
+
+	this->nodeMovementSpeed = nodeMovementSpeed;
+
+}
+
 
 void						SceneNodeController::moveNodeBy ( const Ogre::Vector3& nodeMovementDistance )
 {
@@ -220,6 +227,8 @@ void						SceneNodeController::aimNodeAt ( const Ogre::Vector3& nodeTargetPoint 
 
 void						SceneNodeController::addNodeMovementTime ( const Ogre::Real& movementTime )
 {
+
+	this->checkNodeDefined();
 
 	if ( this->nodeMoving )
 	{

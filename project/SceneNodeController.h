@@ -91,6 +91,8 @@ namespace omoba
 			
 			void						setNodeMovementPath ( const Ogre::Vector3& nodeMovementDestination );
 
+			void						setNodeMovementSpeed ( const Ogre::Real& nodeMovementSpeed );
+
 		
 			void						moveNodeBy ( const Ogre::Vector3& nodeMovementDistance );
 
@@ -107,7 +109,7 @@ namespace omoba
 			
 		protected:
 		
-			bool						addNodeMovementTime ( const Ogre::Real& movementTime );
+			void						addNodeMovementTime ( const Ogre::Real& movementTime );
 		
 
 		

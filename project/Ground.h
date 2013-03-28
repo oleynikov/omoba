@@ -1,6 +1,7 @@
 #pragma once
 
 #include <OgreMeshManager.h>
+#include <OgreEntity.h>
 #include <OgrePlane.h>
 #include <boost/signals2.hpp>
 #include <boost/bind.hpp>
@@ -37,11 +38,11 @@ namespace omoba
 	
 		public:
 			
-			virtual void						groundDestinationSelectHandler ( const Ogre::Vector3 groundDestination );
+			virtual void						groundDestinationSelectHandler ( const Ogre::Vector3& groundDestination );
 	
-			virtual void						groundAreaSelectHandler ( const Ogre::Vector3 groundAreaPointOne , const Ogre::Vector3 groundAreaPointTwo );
+			virtual void						groundAreaSelectHandler ( const Ogre::Vector3& groundAreaPointOne , const Ogre::Vector3& groundAreaPointTwo );
 	
-	}
+	};
 
 
 
@@ -54,7 +55,7 @@ namespace omoba
 
 		public:
 
-												GroundController ( Ogre::SceneManager& sceneManager )
+												GroundController ( Ogre::SceneManager& sceneManager );
 
 												~GroundController ( void );
 
@@ -64,7 +65,7 @@ namespace omoba
 
 			virtual void						mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent );
 			
-			void								registerEventListener ( const GroundEvent groundEvent , const GroundEventListener& groundListener );
+			void								registerEventListener ( const GroundEvent groundEvent , GroundEventListener& groundListener );
 
 		private:
 
