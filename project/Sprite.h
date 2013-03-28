@@ -4,6 +4,7 @@
 #include <boost/signals2.hpp>
 #include <boost/bind.hpp>
 
+#include "Ground.h"
 #include "InputListener.h"
 #include "AnimationController.h"
 #include "SceneNodeController.h"
@@ -14,21 +15,14 @@
 namespace omoba
 {
 
-
-
-	typedef boost::signals2::signal<void(const Ogre::Vector3&,const OIS::MouseState&)>     SignalMousePressed;
-	
-
-
 	class Sprite
 		:
 			public SceneNodeController,
 			public AnimationController,
-			public InputListener
+			public InputListener,
+			public GroundEventListener
 
 	{
-	
-	
 
 		public:
 
@@ -36,15 +30,11 @@ namespace omoba
 
 												~Sprite ( void );
 
-			void								setMovementPath ( const Ogre::Vector3& spriteMovementPath );
-
 			virtual void						mousePressHandler ( const OIS::MouseEvent& mouseEvent );
 	
 			virtual void						mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent );
-
-			SignalMousePressed					signalMousePressed;
-
-
+			
+			virtual void						groundDestinationSelectHandler ( const Ogre::Vector3 groundDestination );
 	
 		protected:
 		
@@ -53,8 +43,6 @@ namespace omoba
 			static const OIS::MouseButtonID		mouseButtonSelect;
 
 			static const OIS::MouseButtonID		mouseButtonSetTarget;
-
-			
 			
 	};
 

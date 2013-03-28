@@ -51,9 +51,8 @@ Ogre::RaySceneQueryResult&					CameraRayIntersectionCalculator::getAllIntersecti
 	//then send a raycast straight out from the camera at the mouse's position
 	Ogre::Ray mouseRay = getCameraToViewportRay ( mouseEvent );
 	Ogre::RaySceneQuery* cameraRayQuery = this->sceneManager->createRayQuery ( mouseRay );
-	Ogre::RaySceneQueryResult& cameraRayQueryResult = cameraRayQuery->execute();
-
-	return cameraRayQueryResult;
+	
+	return cameraRayQuery->execute();
 
 }
 
@@ -85,7 +84,7 @@ Ogre::Vector3								CameraRayIntersectionCalculator::getIntersectionWith ( cons
 			}
 
 		}
-
+		
 		catch ( Ogre::Exception& exception )
 		{
 

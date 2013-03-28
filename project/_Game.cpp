@@ -4,14 +4,15 @@ using namespace omoba;
 
 				Game::Game ( void )
 					:
-						pluginsCfg ( Ogre::StringUtil::BLANK ),
-						resourcesCfg ( Ogre::StringUtil::BLANK ),
-						root ( 0 ),
-						renderWindow ( 0 ),
-						sceneManager ( 0 ),
-						cameraman ( 0 ),
-						inputDispatcher ( 0 ),
-						cursor ( 0 ) 
+						pluginsCfg			( Ogre::StringUtil::BLANK ),
+						resourcesCfg		( Ogre::StringUtil::BLANK ),
+						root				( NULL ),
+						renderWindow		( NULL ),
+						sceneManager		( NULL ),
+						cameraman			( NULL ),
+						inputDispatcher		( NULL ),
+						cursor				( NULL ),
+						groundController	( NULL )
 {
 
 }
@@ -199,27 +200,19 @@ void			Game::createScene(void)
 
 	//	Set ambient light
 	this->sceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
-
-	//	Create plain
-	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
-	Ogre::MeshManager::getSingleton().createPlane
-	(
-		"ground",
-		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-		plane, 1500, 1500, 20, 20, true, 1, 5, 5,
-		Ogre::Vector3::UNIT_Z
-	);
-
-	Sprite* ground = new Sprite ( *this->sceneManager , "ground" );
-	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *ground );
-	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *ground );
+	
+	//	Create ground controller
+	this->groundController = new groundController ( *this->sceneManager );
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_MOVED , *this->groundController );
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *this->groundController );
+	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *this->groundController );
 
 	// Create player
 	Sprite* robot = new Sprite ( *this->sceneManager , "robot.mesh" );
 	robot->setNodeViewDirection ( Ogre::Vector3::UNIT_X );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *robot );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *robot );
-	ground->signalMousePressed.connect ( boost::bind ( &Sprite::setMovementPath , robot , _1 ) );
+	this->groundController->registerEventListener ( GROUND_EVENT_DESTINATION_SELECTED , *robot );
 	
 }
 

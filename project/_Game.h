@@ -11,6 +11,7 @@
 
 #include "CameraRayIntersectionCalculator.h"
 #include "InputDispatcher.h"
+#include "Ground.h"
 #include "Cameraman.h"
 #include "Cursor.h"
 #include "Sprite.h"
@@ -83,9 +84,11 @@ namespace omoba
 			
 			Cameraman*				cameraman;
 			
-			Cursor*					cursor;
-
 			InputDispatcher*		inputDispatcher;
+
+			Cursor*					cursor;
+			
+			GroundController*		groundController;
 			
 	};
 

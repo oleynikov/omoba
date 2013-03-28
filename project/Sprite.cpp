@@ -51,8 +51,6 @@ void			Sprite::mousePressHandler ( const OIS::MouseEvent& mouseEvent )
 	}
 	
 	//	Mouse pressed on this sprite - emitting the signal
-	this->signalMousePressed ( intersectionPoint , mouseEvent.state );
-	
 	//	If `SPRITE_SELECT` button was pressed
 	if ( mouseEvent.state.buttonDown ( Sprite::mouseButtonSelect ) )
 	{
@@ -72,11 +70,11 @@ void			Sprite::mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent )
 
 }
 
-void			Sprite::setMovementPath ( const Ogre::Vector3& spriteMovementPath )
+void			Sprite::groundDestinationSelectHandler ( const Ogre::Vector3 groundDestination )
 {
 
 	//	Launching the sprite along the path
-	this->setNodeMovementPath ( spriteMovementPath );
+	this->setNodeMovementPath ( groundDestination );
 	this->setNodeMoving ( true );
 	
 	//	Enabling the animation

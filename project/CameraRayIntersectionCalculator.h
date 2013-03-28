@@ -15,12 +15,8 @@ namespace omoba
 
 	class CameraRayIntersectionCalculator
 	{
-
-
 	
 		public:
-
-
 
 			static CameraRayIntersectionCalculator&		getSingleton ( void );
 
@@ -31,8 +27,6 @@ namespace omoba
 			Ogre::RaySceneQueryResult&					getAllIntersections ( const OIS::MouseEvent& mouseEvent );
 
 			Ogre::Vector3								getIntersectionWith ( const OIS::MouseEvent& mouseEvent , Ogre::SceneNode& sceneNode );
-			
-
 
 			class										ExcSceneManagerNotSet { };
 			
@@ -40,8 +34,6 @@ namespace omoba
 			
 			class										ExcNoIntersections { };
 			
-
-
 		private:
 
 														CameraRayIntersectionCalculator ( void );
@@ -52,15 +44,11 @@ namespace omoba
 														
 			void										checkConfigured ( void );
 		
-			
-			
 			static CameraRayIntersectionCalculator*		singleton;
 			
 			Ogre::SceneManager*							sceneManager;
 			
 			Ogre::Camera*								camera;
-			
-
 
 	};
 	
