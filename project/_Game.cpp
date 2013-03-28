@@ -140,8 +140,8 @@ void			Game::createCamera(void)
 
 	//	Creating camera controller
 	this->cameraman = new Cameraman ( *this->sceneManager , "OMOBA_CAMERA_MAIN" );
-	this->cameraman->setPosition ( Ogre::Vector3 ( 0 , 300 , 300 ) );
-	this->cameraman->lookAt ( Ogre::Vector3::ZERO );
+	this->cameraman->setNodePosition ( Ogre::Vector3 ( 0 , 300 , 300 ) );
+	this->cameraman->aimNodeAt ( Ogre::Vector3::ZERO );
 	
 	//	Registering camera controller to recieve frame events
 	this->root->addFrameListener ( this->cameraman );
@@ -216,7 +216,7 @@ void			Game::createScene(void)
 
 	// Create player
 	Sprite* robot = new Sprite ( *this->sceneManager , "robot.mesh" );
-	robot->setViewDirection ( Ogre::Vector3::UNIT_X );
+	robot->setNodeViewDirection ( Ogre::Vector3::UNIT_X );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *robot );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *robot );
 	ground->signalMousePressed.connect ( boost::bind ( &Sprite::setMovementPath , robot , _1 ) );

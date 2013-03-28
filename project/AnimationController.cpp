@@ -25,7 +25,7 @@ using namespace omoba;
 
 }
 
-void	AnimationController::setAnimationEntity ( const Ogre::Entity& animationEntity )
+void	AnimationController::setAnimationEntity ( Ogre::Entity& animationEntity )
 {
 
 	this->animationEntity = &animationEntity;

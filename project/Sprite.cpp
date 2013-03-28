@@ -7,7 +7,7 @@ const OIS::MouseButtonID	Sprite::mouseButtonSelect = OIS::MouseButtonID::MB_Left
 const OIS::MouseButtonID	Sprite::mouseButtonSetTarget = OIS::MouseButtonID::MB_Right;
 
 
-				Sprite::Sprite ( Ogre::SceneManager& sceneManager , Ogre::String& meshName )
+				Sprite::Sprite ( Ogre::SceneManager& sceneManager , const Ogre::String& meshName )
 					:
 						SceneNodeController ( sceneManager , meshName ),
 						selected ( false )
@@ -80,8 +80,8 @@ void			Sprite::setMovementPath ( const Ogre::Vector3& spriteMovementPath )
 	this->setNodeMoving ( true );
 	
 	//	Enabling the animation
-	this->setAnimationName ( "OMOBA_ANIMATION_WALK" );
+	this->setAnimationName ( "Walk" );
 	this->setAnimationLoop ( true );
-	this->setAnimationRunning ( true );
+	this->setAnimationEnabled ( true );
 
 }

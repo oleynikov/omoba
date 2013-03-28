@@ -54,7 +54,7 @@ namespace omoba
 
 		public:
 			
-										SceneNodeController ( Ogre::SceneManager& sceneManager , Ogre::String& nodeName );
+										SceneNodeController ( Ogre::SceneManager& sceneManager , const Ogre::String& nodeName );
 
 										~SceneNodeController ( void );
 
@@ -101,12 +101,12 @@ namespace omoba
 
 			void						moveNodeBy ( const Ogre::Ray& nodeMovementRay , const Ogre::Real& nodeMovementDistance );
 
-			void						rotateNode ( const Ogre::Vector3& nodeRatationAxis , const Ogre::Radian& nodeRatationAngle , Ogre::Node::TransformSpace nodeRotationTransformSpace = Ogre::Node::TS_PARENT );
+			void						rotateNode ( const Ogre::Vector3& nodeRotationAxis , const Ogre::Radian& nodeRotationAngle , Ogre::Node::TransformSpace nodeRotationTransformSpace = Ogre::Node::TS_PARENT );
 
 			void						aimNodeAt ( const Ogre::Vector3& nodeTargetPoint , Ogre::Node::TransformSpace nodeTransformSpace = Ogre::Node::TS_PARENT , const Ogre::Vector3& nodeViewDirection = Ogre::Vector3::ZERO );
 
 
-			class						excNodeNotDefined { };
+			class						ExcNodeNotDefined { };
 
 			
 			
@@ -128,7 +128,7 @@ namespace omoba
 
 			bool						nodeMoving;
 			
-			SceneNodeMoveMode			nodeMovementMode;
+			MovementMode				nodeMovementMode;
 
 			Ogre::Vector3				nodeMovementVector;
 			

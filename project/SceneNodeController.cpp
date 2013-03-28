@@ -2,7 +2,7 @@
 
 using namespace omoba;
 
-							SceneNodeController::SceneNodeController ( Ogre::SceneManager& sceneManager , Ogre::String& nodeName );
+							SceneNodeController::SceneNodeController ( Ogre::SceneManager& sceneManager , const Ogre::String& nodeName )
 								:
 									node					( NULL ),
 									nodeViewDirection		( Ogre::Vector3::UNIT_Z ),
@@ -13,8 +13,7 @@ using namespace omoba;
 									nodeMovementSpeed		( NULL )
 {
 
-	if ( sceneManager )
-		this->node = sceneManager->getRootSceneNode()->createChildSceneNode ( nodeName );
+	this->node = sceneManager.getRootSceneNode()->createChildSceneNode ( nodeName );
 
 }
 
@@ -136,14 +135,14 @@ void						SceneNodeController::setNodeMovementVector ( const Ogre::Vector3& node
 void						SceneNodeController::setNodeMovementVector ( const Ogre::Ray& nodeMovementRay , const Ogre::Real& nodeMovementSpeed )
 {
 
-	this->setMoveVector ( Segment::getPointVector ( nodeMovementRay.getOrigin() , nodeMovementRay.getDirection() , nodeMovementSpeed ) );
+	this->setNodeMovementVector ( Segment::getPointVector ( nodeMovementRay.getOrigin() , nodeMovementRay.getDirection() , nodeMovementSpeed ) );
 
 }
 
 void						SceneNodeController::setNodeMovementVectorComponent ( const Axis nodeMovementVectorComponent , const Ogre::Real& nodeMovementVectorComponentValue )
 {
 
-	Ogre::Vector3 nodeMovementVectorNew = this->moveVector;
+	Ogre::Vector3 nodeMovementVectorNew = this->nodeMovementVector;
 
 	switch ( nodeMovementVectorComponent )
 	{
@@ -192,12 +191,12 @@ void						SceneNodeController::moveNodeBy ( const Ogre::Ray& nodeMovementRay , c
 
 }
 
-void						SceneNodeController::rotateNode ( const Ogre::Vector3& nodeRatationAxis , const Ogre::Radian& nodeRatationAngle , Ogre::Node::TransformSpace nodeRotationTransformSpace )
+void						SceneNodeController::rotateNode ( const Ogre::Vector3& nodeRotationAxis , const Ogre::Radian& nodeRotationAngle , Ogre::Node::TransformSpace nodeRotationTransformSpace )
 {
 
 	this->checkNodeDefined();
 	
-	this->node->rotate ( nodeRatationAxis , nodeRatationAngle , nodeRotationTransformSpace );
+	this->node->rotate ( nodeRotationAxis , nodeRotationAngle , nodeRotationTransformSpace );
 	
 }
 
@@ -210,7 +209,7 @@ void						SceneNodeController::aimNodeAt ( const Ogre::Vector3& nodeTargetPoint 
 	Ogre::Vector3 nodeActualViewDirection =
 		( nodeViewDirection == Ogre::Vector3::ZERO )
 			?
-		this->viewDirection
+		this->nodeViewDirection
 			:
 		nodeViewDirection;
 
@@ -219,15 +218,15 @@ void						SceneNodeController::aimNodeAt ( const Ogre::Vector3& nodeTargetPoint 
 }
 
 
-void						SceneNodeController::checkNodeSet ( void ) const
+void						SceneNodeController::checkNodeDefined ( void ) const
 {
 
 	if ( ! this->node )
-		throw excNodeNotDefined();
+		throw ExcNodeNotDefined();
 
 }
 
-void						SceneNodeController::updateOrientation ( void )
+void						SceneNodeController::updateNodeOrientation ( void )
 {
 
 	//  Updates node orientation if needed
@@ -240,17 +239,17 @@ void						SceneNodeController::updateOrientation ( void )
 		switch ( this->nodeMovementMode )
 		{
 		
-			case MOVEMENT_MODE_BY_VECTOR:	nodeTargetPoint = this->getPosition() + this->nodeMovementVector; break;
+			case MOVEMENT_MODE_BY_VECTOR:	nodeTargetPoint = this->getNodePosition() + this->nodeMovementVector; break;
 			
 			case MOVEMENT_MODE_BY_PATH:		nodeTargetPoint = this->nodeMovementPath.front(); break;
 			
 		}
 		
-		this->lookAt
+		this->aimNodeAt
 		(
 			nodeTargetPoint,
 			Ogre::Node::TS_PARENT,
-			this->nodeHoldViewDirection
+			this->nodeViewDirection
 		);
 
 	}
@@ -269,15 +268,15 @@ bool						SceneNodeController::frameRenderingQueued ( const Ogre::FrameEvent& fr
 			case MOVEMENT_MODE_BY_PATH:
 			{
 
-				Ogre::Vector3	positionCurrent = this->getPosition();
+				Ogre::Vector3	positionCurrent = this->getNodePosition();
 				Ogre::Real		nextStepDistance = this->nodeMovementSpeed * frameEvent.timeSinceLastFrame;
 				Ogre::Real		nextPathPointDistance = Segment::getLength ( positionCurrent , this->nodeMovementPath.front() );
 
 				if ( nextPathPointDistance <= nextStepDistance )
 				{
 
-					this->setPosition ( this->nodeMovementPath.front() );
-					this->updateOrientation();
+					this->setNodePosition ( this->nodeMovementPath.front() );
+					this->updateNodeOrientation();
 					this->nodeMovementPath.pop_front();
 					
 					if ( this->nodeMovementPath.empty() )

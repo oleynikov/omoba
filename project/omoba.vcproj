@@ -181,6 +181,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\AnimationController.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Cameraman.cpp"
 				>
 			</File>
@@ -228,6 +232,10 @@
 			>
 			<File
 				RelativePath=".\_Game.h"
+				>
+			</File>
+			<File
+				RelativePath=".\AnimationController.h"
 				>
 			</File>
 			<File

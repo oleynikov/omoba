@@ -32,7 +32,7 @@ namespace omoba
 
 		public:
 
-												Sprite ( Ogre::SceneManager& sceneManager , Ogre::String meshName );
+												Sprite ( Ogre::SceneManager& sceneManager , const Ogre::String& meshName );
 
 												~Sprite ( void );
 

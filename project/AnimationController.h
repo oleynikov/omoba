@@ -1,6 +1,7 @@
 #pragma once
 
-#include "OgreAnimationState.h"
+#include <OgreEntity.h>
+#include <OgreAnimationState.h>
 
 namespace omoba
 {
@@ -16,7 +17,7 @@ namespace omoba
 									
 									~AnimationController ( void );
 									
-			void					setAnimationEntity ( const Ogre::Entity& animationEntity );
+			void					setAnimationEntity ( Ogre::Entity& animationEntity );
 			
 			void					setAnimationName ( const Ogre::String& animationName );
 

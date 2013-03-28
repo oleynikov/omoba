@@ -10,7 +10,7 @@ const OIS::MouseButtonID		Cameraman::cameraCaptureButton = OIS::MouseButtonID::M
 
 
 
-								Cameraman::Cameraman ( Ogre::SceneManager& sceneManager , Ogre::String& cameraName )
+								Cameraman::Cameraman ( Ogre::SceneManager& sceneManager , const Ogre::String& cameraName )
 									:
 										SceneNodeController ( sceneManager , cameraName ),
 										cameraCaptured ( false ),
@@ -20,10 +20,10 @@ const OIS::MouseButtonID		Cameraman::cameraCaptureButton = OIS::MouseButtonID::M
 	this->setNodeViewDirection ( Ogre::Vector3::NEGATIVE_UNIT_Z );
 	this->setNodeHoldViewDirection ( false );
 	this->setNodeMovementMode ( MOVEMENT_MODE_BY_VECTOR );
-	this->getNodeMoving ( true );
+	this->setNodeMoving ( true );
 	
 	this->camera = sceneManager.createCamera ( cameraName );
-	this->node->attachObject ( this->camera );
+	this->getNode().attachObject ( this->camera );
 
 }
 

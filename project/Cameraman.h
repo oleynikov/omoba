@@ -15,7 +15,7 @@ namespace omoba
 
 		public:
 
-												Cameraman ( Ogre::SceneManager& sceneManager , Ogre::String& cameraName );
+												Cameraman ( Ogre::SceneManager& sceneManager , const Ogre::String& cameraName );
 
 												~Cameraman ( void );
 
