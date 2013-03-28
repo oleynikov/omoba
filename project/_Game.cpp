@@ -209,10 +209,11 @@ void			Game::createScene(void)
 
 	// Create player
 	Sprite* robot = new Sprite ( *this->sceneManager , "robot.mesh" );
-	robot->setNodeViewDirection ( Ogre::Vector3::UNIT_X );
+	this->root->addFrameListener ( roobot );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *robot );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *robot );
 	this->groundController->registerEventListener ( GROUND_EVENT_DESTINATION_SELECTED , *robot );
+	robot->setNodeViewDirection ( Ogre::Vector3::UNIT_X );
 	
 }
 

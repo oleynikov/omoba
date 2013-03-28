@@ -1,9 +1,7 @@
 #pragma once
 
 #include <OgreSceneManager.h>
-#include <OgreFrameListener.h>
 #include "Segment.h"
-#include "Ray.h"
 
 
 
@@ -45,9 +43,6 @@ namespace omoba
 	
 	
 	class SceneNodeController
-		:
-			public Ogre::FrameListener
-	
 	{
 
 		
@@ -110,13 +105,17 @@ namespace omoba
 
 			
 			
+		protected:
+		
+			bool						addNodeMovementTime ( const Ogre::Real& movementTime );
+		
+
+		
 		private:
 
 			void						checkNodeDefined ( void ) const;
 
 			void						updateNodeOrientation ( void );
-
-			virtual bool				frameRenderingQueued ( const Ogre::FrameEvent& frameEvent );
 
 
 			

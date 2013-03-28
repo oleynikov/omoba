@@ -83,3 +83,13 @@ void			Sprite::groundDestinationSelectHandler ( const Ogre::Vector3 groundDestin
 	this->setAnimationEnabled ( true );
 
 }
+
+virtual bool	Sprite::frameRenderingQueued ( const Ogre::FrameEvent& frameEvent )
+{
+
+	this->addNodeMovementTime ( frameEvent.timeSinceLastFrame );
+	this->addAnimationTime ( frameEvent.timeSinceLastFrame );
+	
+	return true;
+
+}

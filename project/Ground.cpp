@@ -80,8 +80,7 @@ void							GroundController::mouseMoveHandler ( const OIS::MouseEvent& mouseEven
 {
 
 	//	Calculating intersection point of the camera ray with the ground
-	CameraRayIntersectionCalculator&	intersectionCalculator = CameraRayIntersectionCalculator::getSingleton();
-	Ogre::Vector3						intersectionPoint = intersectionCalculator.getIntersectionWith ( mouseEvent , this->getNode() );
+	Ogre::Vector3 intersectionPoint = CameraRayIntersectionCalculator::getSingleton().getIntersectionWith ( mouseEvent , this->getNode() );
 	
 	// Listening for target selection
 	if ( mouseEvent.state.buttonDown ( GroundController::buttonSelectDestination ) )
@@ -106,8 +105,7 @@ void							GroundController::mousePressHandler ( const OIS::MouseEvent& mouseEve
 {
 
 	//	Calculating intersection point of the camera ray with the ground
-	CameraRayIntersectionCalculator&	intersectionCalculator = CameraRayIntersectionCalculator::getSingleton();
-	Ogre::Vector3						intersectionPoint = intersectionCalculator.getIntersectionWith ( mouseEvent , this->getNode() );
+	Ogre::Vector3 intersectionPoint = CameraRayIntersectionCalculator::getSingleton().getIntersectionWith ( mouseEvent , this->getNode() );
 	
 	// Listening for target selection
 	if ( mouseEvent.state.buttonDown ( GroundController::buttonSelectDestination ) )
@@ -132,8 +130,7 @@ void							GroundController::mouseReleaseHandler ( const OIS::MouseEvent& mouseE
 	{
 	
 		//	Calculating intersection point of the camera ray with the ground
-		CameraRayIntersectionCalculator&	intersectionCalculator = CameraRayIntersectionCalculator::getSingleton();
-		Ogre::Vector3						intersectionPoint = intersectionCalculator.getIntersectionWith ( mouseEvent , this->getNode() );
+		Ogre::Vector3 intersectionPoint = CameraRayIntersectionCalculator::getSingleton().getIntersectionWith ( mouseEvent , this->getNode() );
 
 		this->groundSelectionInProcess = false;
 		this->signalAreaSelected ( this->groundSelectionPointOne , intersectionPoint );

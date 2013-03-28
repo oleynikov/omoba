@@ -218,6 +218,57 @@ void						SceneNodeController::aimNodeAt ( const Ogre::Vector3& nodeTargetPoint 
 }
 
 
+void						SceneNodeController::addNodeMovementTime ( const Ogre::Real& movementTime )
+{
+
+	if ( this->nodeMoving )
+	{
+
+		switch ( this->nodeMovementMode )
+		{
+
+			case MOVEMENT_MODE_BY_PATH:
+			{
+
+				Ogre::Vector3	positionCurrent = this->getNodePosition();
+				Ogre::Real		nextStepDistance = this->nodeMovementSpeed * movementTime;
+				Ogre::Real		nextPathPointDistance = Segment::getLength ( positionCurrent , this->nodeMovementPath.front() );
+
+				if ( nextPathPointDistance <= nextStepDistance )
+				{
+
+					this->setNodePosition ( this->nodeMovementPath.front() );
+					this->updateNodeOrientation();
+					this->nodeMovementPath.pop_front();
+					
+					if ( this->nodeMovementPath.empty() )
+						this->setNodeMoving ( false );
+						
+				}
+
+				else
+					this->moveNodeBy ( Ogre::Ray ( positionCurrent , this->nodeMovementPath.front() ) , this->nodeMovementSpeed );
+
+				break;
+
+			}
+
+			case MOVEMENT_MODE_BY_VECTOR:
+			{
+
+				this->moveNodeBy ( this->nodeMovementVector * movementTime );
+
+				break;
+
+			}
+
+		}
+
+	}
+
+}
+
+
 void						SceneNodeController::checkNodeDefined ( void ) const
 {
 
@@ -253,57 +304,5 @@ void						SceneNodeController::updateNodeOrientation ( void )
 		);
 
 	}
-	
-}
-
-bool						SceneNodeController::frameRenderingQueued ( const Ogre::FrameEvent& frameEvent )
-{
-
-	if ( this->nodeMoving )
-	{
-
-		switch ( this->nodeMovementMode )
-		{
-
-			case MOVEMENT_MODE_BY_PATH:
-			{
-
-				Ogre::Vector3	positionCurrent = this->getNodePosition();
-				Ogre::Real		nextStepDistance = this->nodeMovementSpeed * frameEvent.timeSinceLastFrame;
-				Ogre::Real		nextPathPointDistance = Segment::getLength ( positionCurrent , this->nodeMovementPath.front() );
-
-				if ( nextPathPointDistance <= nextStepDistance )
-				{
-
-					this->setNodePosition ( this->nodeMovementPath.front() );
-					this->updateNodeOrientation();
-					this->nodeMovementPath.pop_front();
-					
-					if ( this->nodeMovementPath.empty() )
-						this->setNodeMoving ( false );
-
-				}
-
-				else
-					this->moveNodeBy ( Ogre::Ray ( positionCurrent , this->nodeMovementPath.front() ) , this->nodeMovementSpeed );
-
-				break;
-
-			}
-
-			case MOVEMENT_MODE_BY_VECTOR:
-			{
-
-				this->moveNodeBy ( this->nodeMovementVector * frameEvent.timeSinceLastFrame );
-
-				break;
-
-			}
-
-		}
-
-	}
-
-	return true;
 	
 }

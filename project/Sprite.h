@@ -1,5 +1,6 @@
 #pragma once
 
+#include <OgreFrameListener.h>
 #include <OgreEntity.h>
 #include <boost/signals2.hpp>
 #include <boost/bind.hpp>
@@ -17,11 +18,11 @@ namespace omoba
 
 	class Sprite
 		:
-			public SceneNodeController,
-			public AnimationController,
+			public Ogre::FrameListener,
+			public GroundEventListener,
 			public InputListener,
-			public GroundEventListener
-
+			public SceneNodeController,
+			public AnimationController
 	{
 
 		public:
@@ -35,9 +36,11 @@ namespace omoba
 			virtual void						mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent );
 			
 			virtual void						groundDestinationSelectHandler ( const Ogre::Vector3 groundDestination );
-	
-		protected:
-		
+
+		private:
+
+			virtual bool						frameRenderingQueued ( const Ogre::FrameEvent& frameEvent );
+
 			bool								selected;
 		
 			static const OIS::MouseButtonID		mouseButtonSelect;

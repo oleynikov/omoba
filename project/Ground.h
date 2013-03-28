@@ -66,12 +66,12 @@ namespace omoba
 			
 			void								registerEventListener ( const GroundEvent groundEvent , const GroundEventListener& groundListener );
 
+		private:
+
 			SignalDestinationSelected			signalDestinationSelected;
 			
 			SignalAreaSelected					signalAreaSelected;
 
-		private:
-		
 			bool								groundSelectionInProcess;
 			
 			Ogre::Vector3						groundSelectionPointOne;
