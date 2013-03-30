@@ -73,15 +73,7 @@ Ogre::Vector3								CameraRayIntersectionCalculator::getIntersectionWith ( cons
 		{
 
 			if ( itr->movable && sceneNode.getAttachedObject ( itr->movable->getName() ) )
-			{
-
-				Ogre::Ray cameraRay = this->getCameraToViewportRay ( mouseEvent );
-
-				Ogre::Vector3 result = Segment::getPointPosition ( cameraRay.getOrigin() , cameraRay.getDirection() , itr->distance );
-
-				return result;
-
-			}
+				return this->getCameraToViewportRay(mouseEvent).getPoint(itr->distance);
 
 		}
 		

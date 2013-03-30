@@ -21,6 +21,9 @@ const OIS::MouseButtonID	Sprite::mouseButtonSetTarget = OIS::MouseButtonID::MB_R
 	
 	//	and to the AnimationController
 	this->setAnimationEntity ( *entity );
+	this->setAnimationName ( "Idle" );
+	this->setAnimationLoop ( true );
+	this->setAnimationEnabled ( true );
 
 }
 
@@ -75,7 +78,7 @@ void			Sprite::groundDestinationSelectHandler ( const Ogre::Vector3& groundDesti
 
 	//	Launching the sprite along the path
 	this->setNodeMovementPath ( groundDestination );
-	this->setNodeMovementSpeed ( 1 );
+	this->setNodeMovementSpeed ( 0.1 );
 	this->setNodeMoving ( true );
 	
 	//	Enabling the animation
