@@ -25,6 +25,9 @@ const OIS::MouseButtonID	Sprite::mouseButtonSetTarget = OIS::MouseButtonID::MB_R
 	this->setAnimationLoop ( true );
 	this->setAnimationEnabled ( true );
 
+	// Listening to the reach the destination event
+	this->signalNodeReachedDestination.connect(boost::bind(&Sprite::nodeReachDestinationHandler,this));
+
 }
 
 				Sprite::~Sprite(void)
@@ -78,7 +81,7 @@ void			Sprite::groundDestinationSelectHandler ( const Ogre::Vector3& groundDesti
 
 	//	Launching the sprite along the path
 	this->setNodeMovementPath ( groundDestination );
-	this->setNodeMovementSpeed ( 0.1 );
+	this->setNodeMovementSpeed ( 100 );
 	this->setNodeMoving ( true );
 	
 	//	Enabling the animation
@@ -88,7 +91,7 @@ void			Sprite::groundDestinationSelectHandler ( const Ogre::Vector3& groundDesti
 
 }
 
-bool	Sprite::frameRenderingQueued ( const Ogre::FrameEvent& frameEvent )
+bool			Sprite::frameRenderingQueued ( const Ogre::FrameEvent& frameEvent )
 {
 
 	try
@@ -105,5 +108,14 @@ bool	Sprite::frameRenderingQueued ( const Ogre::FrameEvent& frameEvent )
 	}
 
 	return true;
+
+}
+
+void			Sprite::nodeReachDestinationHandler ( void )
+{
+
+	this->setAnimationName ( "Idle" );
+	this->setAnimationLoop ( true );
+	this->setAnimationEnabled ( true );
 
 }

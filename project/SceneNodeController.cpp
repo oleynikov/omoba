@@ -105,7 +105,8 @@ void						SceneNodeController::setNodeMoving ( bool nodeMoving )
 
 	this->nodeMoving = nodeMoving;
 	
-	this->updateNodeOrientation();
+	if ( nodeMoving )
+		this->updateNodeOrientation();
 
 }
 
@@ -242,21 +243,26 @@ void						SceneNodeController::addNodeMovementTime ( const Ogre::Real& movementT
 				Ogre::Vector3	positionCurrent = this->getNodePosition();
 				Ogre::Real		nextStepDistance = this->nodeMovementSpeed * movementTime;
 				Ogre::Real		nextPathPointDistance = Segment::getLength ( positionCurrent , this->nodeMovementPath.front() );
-
+				
 				if ( nextPathPointDistance <= nextStepDistance )
 				{
 
 					this->setNodePosition ( this->nodeMovementPath.front() );
 					this->updateNodeOrientation();
 					this->nodeMovementPath.pop_front();
-					
+
 					if ( this->nodeMovementPath.empty() )
+					{
+
 						this->setNodeMoving ( false );
+						this->signalNodeReachedDestination();
+
+					}
 						
 				}
 
 				else
-					this->moveNodeBy ( Ogre::Ray ( positionCurrent , this->nodeMovementPath.front() ) , this->nodeMovementSpeed );
+					this->moveNodeBy ( Ogre::Ray ( positionCurrent , this->nodeMovementPath.front() ) , nextStepDistance );
 
 				break;
 

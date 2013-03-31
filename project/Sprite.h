@@ -41,6 +41,8 @@ namespace omoba
 
 			virtual bool						frameRenderingQueued ( const Ogre::FrameEvent& frameEvent );
 
+			void								nodeReachDestinationHandler ( void );
+
 			bool								selected;
 		
 			static const OIS::MouseButtonID		mouseButtonSelect;
