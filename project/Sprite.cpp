@@ -35,44 +35,90 @@ const OIS::MouseButtonID	Sprite::mouseButtonSetTarget = OIS::MouseButtonID::MB_R
 
 }
 
-void			Sprite::mousePressHandler ( const OIS::MouseEvent& mouseEvent )
-{ 
+void			Sprite::setSpriteSelected ( const bool spriteSelected )
+{
 
-	//	Checking if mouse pressed on this sprite
-	Ogre::Vector3 intersectionPoint;
-	
+	this->selected = spriteSelected;
+	this->getNode().showBoundingBox ( spriteSelected );
+
+}
+
+void			Sprite::mouseMoveHandler ( const OIS::MouseEvent& mouseEvent )
+{
+
+	//	Checking if mouse press was performed on this particular sprite
 	try
 	{
 	
-		intersectionPoint = CameraRayIntersectionCalculator::getSingleton().getIntersectionWith ( mouseEvent , this->getNode() );
+		Ogre::Vector3 intersectionPoint = CameraRayIntersectionCalculator::getSingleton().getIntersectionWith ( mouseEvent , this->getNode() );
 		
 	}
 	
 	catch ( CameraRayIntersectionCalculator::ExcNoIntersections )
 	{
 	
-		//	Mouse pressed somewhere else
+		//	Mouse was pressed somewhere else
 		return;
 	
 	}
 	
-	//	Mouse pressed on this sprite - emitting the signal
-	//	If `SPRITE_SELECT` button was pressed
-	if ( mouseEvent.state.buttonDown ( Sprite::mouseButtonSelect ) )
+	//	Mouse press was performed on this particular sprite. Emiting respective signal
+	this->signalMouseMovedOnSprite ( mouseEvent );
+
+}
+
+void			Sprite::mousePressHandler ( const OIS::MouseEvent& mouseEvent )
+{ 
+
+	//	Checking if mouse press was performed on this particular sprite
+	try
 	{
 	
-		this->selected = true;
-		this->getNode().showBoundingBox ( true );
+		Ogre::Vector3 intersectionPoint = CameraRayIntersectionCalculator::getSingleton().getIntersectionWith ( mouseEvent , this->getNode() );
 		
 	}
 	
+	catch ( CameraRayIntersectionCalculator::ExcNoIntersections )
+	{
+	
+		//	Mouse was pressed somewhere else
+		return;
+	
+	}
+	
+	//	Mouse press was performed on this particular sprite. Emiting respective signal
+	this->signalMousePressedOnSprite ( mouseEvent );
+
+	//	If `Sprite::mouseButtonSelect` button was pressed
+	if ( mouseEvent.state.buttonDown ( Sprite::mouseButtonSelect ) )
+		this->setSpriteSelected(true);
+		
 }
 
 void			Sprite::mouseReleaseHandler ( const OIS::MouseEvent& mouseEvent )
 {
 
-	this->selected = false;
-	this->getNode().showBoundingBox ( false );
+	//	Checking if mouse press was performed on this particular sprite
+	try
+	{
+	
+		Ogre::Vector3 intersectionPoint = CameraRayIntersectionCalculator::getSingleton().getIntersectionWith ( mouseEvent , this->getNode() );
+		
+	}
+	
+	catch ( CameraRayIntersectionCalculator::ExcNoIntersections )
+	{
+	
+		//	Mouse was pressed somewhere else
+		return;
+	
+	}
+	
+	//	Mouse release was performed on this particular sprite. Emiting respective signal
+	this->signalMouseReleasedOnSprite ( mouseEvent );
+
+	//	Deselecting the sprite
+	this->setSpriteSelected(false);
 
 }
 
