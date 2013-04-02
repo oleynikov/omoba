@@ -69,6 +69,10 @@ namespace omoba
 
 			static const OIS::MouseButtonID		mouseButtonSetTarget;
 			
+			const Ogre::String					animationWalkName;
+			
+			const Ogre::String					animationIdleName;
+			
 	};
 
 };
