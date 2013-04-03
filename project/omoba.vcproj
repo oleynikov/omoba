@@ -193,6 +193,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Configuration.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Cursor.cpp"
 				>
 			</File>
@@ -248,6 +252,10 @@
 			</File>
 			<File
 				RelativePath=".\CameraRayIntersectionCalculator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Configuration.h"
 				>
 			</File>
 			<File
