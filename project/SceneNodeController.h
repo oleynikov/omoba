@@ -97,6 +97,8 @@ namespace omoba
 
 			void							setNodeMovementSpeed ( const Ogre::Real& nodeMovementSpeed );
 
+			void							setNodeMovementLooped ( const bool nodeMovementLooped );
+
 		
 			void							moveNodeBy ( const Ogre::Vector3& nodeMovementDistance );
 
@@ -105,6 +107,8 @@ namespace omoba
 			void							rotateNode ( const Ogre::Vector3& nodeRotationAxis , const Ogre::Radian& nodeRotationAngle , Ogre::Node::TransformSpace nodeRotationTransformSpace = Ogre::Node::TS_PARENT );
 
 			void							aimNodeAt ( const Ogre::Vector3& nodeTargetPoint , Ogre::Node::TransformSpace nodeTransformSpace = Ogre::Node::TS_PARENT , const Ogre::Vector3& nodeViewDirection = Ogre::Vector3::ZERO );
+
+			void							addNodeMovementPathPoint ( const Ogre::Vector3 nodeMovementPathPoint );
 
 
 			class							ExcNodeNotDefined { };
@@ -142,6 +146,8 @@ namespace omoba
 			MovementPath					nodeMovementPath;
 			
 			Ogre::Real						nodeMovementSpeed;
+
+			bool							nodeMovementLooped;
 			
 			
 			

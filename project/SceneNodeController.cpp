@@ -10,7 +10,8 @@ using namespace omoba;
 									nodeMoving				( false ),
 									nodeMovementMode		( MOVEMENT_MODE_BY_PATH ),
 									nodeMovementVector		( Ogre::Vector3::ZERO ),
-									nodeMovementSpeed		( NULL )
+									nodeMovementSpeed		( NULL ),
+									nodeMovementLooped		( false )
 {
 
 	this->node = sceneManager.getRootSceneNode()->createChildSceneNode ( nodeName );
@@ -171,7 +172,8 @@ void						SceneNodeController::setNodeMovementPath ( const Ogre::Vector3& nodeMo
 {
 
 	this->nodeMovementPath.clear();
-	this->nodeMovementPath.push_back ( nodeMovementDestination );
+	this->nodeMovementPath.push_back(this->getNodePosition());
+	this->nodeMovementPath.push_back(nodeMovementDestination);
 
 }
 
@@ -182,6 +184,13 @@ void						SceneNodeController::setNodeMovementSpeed ( const Ogre::Real& nodeMove
 
 }
 
+
+void						SceneNodeController::setNodeMovementLooped ( const bool nodeMovementLooped )
+{
+
+	this->nodeMovementLooped = nodeMovementLooped;
+
+}
 
 void						SceneNodeController::moveNodeBy ( const Ogre::Vector3& nodeMovementDistance )
 {
@@ -225,6 +234,12 @@ void						SceneNodeController::aimNodeAt ( const Ogre::Vector3& nodeTargetPoint 
 	
 }
 
+void						SceneNodeController::addNodeMovementPathPoint ( const Ogre::Vector3 nodeMovementPathPoint )
+{
+
+	this->nodeMovementPath.push_back(nodeMovementPathPoint);
+
+}
 
 void						SceneNodeController::addNodeMovementTime ( const Ogre::Real& movementTime )
 {
@@ -244,18 +259,33 @@ void						SceneNodeController::addNodeMovementTime ( const Ogre::Real& movementT
 				Ogre::Real		nextStepDistance = this->nodeMovementSpeed * movementTime;
 				Ogre::Real		nextPathPointDistance = Segment::getLength ( positionCurrent , this->nodeMovementPath.front() );
 				
+				this->updateNodeOrientation();
+
 				if ( nextPathPointDistance <= nextStepDistance )
 				{
 
 					this->setNodePosition ( this->nodeMovementPath.front() );
-					this->updateNodeOrientation();
-					this->nodeMovementPath.pop_front();
 
-					if ( this->nodeMovementPath.empty() )
+					if ( ! this->nodeMovementLooped )
+					{
+						this->nodeMovementPath.pop_front();
+
+						if ( this->nodeMovementPath.empty() )
+						{
+
+							this->setNodeMoving ( false );
+							this->signalNodeReachedDestination();
+
+						}
+
+					}
+
+					else
 					{
 
-						this->setNodeMoving ( false );
-						this->signalNodeReachedDestination();
+						Ogre::Vector3 pointCurrent = this->nodeMovementPath.front();
+						this->nodeMovementPath.push_back(pointCurrent);
+						this->nodeMovementPath.pop_front();
 
 					}
 						

@@ -213,7 +213,16 @@ void			Game::createScene(void)
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *robot );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *robot );
 	this->groundController->registerEventListener ( GROUND_EVENT_DESTINATION_SELECTED , *robot );
-	robot->setNodeViewDirection ( Ogre::Vector3::UNIT_X );
+	robot->setNodeViewDirection(Ogre::Vector3::UNIT_X);
+	robot->addNodeMovementPathPoint(Ogre::Vector3(-50,0,-50));
+	robot->addNodeMovementPathPoint(Ogre::Vector3(-50,0,50));
+	robot->addNodeMovementPathPoint(Ogre::Vector3(50,0,50));
+	robot->addNodeMovementPathPoint(Ogre::Vector3(50,0,-50));
+	robot->setNodeMovementLooped(true);
+	robot->setNodeMoving(true);
+	robot->setNodeMovementSpeed(100);
+	robot->setAnimationName("Walk");
+	robot->setAnimationEnabled(true);
 	
 }
 
