@@ -9,15 +9,12 @@ namespace omoba
 
 
 	
-	template <typename KeyType>
-	class IKey
+	class IComparable
 	{
 	
+		virtual bool operator== ( const IComparable& rho ) = 0;
 		
-	
-	
-	
-	}
+	};
 	
 	
 	
@@ -59,15 +56,15 @@ namespace omoba
 	template <typename ParameterValueType>
 	class IParameterDefaultable
 		:
-			public IParameter
+			public IParameter<ParameterValueType>
 	{
 	
 		public:
 		
 									IParameterDefaultable ( ParameterValueType& valueCurrent , ParameterValueType& valueDefault )
 										:
-											valueCurrent ( valueCurrent ),
-											valueDefault ( valueDefault )
+											IParameter<ParameterValueType>  ( valueCurrent ),
+											valueDefault                    ( valueDefault )
 			{
 			
 			}
@@ -101,30 +98,30 @@ namespace omoba
 	
 
 
-	template <typename ParameterValueType>
-	using NamedParameter = std::pair<std::string,IParameter<ParameterValueType> >;
+	template <typename ParameterValue>
+	using NamedParameter = std::pair<IComparable,IParameter<ParameterValue> >;
 	
 	
 	
-	template <typename ParameterValueType>
-	using ParametersMap = std::map<NamedParameter<ParameterValueType> >;
+	template <typename ParameterValue>
+	using ParametersMap = std::map<IComparable,IParameter<ParameterValue> >;
 
 
 	
-	template <typename ParameterValueType>
+	template <typename Comparable,typename ParameterValue>
 	class IConfiguration
 		:
-			private ParametersMap<ParameterValueType>
+			private ParametersMap<Comparable,ParameterValue>
 	{
 	
 		public:
 		
-			class								ExcUndefinedParameterCalled { };
+			class							ExcUndefinedParameterCalled { };
 		
-			bool								getParameterExists ( const std::string parameterName )
+			bool							getParameterExists ( const Comparable& parameterId )
 			{
 			
-				return	this->find(parameterName) == this->end()
+				return	this->find(parameterId) == this->end()
 							?
 						false
 							:
@@ -132,16 +129,16 @@ namespace omoba
 			
 			}
 			
-			IParameter<ParameterValueType>&		getParameter ( const std::string parameterName )
+			IParameter<ParameterValue>&		getParameter ( const Comparable& parameterId )
 			{
 			
 				this->checkParameterExists();
 				
-				return this->find(parameterName)->second;
+				return this->find(parameterId)->second;
 				
 			}
 			
-			void								setParameter ( const IParameter<ParameterValueType>& parameter )
+			void							setParameter ( const Comparable& parameterId , const IParameter<ParameterValue>& parameter )
 			{
 			
 				//	Checking if parameter exists
@@ -150,7 +147,7 @@ namespace omoba
 				
 					this->checkParameterExists();
 
-					this->find(parameterName)->second = parameter;
+					this->find(parameterId)->second = parameter;
 				
 				}
 				
@@ -158,7 +155,7 @@ namespace omoba
 				catch ( ExcUndefinedParameterCalled exception )
 				{
 				
-					this->insert(NamedParameter<ParameterValueType>(parameterName,parameter));
+					this->insert(NamedParameter<ParameterValue>(parameterName,parameter));
 				
 				}
 				
