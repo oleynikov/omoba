@@ -4,12 +4,14 @@
 #include <OgreEntity.h>
 #include <boost/signals2.hpp>
 #include <boost/bind.hpp>
+#include <string>
 
 #include "Ground.h"
 #include "InputListener.h"
 #include "AnimationController.h"
 #include "SceneNodeController.h"
 #include "CameraRayIntersectionCalculator.h"
+#include "Configuration.h"
 
 
 
@@ -29,10 +31,11 @@ namespace omoba
 	class Sprite
 		:
 			public Ogre::FrameListener,
-			public GroundEventListener,
 			public InputListener,
 			public SceneNodeController,
-			public AnimationController
+			public AnimationController,
+			public GroundEventListener,
+			public IConfigurable<std::string,float>
 	{
 
 		public:

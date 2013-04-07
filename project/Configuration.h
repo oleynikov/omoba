@@ -9,36 +9,27 @@ namespace omoba
 
 
 	
-	class IComparable
-	{
-	
-		virtual bool operator== ( const IComparable& rho ) = 0;
-		
-	};
-	
-	
-	
-	template <typename ParameterValueType>
+	template <typename ParameterValue>
 	class IParameter
 	{
 	
 		public:
 		
-									IParameter ( ParameterValueType& valueCurrent )
+								IParameter ( ParameterValue& valueCurrent )
 										:
 											valueCurrent ( valueCurrent )
 			{
 			
 			}
 		
-			ParameterValueType&		getValueCurrent ( void ) const
+			ParameterValue&		getValueCurrent ( void ) const
 			{
 			
 				return this->valueCurrent;
 			
 			}
 			
-			void					setValueCurrent ( ParameterValueType& valueCurrent )
+			void				setValueCurrent ( ParameterValue& valueCurrent )
 			{
 			
 				this->valueCurrent = valueCurrent;
@@ -47,36 +38,36 @@ namespace omoba
 			
 		private:
 		
-			ParameterValueType		valueCurrent;
+			ParameterValue		valueCurrent;
 			
 	};
 	
 	
 	
-	template <typename ParameterValueType>
+	template <typename ParameterValue>
 	class IParameterDefaultable
 		:
-			public IParameter<ParameterValueType>
+			public IParameter<ParameterValue>
 	{
 	
 		public:
 		
-									IParameterDefaultable ( ParameterValueType& valueCurrent , ParameterValueType& valueDefault )
+									IParameterDefaultable ( ParameterValue& valueCurrent , ParameterValue& valueDefault )
 										:
-											IParameter<ParameterValueType>  ( valueCurrent ),
+											IParameter<ParameterValue>  ( valueCurrent ),
 											valueDefault                    ( valueDefault )
 			{
 			
 			}
 			
-			ParameterValueType&		getValueDefault ( void ) const
+			ParameterValue&		getValueDefault ( void ) const
 			{
 			
 				return this->valueDefault;
 			
 			}
 			
-			void					setValueDefault ( ParameterValueType& valueDefault )
+			void					setValueDefault ( ParameterValue& valueDefault )
 			{
 			
 				this->valueDefault = valueDefault;
@@ -92,33 +83,35 @@ namespace omoba
 
 		private:
 	
-			ParameterValueType		valueDefault;
+			ParameterValue		valueDefault;
 	
 	};
 	
 
+/*
+c++11
 
-	template <typename ParameterValue>
-	using NamedParameter = std::pair<IComparable,IParameter<ParameterValue> >;
+	template <typename ParameterKey,typename ParameterValue>
+	using NamedParameter = std::pair<ParameterKey,IParameter<ParameterValue> >;
 	
 	
 	
-	template <typename ParameterValue>
-	using ParametersMap = std::map<IComparable,IParameter<ParameterValue> >;
+	template <typename ParameterKey,typename ParameterValue>
+	using ParametersMap = std::map<ParameterKey,IParameter<ParameterValue> >;
+*/
 
-
 	
-	template <typename Comparable,typename ParameterValue>
+	template <typename ParameterKey,typename ParameterValue>
 	class IConfiguration
 		:
-			private ParametersMap<Comparable,ParameterValue>
+			private std::map<ParameterKey,IParameter<ParameterValue> >
 	{
 	
 		public:
 		
 			class							ExcUndefinedParameterCalled { };
 		
-			bool							getParameterExists ( const Comparable& parameterId )
+			bool							getParameterExists ( const ParameterKey& parameterId )
 			{
 			
 				return	this->find(parameterId) == this->end()
@@ -129,7 +122,7 @@ namespace omoba
 			
 			}
 			
-			IParameter<ParameterValue>&		getParameter ( const Comparable& parameterId )
+			IParameter<ParameterValue>&		getParameter ( const ParameterKey& parameterId )
 			{
 			
 				this->checkParameterExists();
@@ -138,7 +131,7 @@ namespace omoba
 				
 			}
 			
-			void							setParameter ( const Comparable& parameterId , const IParameter<ParameterValue>& parameter )
+			void							setParameter ( const ParameterKey& parameterId , const IParameter<ParameterValue>& parameter )
 			{
 			
 				//	Checking if parameter exists
@@ -154,14 +147,14 @@ namespace omoba
 				//	Parameter doesn't exist yet
 				catch ( ExcUndefinedParameterCalled exception )
 				{
-				
-					this->insert(NamedParameter<ParameterValue>(parameterName,parameter));
+
+					this->insert(std::pair<ParameterKey,IParameter<ParameterValue> >(parameterId,parameter));
 				
 				}
 				
 			}
 			
-			void								deleteParameter ( const std::string parameterName , bool strict = true )
+			void							deleteParameter ( const std::string parameterName , bool strict = true )
 			{
 			
 				if ( strict )
@@ -173,7 +166,7 @@ namespace omoba
 			
 		private:
 
-			void 								checkParameterExists ( const std::string parameterName ) const
+			void 							checkParameterExists ( const std::string parameterName ) const
 			{
 			
 				if ( ! this->getParameterExists(parameterName) )
@@ -185,13 +178,13 @@ namespace omoba
 	
 
 	
-	template <typename ParameterValueType>
+	template <typename ParameterKey,typename ParameterValue>
 	class IConfigurable
 	{
 	
 		public:
 		
-			IConfiguration<ParameterValueType>&		getConfiguration ( void )
+			IConfiguration<ParameterKey,ParameterValue>&		getConfiguration ( void )
 			{
 			
 				return this->configuration;
@@ -199,37 +192,10 @@ namespace omoba
 			}
 		
 		private:
-			IConfiguration<ParameterValueType>		configuration;
+			IConfiguration<ParameterKey,ParameterValue>			configuration;
 	
 	};
 	
 
-	
-	typedef std::pair<std::string,float>	Parameter;
-
-
-	
-	class Configuration
-		:
-			private std::map<std::string,float>
-	{
-
-		public:
-
-			bool			getParameterExists ( const std::string parameterName );
-			
-			QVariant		getParameterValue ( const std::string parameterName ) const;
-
-			void			setParameterValue ( const std::string parameterName , const float parameterValue );
-			
-			void			deleteParameter ( const std::string parameterName );
-			
-			class			ExcUndefinedParameterCalled { };
-			
-		private:
-
-			void 			checkParameterExists ( const int attributeId ) const;
-			
-	};
 
 };
