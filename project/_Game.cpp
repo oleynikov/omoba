@@ -1,4 +1,6 @@
 #include "_Game.h"
+#include "src/omoba/Sprite/SpriteDataProvider.h"
+
 
 using namespace omoba;
 
@@ -14,7 +16,7 @@ using namespace omoba;
 						cursor				( NULL ),
 						groundController	( NULL )
 {
-
+						
 }
 
 				Game::~Game(void)

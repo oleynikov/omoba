@@ -1,13 +1,12 @@
 #pragma once
 
 #include <string>
+#include <fstream>
 
 
 
 namespace omoba
 {
-
-
 
 	class ISpriteDataProvider
 	{
@@ -18,8 +17,6 @@ namespace omoba
 			
 	};
 
-
-	
 	class SpriteDataProviderFromFile
 		:
 			public ISpriteDataProvider
@@ -30,7 +27,5 @@ namespace omoba
 			virtual std::string		getSpriteData ( const std::string& spriteName );
 	
 	};
-	
-	
 
 };

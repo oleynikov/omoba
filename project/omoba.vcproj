@@ -232,6 +232,18 @@
 				RelativePath=".\Sprite.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\src\omoba\Sprite\SpriteDataProvider.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\o__O\String\String.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\OgreExtensions\Vector3\Vector3.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -292,6 +304,18 @@
 			</File>
 			<File
 				RelativePath=".\Sprite.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\omoba\Sprite\SpriteDataProvider.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\o__O\String\String.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\OgreExtensions\Vector3\Vector3.h"
 				>
 			</File>
 		</Filter>
