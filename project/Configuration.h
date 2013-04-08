@@ -190,6 +190,13 @@ c++11
 				return this->configuration;
 			
 			}
+			
+			void												setConfiguration ( const IConfiguration<ParameterKey,ParameterValue>& configuration )
+			{
+			
+				this->configuration = configuration;
+			
+			}
 		
 		private:
 			IConfiguration<ParameterKey,ParameterValue>			configuration;
