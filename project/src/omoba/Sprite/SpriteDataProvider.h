@@ -1,14 +1,16 @@
 #pragma once
 
 #include <string>
-#include <fstream>
+#include "../../o__O/FileManager/FileManager.h"
 
 
 
 namespace omoba
 {
 
-	class ISpriteDataProvider
+
+
+	class ASpriteDataProvider
 	{
 	
 		public:
@@ -17,9 +19,11 @@ namespace omoba
 			
 	};
 
+	
+	
 	class SpriteDataProviderFromFile
 		:
-			public ISpriteDataProvider
+			public ASpriteDataProvider
 	{
 	
 		public:
@@ -28,4 +32,6 @@ namespace omoba
 	
 	};
 
+	
+	
 };

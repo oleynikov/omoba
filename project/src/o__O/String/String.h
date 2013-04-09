@@ -2,10 +2,16 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <stdlib.h>
+#include <stdio.h>
+
+
 
 namespace o__O
 {
-    
+ 
+
+ 
     class String
     {
     
@@ -22,6 +28,10 @@ namespace o__O
             String&                 operator= ( const std::string& stdString );
             
             std::string&            getStdString ( void );
+			
+			float					getFloat ( void );
+			
+			int						getInt ( void );
         
             std::vector<String>     split ( char delimiter );
             
@@ -30,5 +40,7 @@ namespace o__O
             std::string             string;
         
     };
-    
+	
+	
+	
 };

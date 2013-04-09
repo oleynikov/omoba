@@ -1,5 +1,8 @@
 #pragma once
 
+#include <string>
+#include "SpriteDataProvider.h"
+#include "SpriteDataParser.h"
 #include "Sprite.h"
 
 
@@ -7,21 +10,40 @@
 namespace omoba
 {
 
-	class SpriteFactory
+
+
+	class ASpriteFactory
 	{
 	
 		public:
 		
-			Sprite& makeSprite ( const std::string& spriteName );
+			virtual Sprite&			makeSprite ( const std::string& spriteName ) = 0;
+			
+	};
+	
+
+
+	class SpriteFactory
+		:
+			public ASpriteFactory
+	{
+	
+		public:
+		
+									SpriteFactory ( const ASpriteDataProvider& spriteDataProvider , const ASpriteDataParser& spriteDataParser , const Ogre::SceneManager& sceneManager );
+		
+			virtual Sprite&			makeSprite ( const std::string& spriteName );
 	
 		private:
+
+			ASpriteDataProvider&	spriteDataProvider;
 		
-			SpriteDataProvider*		spriteDataProvider;
+			ASpriteDataParser&		spriteDataParser;
 			
-			SpriteDataParser*		spriteDataParser;
-			
-			Ogre::SceneManager*		sceneManager;
+			Ogre::SceneManager&		sceneManager;
 	
 	};
+	
+	
 
 };

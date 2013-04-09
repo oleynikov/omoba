@@ -47,6 +47,20 @@ std::string&			String::getStdString ( void )
 	
 }
 
+float					String::getFloat ( void )
+{
+
+	return atof(this->string.data());
+	
+}
+
+int						String::getInt ( void )
+{
+
+	return strtod(this->string.data(),NULL);
+	
+}
+
 std::vector<String>		String::split ( char delimiter )
 {
 	

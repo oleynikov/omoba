@@ -4,20 +4,40 @@ using namespace omoba;
 
 
 
+				SpriteFactory::SpriteFactory ( const ASpriteDataProvider& spriteDataProvider , const ASpriteDataParser& spriteDataParser , const Ogre::SceneManager& sceneManager )
+					:
+						spriteDataProvider	( spriteDataProvider ),
+						spriteDataParser	( spriteDataParser ),
+						sceneManager		( sceneManager )
+{
+
+}
+
 Sprite&			SpriteFactory::makeSprite ( const std::string& spriteName )
 {
 
-	//	Getting the sprite data and populating data parser with it
-	std::string spriteData = this->spriteDataProvider->getSpriteData(spriteName);
-	this->spriteDataParser->setSpriteData(spriteData);
-
-	//	Getting sprite's mesh file and constructing the object
-	std::string spriteMeshFile = this->spriteDataParser->getSpriteMeshFile();
-	Sprite* sprite = new Sprite(*this->sceneManager,spriteMeshFile);
+	//	Getting sprite data from data provider
+	std::string spriteData = this->spriteDataProvider.getSpriteData(spriteName);
 	
-	//	Setting sprite view direction
-	Ogre::Vector3 spriteViewDirection = this->spriteDataParser()->getSpriteViewDirection();
+	//	Populating data parser with sprite data
+	this->spriteDataParser.setSpriteData(spriteData);
+
+	//	Getting sprite's mesh file from data parser and constructing the sprite
+	std::string spriteMeshFile = this->spriteDataParser.getSpriteMeshFile();
+	Sprite* sprite = new Sprite(this->sceneManager,spriteMeshFile);
+	
+	//	Getting and setting sprite view direction
+	Ogre::Vector3 spriteViewDirection = this->spriteDataParser->getSpriteViewDirection();
 	sprite->setNodeViewDirection(spriteViewDirection);
+
+	//	^ ok
+
+
+
+
+
+
+
 	
 	//	Setting sprite configuration
 	sprite->setConfiguration(this->spriteDataParser->getSpriteParameters());
