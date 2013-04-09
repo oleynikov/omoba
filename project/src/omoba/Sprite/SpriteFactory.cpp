@@ -4,11 +4,18 @@ using namespace omoba;
 
 
 
-				SpriteFactory::SpriteFactory ( const ASpriteDataProvider& spriteDataProvider , const ASpriteDataParser& spriteDataParser , const Ogre::SceneManager& sceneManager )
-					:
-						spriteDataProvider	( spriteDataProvider ),
-						spriteDataParser	( spriteDataParser ),
-						sceneManager		( sceneManager )
+				SpriteFactory::SpriteFactory
+				(
+					const ASpriteDataProvider&		spriteDataProvider,
+					const ASpriteDataParser&		spriteDataParser,
+					const ASpriteParameterFactory&	spriteParameterFactory
+					const Ogre::SceneManager&		sceneManager
+				)
+				:
+					spriteDataProvider				( spriteDataProvider ),
+					spriteDataParser				( spriteDataParser ),
+					spriteParameterFactory			( spriteParameterFactory),
+					sceneManager					( sceneManager )
 {
 
 }
@@ -26,33 +33,44 @@ Sprite&			SpriteFactory::makeSprite ( const std::string& spriteName )
 	std::string spriteMeshFile = this->spriteDataParser.getSpriteMeshFile();
 	Sprite* sprite = new Sprite(this->sceneManager,spriteMeshFile);
 	
+	//	Configuring sprite
+	this->configureSprite(sprite);
+	
+	//	Configuring sprite parameters
+	this->configureSpriteParameters(sprite);
+	
+	return *sprite;
+	
+}
+
+void			SpriteFactory::configureSprite ( Sprite& sprite )
+{
+
 	//	Getting and setting sprite view direction
 	Ogre::Vector3 spriteViewDirection = this->spriteDataParser->getSpriteViewDirection();
 	sprite->setNodeViewDirection(spriteViewDirection);
 
-	//	^ ok
+}
 
+void			SpriteFactory::configureSpriteParameters ( Sprite& sprite )
+{
 
+	//	SpriteParameter object
+	SpriteParameter spriteParameter;
 
-
-
-
-
+	//	SpriteParameterId
+	SpriteParameterId spriteParameterId = 0;
 	
-	//	Setting sprite configuration
-	sprite->setConfiguration(this->spriteDataParser->getSpriteParameters());
-
-
-
-/*
-	//	Configuring sprite animation
-	sprite->setAnimationName("Walk");
-	sprite->setAnimationEnabled(true);
-
-	this->root->addFrameListener ( robot );
-	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *robot );
-	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *robot );
-	this->groundController->registerEventListener ( GROUND_EVENT_DESTINATION_SELECTED , *robot );
-	*/
+	//	Constructing all parameters
+	for ( ; spriteParameterId < SPRITE_PARAMETER_COUNT ; spriteParameterId++ )
+	{
+	
+		spriteParameter = this->spriteParameterFactory.makeSpriteParameter(spriteParameterId);
+		spriteParameter.valueCurrent = this->spriteDataParser.getSpriteParameterValueInitial(spriteParameterId);
+		spriteParameter.valuewGrowthPerLevel = this->spriteDataParser.getSpriteParameterValueGrowthPerLevel(spriteParameterId);
+	
+	}
+	
+	this->sprite.addParameter(spriteParameter);
 
 }

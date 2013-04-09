@@ -35,6 +35,10 @@ namespace omoba
 			virtual Sprite&			makeSprite ( const std::string& spriteName );
 	
 		private:
+		
+			void					configureSprite ( Sprite& sprite );
+			
+			void					configureSpriteParameters ( Sprite& sprite );
 
 			ASpriteDataProvider&	spriteDataProvider;
 		

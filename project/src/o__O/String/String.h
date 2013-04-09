@@ -27,11 +27,11 @@ namespace o__O
         
             String&                 operator= ( const std::string& stdString );
             
-            std::string&            getStdString ( void );
+            std::string&            toStdString ( void );
 			
-			float					getFloat ( void );
+			float					toFloat ( void );
 			
-			int						getInt ( void );
+			int						toInt ( void );
         
             std::vector<String>     split ( char delimiter );
             

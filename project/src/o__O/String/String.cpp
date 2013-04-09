@@ -40,21 +40,21 @@ String&					String::operator= ( const std::string& stdString )
 	
 }
 
-std::string&			String::getStdString ( void )
+std::string&			String::toStdString ( void )
 {
 	
 	return this->string;
 	
 }
 
-float					String::getFloat ( void )
+float					String::toFloat ( void )
 {
 
 	return atof(this->string.data());
 	
 }
 
-int						String::getInt ( void )
+int						String::toInt ( void )
 {
 
 	return strtod(this->string.data(),NULL);
