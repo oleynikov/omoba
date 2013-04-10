@@ -24,14 +24,14 @@ namespace omoba
 	
 	
 	
-	class ASpriteDataParser
+	class ASpriteDataProvider
 	{
 	
 		public:
 		
-																ASpriteDataParser ( void );
+																ASpriteDataProvider ( void );
 		
-																ASpriteDataParser ( const std::string& spriteData );
+																ASpriteDataProvider ( const std::string& spriteData );
 		
 			void												setSpriteData ( const std::string& spriteData );
 			
@@ -40,10 +40,8 @@ namespace omoba
 			virtual std::string									getSpriteMeshFile ( void ) const = 0;
 			
 			virtual std::string									getSpriteViewDirection ( void ) const = 0;
-
-			virtual float										getSpriteParameterValueInitial ( const SpriteParameterId spriteParameterId ) const = 0;
 			
-			virtual float										getSpriteParameterValueGrowth ( const SpriteParameterId spriteParameterId ) const = 0;
+			virtual SpriteParameter								getSpriteParameter ( const SpriteParameterId spriteParameterId ) const = 0;
 			
 			struct												ExcSpriteDataParsingFailed
 			{
@@ -84,9 +82,7 @@ namespace omoba
 			
 			virtual std::string									getSpriteViewDirection ( void ) const;
 			
-			virtual float										getSpriteParameterValueInitial ( const SpriteParameterId spriteParameterId ) const;
-			
-			virtual float										getSpriteParameterValueGrowth ( const SpriteParameterId spriteParameterId ) const;
+			virtual SpriteParameter								getSpriteParameter ( const SpriteParameterId spriteParameterId ) const;
 			
 		private:
 		
@@ -104,7 +100,7 @@ namespace omoba
 			
 			Ogre::Vector3										spriteViewDirection;
 			
-			std::map<SpriteParameterId,float[2]>				spriteParameters;
+			std::map<SpriteParameterId,SpriteParameter>			spriteParameters;
 			
 	};
 

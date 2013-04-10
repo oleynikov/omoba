@@ -17,28 +17,28 @@ using namespace omoba;
 
 
 
-//	ASpriteDataParser
+//	ASpriteDataProvider
 
-												ASpriteDataParser::ASpriteDataParser ( void )
+												ASpriteDataProvider::ASpriteDataProvider ( void )
 {
 
 }
 
-												ASpriteDataParser::ASpriteDataParser ( const std::string& spriteData )
+												ASpriteDataProvider::ASpriteDataProvider ( const std::string& spriteData )
 													:
 														spriteData(spriteData)
 {
 	
 }
 
-void											ASpriteDataParser::setSpriteData ( const std::string& spriteData )
+void											ASpriteDataProvider::setSpriteData ( const std::string& spriteData )
 {
 
 	this->spriteData = spriteData;
 
 }
 
-void											ASpriteDataParser::parseSpriteData ( void )
+void											ASpriteDataProvider::parseSpriteData ( void )
 {
 
 }
@@ -54,7 +54,7 @@ void											ASpriteDataParser::parseSpriteData ( void )
 
 												SpriteDataParserXml::SpriteDataParserXml ( const std::string& spriteData )
 													:
-														ASpriteDataParser(spriteData)
+														ASpriteDataProvider(spriteData)
 {
 
 }
@@ -96,31 +96,18 @@ Ogre::Vector3									SpriteDataParserXml::getSpriteViewDirection ( void ) const
 
 }
 
-float											SpriteDataParserXml::getSpriteParameterValueInitial ( const SpriteParameterId spriteParameterId ) const
+SpriteParameter									SpriteDataParserXml::getSpriteParameter ( const SpriteParameterId spriteParameterId ) const
 {
 
-	//	Looking for a parameter
-	std::map<SpriteParameterId,float[2]>::iterator spriteParameterItr;
+	//	Looking for a requested parameter
+	std::map<SpriteParameterId,SpriteParameter>::iterator spriteParameterItr;
 	spriteParameterItr = this->spriteParameters.find(spriteParameterId);
 	
+	//	Requested parameter is not defined
 	if ( spriteParameterItr == this->spriteParameters )
-		throw ExcSpriteParameterNotFound();
+		throw ExcSpriteParameterUndefined { spriteParameterId };
 
-	return spriteParameterItr.second[0];
-	
-}
-			
-float											SpriteDataParserXml::getSpriteParameterValueGrowth ( const SpriteParameterId spriteParameterId ) const
-{
-
-	//	Looking for a parameter
-	std::map<SpriteParameterId,float[2]>::iterator spriteParameterItr;
-	spriteParameterItr = this->spriteParameters.find(spriteParameterId);
-	
-	if ( spriteParameterItr == this->spriteParameters )
-		throw ExcSpriteParameterNotFound();
-
-	return spriteParameterItr.second[1];
+	return spriteParameterItr->second;
 
 }
 
@@ -197,33 +184,48 @@ void											SpriteDataParserXml::parseSpriteParameters ( void )
 {
 
 	//	Create empty map of parameters
-	std::map<SpriteParameterId,float[2]> spriteParameters;
+	std::map<SpriteParameterId,SpriteParameter> spriteParameters;
 
 	//	Retrieving parameters xml node
 	TiXmlNode* parametersXmlNode = this->spriteDataXml.RootElement()->FirstChild("PARAMETERS");
 
-	//	Error occured while parsing
+	//	No PARAMETERS node found in the XML document
 	if ( ! parametersXmlNode )
-		throw ExcParsingError();
+		throw ExcSpriteDataParsingFailed { SPRITE_DATA_COMPONENT_PARAMETERS };
 	
 	//	Iterating through all parameter elements
 	TiXmlNode* parametersXmlNodeChild = NULL;
 	while ( parametersXmlNodeChild = parametersXmlNode->IterateChildren(parametersXmlNodeChild) )
 	{
 
-		//	Getting parameter data
+		//	Gett parameter data
 		o__O::String parameterIdString = parametersXmlNodeChild->Attribute("ID");
 		o__O::String parameterValueInitialString = parametersXmlNodeChild->Attribute("VALUE_INITIAL");
-		o__O::String parameterValueGrowthPerLevelString = parametersXmlNodeChild->Attribute("VALUE_GROWTH_PER_LEVEL");
+		o__O::String parameterValueGrowthString = parametersXmlNodeChild->Attribute("VALUE_GROWTH");
+		
+		//	Check if parameter is defined correctly
+		if
+		(
+			parameterIdString.getStdString().empty()
+				||
+			parameterValueInitialString.getStdString().empty()
+				||
+			parameterValueGrowthString.getStdString().empty()
+		)
+		{
+		
+			throw ExcSpriteDataParsingFailed { SPRITE_DATA_COMPONENT_PARAMETERS };
+		
+		}
 
-		//	Converting parameter data to appropriate format
+		//	Converting parameter data to appropriate data types
 		SpriteParameterId parameterId = static_cast<SpriteParameterId>(parameterIdString.toInt());
 		float parameterValueInitial = parameterValueInitialString.toFloat();
-		float parameterValueGrowthPerLevel = parameterValueGrowthPerLevelString.toFloat();
-		float parameterData[2] = { parameterValueInitial , parameterValueGrowthPerLevel };
+		float parameterValueGrowth = parameterValueGrowthString.toFloat();
+		SpriteParameter parameter { parameterValueInitial , parameterValueGrowth };
 
 		//	Saving parameter data
-		spriteParameters.insert(std::pair<SpriteParameterId,float[2]>(parameterId,parameterData);
+		spriteParameters.insert(std::pair<SpriteParameterId,SpriteParameter>(parameterId,parameter);
 
 	}
 	
