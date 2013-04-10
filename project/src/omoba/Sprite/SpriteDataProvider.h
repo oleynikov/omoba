@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "SpriteDataFileLocator.h"
 #include "../../o__O/FileManager/FileManager.h"
 
 
@@ -15,7 +16,7 @@ namespace omoba
 	
 		public:
 		
-			virtual std::string		getSpriteData ( const std::string& spriteName ) = 0;
+			virtual std::string			getSpriteData ( const std::string& spriteName ) = 0;
 			
 	};
 
@@ -28,10 +29,16 @@ namespace omoba
 	
 		public:
 		
-			virtual std::string		getSpriteData ( const std::string& spriteName );
+										SpriteDataProviderFromFile ( const ASpriteDataFileLocator& spriteDataFileLocator );
+		
+			virtual std::string			getSpriteData ( const std::string& spriteName );
+			
+		private:
+		
+			ASpriteDataFileLocator&		spriteDataFileLocator;
 	
 	};
-
+	
 	
 	
 };

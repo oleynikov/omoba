@@ -6,6 +6,17 @@ using namespace omoba;
 
 
 
+//	ExcSpriteDataParsingError
+
+												ExcSpriteDataParsingError::ExcSpriteDataParsingError ( const SpriteDataComponent spriteDataComponent )
+													:
+														spriteDataComponent(spriteDataComponent)
+{
+
+}
+
+
+
 //	ASpriteDataParser
 
 												ASpriteDataParser::ASpriteDataParser ( void )
@@ -14,9 +25,9 @@ using namespace omoba;
 }
 
 												ASpriteDataParser::ASpriteDataParser ( const std::string& spriteData )
+													:
+														spriteData(spriteData)
 {
-
-	this->setSpriteData(spriteData);
 	
 }
 
@@ -24,7 +35,6 @@ void											ASpriteDataParser::setSpriteData ( const std::string& spriteData 
 {
 
 	this->spriteData = spriteData;
-	this->parseSpriteData();
 
 }
 
@@ -52,12 +62,10 @@ void											ASpriteDataParser::parseSpriteData ( void )
 void											SpriteDataParserXml::parseSpriteData ( void )
 {
 
-	//	Delete parsed data
-	this->spriteMeshFile.clear();
-	this->spriteViewDirection = Ogre::Vector3::ZERO;
-	this->spriteParameters.clear();
+	//	Deleting previously parsed data
+	this->clearParsedData();
 
-	// Creating XML document of sprite data
+	// Creating XML document of the raw sprite data
 	this->spriteDataXml.Parse
 	(
 		this->spriteData.data(),
@@ -67,7 +75,9 @@ void											SpriteDataParserXml::parseSpriteData ( void )
 	
 	//	Parsing XML sprite data
 	this->parseSpriteMeshFile();
+	
 	this->parseSpriteViewDirection();
+	
 	this->parseSpriteParameters();
 
 }
@@ -100,7 +110,7 @@ float											SpriteDataParserXml::getSpriteParameterValueInitial ( const Spri
 	
 }
 			
-float											SpriteDataParserXml::getSpriteParameterValueGrowthPerLevel ( const SpriteParameterId spriteParameterId ) const
+float											SpriteDataParserXml::getSpriteParameterValueGrowth ( const SpriteParameterId spriteParameterId ) const
 {
 
 	//	Looking for a parameter
@@ -114,16 +124,37 @@ float											SpriteDataParserXml::getSpriteParameterValueGrowthPerLevel ( con
 
 }
 
+void											SpriteDataParserXml::clearParsedData ( void )
+{
+
+	//	Truncating previously parsed data
+	
+	this->spriteMeshFile.clear();
+	
+	this->spriteViewDirection = Ogre::Vector3::ZERO;
+	
+	this->spriteParameters.clear();
+
+}
+
 void											SpriteDataParserXml::parseSpriteMeshFile ( void )
 {
 
 	TiXmlElement* meshFileXmlElement = this->spriteDataXml.RootElement()->FirstChildElement("MESH_FILE");
 
-	//	Error occured while parsing
+	//	Requested XML element not found in the document
 	if ( ! meshFileXmlElement )
-		throw ExcSpriteDataParsingError();
-
-	this->spriteMeshFile = meshFileXmlElement->GetText();
+		throw ExcSpriteDataParsingFailed { SPRITE_DATA_COMPONENT_MESH_FILE };
+		
+	//	Retrieve sprite mesh file from the node
+	std::string spriteMeshFile = meshFileXmlElement->GetText();
+	
+	//	Sprite mesh file is not specified
+	if ( spriteMeshFile.empty() )
+		throw ExcSpriteDataParsingFailed { SPRITE_DATA_COMPONENT_MESH_FILE };
+	
+	//	Sprite mesh file successfully found
+	this->spriteMeshFile = spriteMeshFile;
 
 }
 
@@ -132,23 +163,40 @@ void											SpriteDataParserXml::parseSpriteViewDirection ( void )
 
 	TiXmlElement* viewDirectionXmlElement = this->spriteDataXml.RootElement()->FirstChildElement("VIEW_DIRECTION");
 
-	//	Error occured while parsing
+	//	Requested XML element not found in the document
 	if ( ! viewDirectionXmlElement )
-		throw ExcSpriteDataParsingError();
-	
+		throw ExcSpriteDataParsingFailed { SPRITE_DATA_COMPONENT_VIEW_DIRECTION };
+
 	//	String representation of the view-direction vector
-	char* viewDirectionString = viewDirectionXmlElement->GetText();
+	std::string viewDirectionString = viewDirectionXmlElement->GetText();
 	
-	//	Ogre representation of the view-direction vector
-	//	';' character used as a delimiter of the vector components
-	this->spriteViewDirection = OgreExtensions::Vector3(viewDirectionString,';');
+	//	View direction vector is not specified
+	if ( viewDirectionString.empty() )
+		throw ExcSpriteDataParsingFailed { SPRITE_DATA_COMPONENT_VIEW_DIRECTION };
+	
+	//	Trying to convert a string representation of the vector to an Ogre representation
+	try
+	{
+
+		//	';' character used as a delimiter of the vector components
+		this->spriteViewDirection = OgreExtensions::Vector3(viewDirectionString,';');
+	
+	}
+	
+	//	String from the data file could not be converted to a vector
+	catch ( OgreExtensions::Vector3::ExcStringToVectorConvertionError exception )
+	{
+	
+		throw ExcSpriteDataParsingFailed { SPRITE_DATA_COMPONENT_VIEW_DIRECTION };
+	
+	}
 
 }
 
 void											SpriteDataParserXml::parseSpriteParameters ( void )
 {
 
-	//	Constructing parameters map
+	//	Create empty map of parameters
 	std::map<SpriteParameterId,float[2]> spriteParameters;
 
 	//	Retrieving parameters xml node

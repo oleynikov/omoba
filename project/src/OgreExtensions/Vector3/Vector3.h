@@ -15,7 +15,9 @@ namespace OgreExtensions
 
 		public:
 		
-			Vector3 ( const std::string coordinates , const char delimiter = ';' );
+							Vector3 ( const std::string coordinates , const char delimiter = ';' );
+			
+			class			ExcStringToVectorConvertionError { };
 			
 	};
 	

@@ -25,6 +25,36 @@ namespace omoba
 	
 	
 	
+	struct SpriteParameter
+	{
+	
+		const float		valueGrowth;
+		
+		float			valueCurrent;
+	
+	};
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	struct SpriteParameterData
 	{
 	

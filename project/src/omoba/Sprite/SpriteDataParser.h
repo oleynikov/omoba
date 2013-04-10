@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include "../../OgreExtensions/Vector3/Vector3.h"
 #include "../../tinyxml/tinyxml.h"
 
@@ -10,6 +11,19 @@ namespace omoba
 
 
 
+	enum SpriteDataComponent
+	{
+	
+		SPRITE_DATA_COMPONENT_MESH_FILE,
+		
+		SPRITE_DATA_COMPONENT_VIEW_DIRECTION,
+		
+		SPRITE_DATA_COMPONENT_PARAMETERS
+	
+	}
+	
+	
+	
 	class ASpriteDataParser
 	{
 	
@@ -29,11 +43,21 @@ namespace omoba
 
 			virtual float										getSpriteParameterValueInitial ( const SpriteParameterId spriteParameterId ) const = 0;
 			
-			virtual float										getSpriteParameterValueGrowthPerLevel ( const SpriteParameterId spriteParameterId ) const = 0;
+			virtual float										getSpriteParameterValueGrowth ( const SpriteParameterId spriteParameterId ) const = 0;
 			
-			class												ExcSpriteDataParsingError { };
+			struct												ExcSpriteDataParsingFailed
+			{
 			
-			class												ExcSpriteParameterNotFound { };
+				SpriteDataComponent								spriteDataComponent;
+			
+			};
+	
+			struct												ExcSpriteParameterUndefined
+			{
+				
+				SpriteParameterId								spriteParameterId;
+			
+			};
 			
 		private:
 		
@@ -62,9 +86,11 @@ namespace omoba
 			
 			virtual float										getSpriteParameterValueInitial ( const SpriteParameterId spriteParameterId ) const;
 			
-			virtual float										getSpriteParameterValueGrowthPerLevel ( const SpriteParameterId spriteParameterId ) const;
+			virtual float										getSpriteParameterValueGrowth ( const SpriteParameterId spriteParameterId ) const;
 			
 		private:
+		
+			void												clearParsedData ( void );
 		
 			void												parseSpriteMeshFile ( void );
 			

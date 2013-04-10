@@ -4,15 +4,22 @@ using namespace omoba;
 
 
 
-std::string SpriteDataProviderFromFile::getSpriteData ( const std::string& spriteName )
+				SpriteDataProviderFromFile ( const ASpriteDataFileLocator& spriteDataFileLocator )
+					:
+						spriteDataFileLocator(spriteDataFileLocator)
 {
 
-	//	Sprite file name
-	std::string spriteFile = "../../assets/sprites/" + spriteName + ".sprite";
+}
+
+std::string		SpriteDataProviderFromFile::getSpriteData ( const std::string& spriteName )
+{
+
+	//	Asking a file locator for a location of a data file
+	std::string spriteDataFilePath = this->spriteDataFileLocator.getSpriteData(spriteName);
+
+	//	Getting sprite data file content
+	std::string spriteDataFileContent = o__O::FileManager::getFileData(spriteDataFilePath);
 	
-	//	Getting sprite file data
-	std::string spriteFileData = o__O::FileManager::getFileData(spriteFile);
-	
-	return spriteFileData;
+	return spriteDataFileContent;
 	
 };
