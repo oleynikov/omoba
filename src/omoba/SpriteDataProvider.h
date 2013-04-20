@@ -5,6 +5,7 @@
 #include "../OgreExtensions/Vector3/Vector3.h"
 #include "../tinyxml/tinyxml.h"
 #include "SpriteParameter.h"
+#include "SpriteDataGetter.h"
 
 
 
@@ -31,19 +32,11 @@ namespace omoba
 	
 		public:
 		
-																ASpriteDataProvider ( void );
-		
-																ASpriteDataProvider ( const std::string& spriteData );
-		
-			void												setSpriteData ( const std::string& spriteData );
+			virtual std::string									getSpriteMeshFile ( const std::string& spriteName ) = 0;
 			
-			virtual void										parseSpriteData ( void );
-		
-			virtual std::string									getSpriteMeshFile ( void ) const = 0;
+			virtual Ogre::Vector3								getSpriteViewDirection ( const std::string& spriteName ) = 0;
 			
-			virtual Ogre::Vector3								getSpriteViewDirection ( void ) const = 0;
-			
-			virtual SpriteParameter								getSpriteParameter ( const SpriteParameterId spriteParameterId ) const = 0;
+			virtual SpriteParameter								getSpriteParameter ( const std::string& spriteName , const SpriteParameterId spriteParameterId ) = 0;
 			
 			struct												ExcSpriteDataParsingFailed
 			{
@@ -64,34 +57,33 @@ namespace omoba
 			};
 			
 		protected:
-		
-			std::string											spriteData;
+
 			
 	};
 
 
 
-	class SpriteDataParserXml
+	class SpriteDataProviderXml
 		:
 			public ASpriteDataProvider
 	{
 	
 		public:
 	
-																SpriteDataParserXml ( void );
-		
-																SpriteDataParserXml ( const std::string& spriteData );
-																
-			virtual void										parseSpriteData ( void );
+																SpriteDataProviderXml ( ASpriteDataGetter& spriteDataGetter );
 
-			virtual std::string									getSpriteMeshFile ( void ) const;
+			virtual std::string									getSpriteMeshFile ( const std::string& spriteName  );
 			
-			virtual Ogre::Vector3								getSpriteViewDirection ( void ) const;
+			virtual Ogre::Vector3								getSpriteViewDirection ( const std::string& spriteName );
 			
-			virtual SpriteParameter								getSpriteParameter ( const SpriteParameterId spriteParameterId ) const;
+			virtual SpriteParameter								getSpriteParameter ( const std::string& spriteName , const SpriteParameterId spriteParameterId );
 			
 		private:
-		
+
+			void												updateSpriteData ( const std::string& spriteName );
+
+			virtual void										parseSpriteData ( void );
+
 			void												clearParsedData ( void );
 		
 			void												parseSpriteMeshFile ( void );
@@ -99,6 +91,10 @@ namespace omoba
 			void												parseSpriteViewDirection ( void );
 			
 			void												parseSpriteParameters ( void );
+		
+			ASpriteDataGetter&									spriteDataGetter;
+
+			std::string											spriteName;
 		
 			TiXmlDocument										spriteDataXml;
 			

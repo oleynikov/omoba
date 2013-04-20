@@ -15,6 +15,8 @@
 #include "Cameraman.h"
 #include "Cursor.h"
 #include "Sprite.h"
+#include "SpriteFactory.h"
+#include "../o__O/FileManager/FilePathFactory.h"
 
 
 

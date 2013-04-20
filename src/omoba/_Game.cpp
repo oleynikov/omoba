@@ -209,8 +209,17 @@ void			Game::createScene(void)
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *this->groundController );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *this->groundController );
 
+
+
+	//	Creating a sprite factory
+	o__O::AFilePathFactory&		spriteFilePathFactory = SpriteDataFileFactory();
+	ASpriteDataGetter&			spriteDataGetter = SpriteDataGetterFromFile(spriteFilePathFactory);
+	ASpriteDataProvider&		spriteDataProvider = SpriteDataProviderXml(spriteDataGetter);
+	ASpriteFactory&				spriteFactory = SpriteFactory(spriteDataProvider,*this->sceneManager);
+
 	// Create player
-	Sprite* robot = new Sprite ( *this->sceneManager , "robot.mesh" );
+	Sprite* robot = &(spriteFactory.makeSprite("robot"));
+	//Sprite* robot = new Sprite ( *this->sceneManager , "robot.mesh" );
 	this->root->addFrameListener ( robot );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *robot );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *robot );

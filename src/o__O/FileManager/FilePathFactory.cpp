@@ -16,7 +16,7 @@ using namespace o__O;
 
 std::string		FilePathFactoryByDirectoryAndExtention::makeFilePath ( const std::string& fileName ) const
 {
-	
+
 	//	Constructing full path to the file
 	return this->fileDirectory + "/" + fileName + "." + this->fileExtention;
 

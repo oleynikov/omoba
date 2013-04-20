@@ -3,7 +3,7 @@
 using namespace omoba;
 
 
-				SpriteFactory::SpriteFactory ( const ASpriteDataProvider& spriteDataProvider , Ogre::SceneManager& sceneManager )
+				SpriteFactory::SpriteFactory ( ASpriteDataProvider& spriteDataProvider , Ogre::SceneManager& sceneManager )
 				:
 					spriteDataProvider				( spriteDataProvider ),
 					sceneManager					( sceneManager )
@@ -15,42 +15,27 @@ Sprite&			SpriteFactory::makeSprite ( const std::string& spriteName )
 {
 
 	//	Getting sprite's mesh file from data provider and constructing the sprite
-	std::string spriteMeshFile = this->spriteDataProvider.getSpriteMeshFile();
+	std::string spriteMeshFile = this->spriteDataProvider.getSpriteMeshFile(spriteName);
 	Sprite* sprite = new Sprite(this->sceneManager,spriteMeshFile);
 	
-	//	Configuring sprite
-	this->configureSprite(*sprite);
-	
-	//	Configuring sprite parameters
-	this->configureSpriteParameters(*sprite);
-	
-	return *sprite;
-	
-}
-
-void			SpriteFactory::configureSprite ( Sprite& sprite )
-{
-
 	//	Getting and setting sprite view direction
-	Ogre::Vector3 spriteViewDirection = this->spriteDataProvider.getSpriteViewDirection();
-	sprite.setNodeViewDirection(spriteViewDirection);
+	Ogre::Vector3 spriteViewDirection = this->spriteDataProvider.getSpriteViewDirection(spriteName);
+	sprite->setNodeViewDirection(spriteViewDirection);
 
-}
-
-void			SpriteFactory::configureSpriteParameters ( Sprite& sprite )
-{
-
+	//	Getting sprite parameters
 	for ( int spriteParameterIdInt ; spriteParameterIdInt < SPRITE_PARAMETER_COUNT ; spriteParameterIdInt++ )
 	{
 
 		SpriteParameterId  spriteParameterId = static_cast<SpriteParameterId>(spriteParameterIdInt);
 
 		//	Getting a parameter object from the data provider
-		SpriteParameter spriteParameter = this->spriteDataProvider.getSpriteParameter(spriteParameterId);
+		SpriteParameter spriteParameter = this->spriteDataProvider.getSpriteParameter(spriteName,spriteParameterId);
 
-		//	Adding parameter to a sprite
-		sprite.getParameters().setParameter(spriteParameterId,spriteParameter);
+		//	Adding parameter to a 
+		sprite->getParameters().setParameter(spriteParameterId,spriteParameter);
 			
 	}
-
+	
+	return *sprite;
+	
 }

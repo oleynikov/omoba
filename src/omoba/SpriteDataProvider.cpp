@@ -25,87 +25,38 @@ using namespace omoba;
 
 
 
-//	ASpriteDataProvider
-
-												ASpriteDataProvider::ASpriteDataProvider ( void )
-{
-
-}
-
-												ASpriteDataProvider::ASpriteDataProvider ( const std::string& spriteData )
+//	SpriteDataProviderXml
+												SpriteDataProviderXml::SpriteDataProviderXml ( ASpriteDataGetter& spriteDataGetter )
 													:
-														spriteData(spriteData)
+														spriteDataGetter(spriteDataGetter)
+{
+
+		
+
+}
+
+std::string										SpriteDataProviderXml::getSpriteMeshFile ( const std::string& spriteName )
 {
 	
-}
-
-void											ASpriteDataProvider::setSpriteData ( const std::string& spriteData )
-{
-
-	this->spriteData = spriteData;
-
-}
-
-void											ASpriteDataProvider::parseSpriteData ( void )
-{
-
-}
-
-
-
-//	SpriteDataParserXml
-
-												SpriteDataParserXml::SpriteDataParserXml ( void )
-{
-
-}
-
-												SpriteDataParserXml::SpriteDataParserXml ( const std::string& spriteData )
-													:
-														ASpriteDataProvider(spriteData)
-{
-
-}
-
-void											SpriteDataParserXml::parseSpriteData ( void )
-{
-
-	//	Deleting previously parsed data
-	this->clearParsedData();
-
-	// Creating XML document of the raw sprite data
-	this->spriteDataXml.Parse
-	(
-		this->spriteData.data(),
-		0,
-		TIXML_ENCODING_UTF8
-	);
-	
-	//	Parsing XML sprite data
-	this->parseSpriteMeshFile();
-	
-	this->parseSpriteViewDirection();
-	
-	this->parseSpriteParameters();
-
-}
-
-std::string										SpriteDataParserXml::getSpriteMeshFile ( void ) const
-{
+	this->updateSpriteData(spriteName);
 
 	return this->spriteMeshFile;
 	
 }
 
-Ogre::Vector3									SpriteDataParserXml::getSpriteViewDirection ( void ) const
+Ogre::Vector3									SpriteDataProviderXml::getSpriteViewDirection ( const std::string& spriteName )
 {
+
+	this->updateSpriteData(spriteName);
 
 	return this->spriteViewDirection;
 
 }
 
-SpriteParameter									SpriteDataParserXml::getSpriteParameter ( const SpriteParameterId spriteParameterId ) const
+SpriteParameter									SpriteDataProviderXml::getSpriteParameter ( const std::string& spriteName , const SpriteParameterId spriteParameterId )
 {
+
+	this->updateSpriteData(spriteName);
 
 	//	Looking for a requested parameter
 	std::map<SpriteParameterId,SpriteParameter>::const_iterator spriteParameterItr;
@@ -119,7 +70,39 @@ SpriteParameter									SpriteDataParserXml::getSpriteParameter ( const SpritePa
 
 }
 
-void											SpriteDataParserXml::clearParsedData ( void )
+void											SpriteDataProviderXml::updateSpriteData ( const std::string& spriteName )
+{
+
+	if ( this->spriteName == spriteName )
+		return;
+
+	//	Deleting previously parsed data
+	this->clearParsedData();
+
+	//	Getting new sprite data
+	std::string spriteData = this->spriteDataGetter.getSpriteData(spriteName);
+
+	// Creating XML document of the raw sprite data
+	this->spriteDataXml.Parse(spriteData.data(),0,TIXML_ENCODING_UTF8);
+
+	//	Parsing data
+	this->parseSpriteData();
+	
+}
+
+void											SpriteDataProviderXml::parseSpriteData ( void )
+{
+
+	//	Parsing XML sprite data
+	this->parseSpriteMeshFile();
+	
+	this->parseSpriteViewDirection();
+	
+	this->parseSpriteParameters();
+
+}
+
+void											SpriteDataProviderXml::clearParsedData ( void )
 {
 
 	//	Truncating previously parsed data
@@ -132,7 +115,7 @@ void											SpriteDataParserXml::clearParsedData ( void )
 
 }
 
-void											SpriteDataParserXml::parseSpriteMeshFile ( void )
+void											SpriteDataProviderXml::parseSpriteMeshFile ( void )
 {
 
 	TiXmlElement* meshFileXmlElement = this->spriteDataXml.RootElement()->FirstChildElement("MESH_FILE");
@@ -153,7 +136,7 @@ void											SpriteDataParserXml::parseSpriteMeshFile ( void )
 
 }
 
-void											SpriteDataParserXml::parseSpriteViewDirection ( void )
+void											SpriteDataProviderXml::parseSpriteViewDirection ( void )
 {
 
 	TiXmlElement* viewDirectionXmlElement = this->spriteDataXml.RootElement()->FirstChildElement("VIEW_DIRECTION");
@@ -188,14 +171,14 @@ void											SpriteDataParserXml::parseSpriteViewDirection ( void )
 
 }
 
-void											SpriteDataParserXml::parseSpriteParameters ( void )
+void											SpriteDataProviderXml::parseSpriteParameters ( void )
 {
 
 	//	Create empty map of parameters
 	std::map<SpriteParameterId,SpriteParameter> spriteParameters;
 
 	//	Retrieving parameters xml node
-	TiXmlNode* parametersXmlNode = this->spriteDataXml.RootElement()->FirstChild("PARAMETERS");
+	TiXmlElement* parametersXmlNode = this->spriteDataXml.RootElement()->FirstChildElement("PARAMETERS");
 
 	//	No PARAMETERS node found in the XML document
 	if ( ! parametersXmlNode )
