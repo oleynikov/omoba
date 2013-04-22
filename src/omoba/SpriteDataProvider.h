@@ -1,11 +1,12 @@
 #pragma once
 
 #include <string>
+#include "../o__O/Data/DataGetter.h"
 #include "../o__O/String/String.h"
 #include "../OgreExtensions/Vector3/Vector3.h"
 #include "../tinyxml/tinyxml.h"
 #include "SpriteParameter.h"
-#include "SpriteDataGetter.h"
+#include "SpriteAnimation.h"
 
 
 
@@ -21,7 +22,9 @@ namespace omoba
 		
 		SPRITE_DATA_COMPONENT_VIEW_DIRECTION,
 		
-		SPRITE_DATA_COMPONENT_PARAMETERS
+		SPRITE_DATA_COMPONENT_PARAMETERS,
+
+		SPRITE_DATA_COMPONENT_ANIMATIONS
 	
 	};
 	
@@ -38,6 +41,8 @@ namespace omoba
 			
 			virtual SpriteParameter								getSpriteParameter ( const std::string& spriteName , const SpriteParameterId spriteParameterId ) = 0;
 			
+			virtual SpriteAnimation								getSpritAnimation ( const std::string& spriteName , const SpriteAnimationId spriteAnimationId ) = 0;
+
 			struct												ExcSpriteDataParsingFailed
 			{
 
@@ -56,6 +61,15 @@ namespace omoba
 			
 			};
 			
+			struct												ExcSpriteAnimationUndefined
+			{
+
+																ExcSpriteAnimationUndefined ( const SpriteAnimationId spriteAnimationId );
+				
+				SpriteAnimationId								spriteAnimationId;
+			
+			};
+
 		protected:
 
 			
@@ -70,7 +84,7 @@ namespace omoba
 	
 		public:
 	
-																SpriteDataProviderXml ( ASpriteDataGetter& spriteDataGetter );
+																SpriteDataProviderXml ( o__O::ADataGetter& spriteDataGetter );
 
 			virtual std::string									getSpriteMeshFile ( const std::string& spriteName  );
 			
@@ -78,6 +92,8 @@ namespace omoba
 			
 			virtual SpriteParameter								getSpriteParameter ( const std::string& spriteName , const SpriteParameterId spriteParameterId );
 			
+			virtual SpriteAnimation								getSpritAnimation ( const std::string& spriteName , const SpriteAnimationId spriteAnimationId );
+
 		private:
 
 			void												updateSpriteData ( const std::string& spriteName );
@@ -91,8 +107,10 @@ namespace omoba
 			void												parseSpriteViewDirection ( void );
 			
 			void												parseSpriteParameters ( void );
-		
-			ASpriteDataGetter&									spriteDataGetter;
+
+			void												parseSpriteAnimations ( void );
+
+			o__O::ADataGetter&									spriteDataGetter;
 
 			std::string											spriteName;
 		
@@ -103,6 +121,8 @@ namespace omoba
 			Ogre::Vector3										spriteViewDirection;
 			
 			std::map<SpriteParameterId,SpriteParameter>			spriteParameters;
+
+			std::map<SpriteAnimationId,SpriteAnimation>			spriteAnimations;
 			
 	};
 

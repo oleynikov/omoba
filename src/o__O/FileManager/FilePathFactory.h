@@ -39,6 +39,10 @@ namespace o__O
 			
 	};
 	
+
+
+	typedef FilePathFactoryByDirectoryAndExtention FilePathFactoryDefault;
 	
 	
+
 };

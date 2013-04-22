@@ -5,10 +5,10 @@ using namespace omoba;
 
 
 //	SpriteParameter
-					SpriteParameter::SpriteParameter ( const float valueGrowth , const float valueCurrent )
-	:
-		valueGrowth		( valueGrowth ),
-		valueCurrent	( valueCurrent )
+					SpriteParameter::SpriteParameter ( const float valueCurrent , const float valueGrowth )
+						:
+							valueCurrent	( valueCurrent ),
+							valueGrowth		( valueGrowth )
 {
 
 }

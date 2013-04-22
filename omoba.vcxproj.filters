@@ -69,9 +69,6 @@
     <ClInclude Include="src\omoba\Sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\omoba\SpriteDataGetter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\omoba\SpriteDataProvider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -85,6 +82,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\tinyxml\tinyxml.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\omoba\SpriteAnimation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\o__O\Data\DataGetter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -143,9 +146,6 @@
     <ClCompile Include="src\omoba\Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\omoba\SpriteDataGetter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\omoba\SpriteDataProvider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -168,6 +168,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\tinyxml\xmltest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\omoba\SpriteAnimation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\o__O\Data\DataGetter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

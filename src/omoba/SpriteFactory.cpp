@@ -23,7 +23,7 @@ Sprite&			SpriteFactory::makeSprite ( const std::string& spriteName )
 	sprite->setNodeViewDirection(spriteViewDirection);
 
 	//	Getting sprite parameters
-	for ( int spriteParameterIdInt ; spriteParameterIdInt < SPRITE_PARAMETER_COUNT ; spriteParameterIdInt++ )
+	for ( int spriteParameterIdInt = 0 ; spriteParameterIdInt < SPRITE_PARAMETER_COUNT ; spriteParameterIdInt++ )
 	{
 
 		SpriteParameterId  spriteParameterId = static_cast<SpriteParameterId>(spriteParameterIdInt);
@@ -33,9 +33,23 @@ Sprite&			SpriteFactory::makeSprite ( const std::string& spriteName )
 
 		//	Adding parameter to a 
 		sprite->getParameters().setParameter(spriteParameterId,spriteParameter);
-			
+		
 	}
-	
+
+	//	Get sprite animations
+	for ( int spriteAnimationIdInt = 0 ; spriteAnimationIdInt < SPRITE_ANIMATION_COUNT ; spriteAnimationIdInt++ )
+	{
+
+		SpriteAnimationId  spriteAnimationId = static_cast<SpriteAnimationId>(spriteAnimationIdInt);
+
+		//	Get an animation object from the data provider
+		SpriteAnimation spriteAnimation = this->spriteDataProvider.getSpritAnimation(spriteName,spriteAnimationId);
+
+		//	Add animation to an animation map
+		sprite->getAnimations().setParameter(spriteAnimationId,spriteAnimation);
+		
+	}
+
 	return *sprite;
 	
 }

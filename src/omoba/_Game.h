@@ -14,9 +14,13 @@
 #include "Ground.h"
 #include "Cameraman.h"
 #include "Cursor.h"
+
+
+#include "../o__O/FileManager/FilePathFactory.h"
+#include "../o__O/Data/DataGetter.h"
+
 #include "Sprite.h"
 #include "SpriteFactory.h"
-#include "../o__O/FileManager/FilePathFactory.h"
 
 
 

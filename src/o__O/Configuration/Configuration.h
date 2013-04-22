@@ -16,8 +16,8 @@ namespace o__O
 		public:
 		
 													IParameter ( ParameterValue& valueCurrent )
-										:
-											valueCurrent ( valueCurrent )
+														:
+															valueCurrent ( valueCurrent )
 			{
 			
 			}
@@ -102,7 +102,7 @@ namespace o__O
 	template <typename ParameterKey,typename ParameterValue>
 	class IConfiguration
 		:
-			private std::map<ParameterKey,IParameter<ParameterValue> >
+			public std::map<ParameterKey,IParameter<ParameterValue> >
 	{
 	
 		public:
@@ -111,7 +111,7 @@ namespace o__O
 		
 			bool									getParameterExists ( const ParameterKey& parameterId ) const
 			{
-			
+
 				return	this->find(parameterId) == this->end()
 							?
 						false
@@ -123,7 +123,7 @@ namespace o__O
 			IParameter<ParameterValue>&				getParameter ( const ParameterKey& parameterId )
 			{
 			
-				this->checkParameterExists();
+				this->checkParameterExists(parameterId);
 				
 				return this->find(parameterId)->second;
 				
@@ -147,7 +147,7 @@ namespace o__O
 				{
 
 					this->insert(std::pair<ParameterKey,IParameter<ParameterValue> >(parameterId,parameter));
-				
+
 				}
 				
 			}

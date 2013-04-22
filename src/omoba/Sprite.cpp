@@ -2,9 +2,12 @@
 
 using namespace omoba;
 
+
+
 const OIS::MouseButtonID	Sprite::mouseButtonSelect = OIS::MouseButtonID::MB_Left;
 
 const OIS::MouseButtonID	Sprite::mouseButtonSetTarget = OIS::MouseButtonID::MB_Right;
+
 
 
 				Sprite::Sprite ( Ogre::SceneManager& sceneManager , const Ogre::String& meshName )
@@ -13,12 +16,10 @@ const OIS::MouseButtonID	Sprite::mouseButtonSetTarget = OIS::MouseButtonID::MB_R
 						selected ( false )
 {
 
-	//  Creating an entity
+	//  Create an entity and attach it to the SceneNodeController
 	Ogre::Entity* entity = sceneManager.createEntity ( meshName , meshName );
-	
-	//	Attaching it to the SceneNodeController...
 	this->getNode().attachObject ( entity );
-	
+
 	//	and to the AnimationController
 	this->setAnimationEntity ( *entity );
 	this->setAnimationName ( "Idle" );
@@ -127,8 +128,9 @@ void			Sprite::groundDestinationSelectHandler ( const Ogre::Vector3& groundDesti
 
 	//	Launching the sprite along the path
 	this->setNodeMovementPath ( groundDestination );
-	this->setNodeMovementSpeed ( 100 );
 	this->setNodeMoving ( true );
+	float speedCurrent = this->parameters.getParameter(SPRITE_PARAMETER_MOVEMENT_SPEED).getValueCurrent().valueCurrent;
+	this->setNodeMovementSpeed(speedCurrent);
 	
 	//	Enabling the animation
 	this->setAnimationName ( "Walk" );
@@ -137,10 +139,17 @@ void			Sprite::groundDestinationSelectHandler ( const Ogre::Vector3& groundDesti
 
 }
 
-Parameters		Sprite::getParameters ( void ) const
+Parameters&		Sprite::getParameters ( void )
 {
 
 	return this->parameters;
+
+}
+
+Animations&		Sprite::getAnimations ( void )
+{
+
+	return this->animations;
 
 }
 
@@ -167,7 +176,10 @@ bool			Sprite::frameRenderingQueued ( const Ogre::FrameEvent& frameEvent )
 void			Sprite::nodeReachDestinationHandler ( void )
 {
 
-	this->setAnimationName ( "Idle" );
+	//	Get idle animation name
+	std::string animationIdleName = this->animations.getParameter(SPRITE_ANIMATION_IDLE).getValueCurrent().name;
+
+	this->setAnimationName ( animationIdleName );
 	this->setAnimationLoop ( true );
 	this->setAnimationEnabled ( true );
 

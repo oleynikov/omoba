@@ -9,35 +9,33 @@ namespace omoba
 
 
 
-	enum SpriteParameterId
+	enum SpriteAnimationId
 	{
 	
-		SPRITE_PARAMETER_MOVEMENT_SPEED,
+		SPRITE_ANIMATION_IDLE,
 		
-		SPRITE_PARAMETER_ATACK_SPEED,
-	
-		SPRITE_PARAMETER_COOLDOWN_REDUCTION,
-		
-		SPRITE_PARAMETER_COUNT
-	
+		SPRITE_ANIMATION_WALK,
+
+		SPRITE_ANIMATION_COUNT
+
 	};
 	
 	
 	
-	struct SpriteParameter
+	struct SpriteAnimation
 	{
 
-							SpriteParameter ( const float valueCurrent , const float valueGrowth );
+							SpriteAnimation ( const std::string name , const float speed );
 
-		SpriteParameter&	operator= ( const SpriteParameter& rho );
+		SpriteAnimation&	operator= ( const SpriteAnimation& rho );
 
-		bool				operator== ( const SpriteParameter& rho ) const;
+		bool				operator== ( const SpriteAnimation& rho ) const;
 
-		bool				operator!= ( const SpriteParameter& rho ) const;
+		bool				operator!= ( const SpriteAnimation& rho ) const;
 	
-		float				valueGrowth;
+		std::string			name;
 		
-		float				valueCurrent;
+		float				speed;
 	
 	};
 	

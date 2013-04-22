@@ -13,6 +13,7 @@
 #include "CameraRayIntersectionCalculator.h"
 #include "../o__O/Configuration/Configuration.h"
 #include "SpriteParameter.h"
+#include "SpriteAnimation.h"
 
 
 
@@ -29,8 +30,10 @@ namespace omoba
 
 
 
-	//	Parameters
+	//	Parameters and animations
 	typedef o__O::IConfiguration<SpriteParameterId,SpriteParameter>				Parameters;
+
+	typedef o__O::IConfiguration<SpriteAnimationId,SpriteAnimation>				Animations;
 
 	
 
@@ -60,7 +63,9 @@ namespace omoba
 			
 			virtual void						groundDestinationSelectHandler ( const Ogre::Vector3& groundDestination );
 
-			Parameters							getParameters ( void ) const;
+			Parameters&							getParameters ( void );
+
+			Animations&							getAnimations ( void );
 
 			SignalMousePressedOnSprite			signalMousePressedOnSprite;
 			
@@ -76,16 +81,14 @@ namespace omoba
 
 			Parameters							parameters;
 
+			Animations							animations;
+
 			bool								selected;
 		
 			static const OIS::MouseButtonID		mouseButtonSelect;
 
 			static const OIS::MouseButtonID		mouseButtonSetTarget;
-			
-			const Ogre::String					animationWalkName;
-			
-			const Ogre::String					animationIdleName;
-			
+
 	};
 
 };

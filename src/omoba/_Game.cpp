@@ -212,8 +212,8 @@ void			Game::createScene(void)
 
 
 	//	Creating a sprite factory
-	o__O::AFilePathFactory&		spriteFilePathFactory = SpriteDataFileFactory();
-	ASpriteDataGetter&			spriteDataGetter = SpriteDataGetterFromFile(spriteFilePathFactory);
+	o__O::AFilePathFactory&		spriteFilePathFactory = o__O::FilePathFactoryDefault("../../system/sprites","sprite");
+	o__O::ADataGetter&			spriteDataGetter = o__O::DataGetterFromFile(spriteFilePathFactory);
 	ASpriteDataProvider&		spriteDataProvider = SpriteDataProviderXml(spriteDataGetter);
 	ASpriteFactory&				spriteFactory = SpriteFactory(spriteDataProvider,*this->sceneManager);
 
@@ -224,16 +224,6 @@ void			Game::createScene(void)
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *robot );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *robot );
 	this->groundController->registerEventListener ( GROUND_EVENT_DESTINATION_SELECTED , *robot );
-	robot->setNodeViewDirection(Ogre::Vector3::UNIT_X);
-	robot->addNodeMovementPathPoint(Ogre::Vector3(-50,0,-50));
-	robot->addNodeMovementPathPoint(Ogre::Vector3(-50,0,50));
-	robot->addNodeMovementPathPoint(Ogre::Vector3(50,0,50));
-	robot->addNodeMovementPathPoint(Ogre::Vector3(50,0,-50));
-	robot->setNodeMovementLooped(true);
-	robot->setNodeMoving(true);
-	robot->setNodeMovementSpeed(100);
-	robot->setAnimationName("Walk");
-	robot->setAnimationEnabled(true);
 	
 }
 

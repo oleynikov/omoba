@@ -25,8 +25,18 @@ using namespace omoba;
 
 
 
+//	ASpriteDataProvider::ExcSpriteParameterUndefined
+												ASpriteDataProvider::ExcSpriteAnimationUndefined::ExcSpriteAnimationUndefined ( const SpriteAnimationId spriteAnimationId )
+													:
+														spriteAnimationId(spriteAnimationId)
+{
+
+}
+
+
+
 //	SpriteDataProviderXml
-												SpriteDataProviderXml::SpriteDataProviderXml ( ASpriteDataGetter& spriteDataGetter )
+												SpriteDataProviderXml::SpriteDataProviderXml ( o__O::ADataGetter& spriteDataGetter )
 													:
 														spriteDataGetter(spriteDataGetter)
 {
@@ -70,6 +80,23 @@ SpriteParameter									SpriteDataProviderXml::getSpriteParameter ( const std::s
 
 }
 
+SpriteAnimation									SpriteDataProviderXml::getSpritAnimation ( const std::string& spriteName , const SpriteAnimationId spriteAnimationId )
+{
+
+	this->updateSpriteData(spriteName);
+
+	//	Looking for a requested animation
+	std::map<SpriteAnimationId,SpriteAnimation>::const_iterator spriteAnimationItr;
+	spriteAnimationItr = this->spriteAnimations.find(spriteAnimationId);
+	
+	//	Requested animation is not defined
+	if ( spriteAnimationItr == this->spriteAnimations.end() )
+		throw ExcSpriteAnimationUndefined ( spriteAnimationId );
+
+	return spriteAnimationItr->second;
+
+}
+
 void											SpriteDataProviderXml::updateSpriteData ( const std::string& spriteName )
 {
 
@@ -80,7 +107,7 @@ void											SpriteDataProviderXml::updateSpriteData ( const std::string& spri
 	this->clearParsedData();
 
 	//	Getting new sprite data
-	std::string spriteData = this->spriteDataGetter.getSpriteData(spriteName);
+	std::string spriteData = this->spriteDataGetter.getData(spriteName);
 
 	// Creating XML document of the raw sprite data
 	this->spriteDataXml.Parse(spriteData.data(),0,TIXML_ENCODING_UTF8);
@@ -100,6 +127,8 @@ void											SpriteDataProviderXml::parseSpriteData ( void )
 	
 	this->parseSpriteParameters();
 
+	this->parseSpriteAnimations();
+
 }
 
 void											SpriteDataProviderXml::clearParsedData ( void )
@@ -118,7 +147,7 @@ void											SpriteDataProviderXml::clearParsedData ( void )
 void											SpriteDataProviderXml::parseSpriteMeshFile ( void )
 {
 
-	TiXmlElement* meshFileXmlElement = this->spriteDataXml.RootElement()->FirstChildElement("MESH_FILE");
+	TiXmlElement* meshFileXmlElement = this->spriteDataXml.RootElement()->FirstChildElement("mesh_name");
 
 	//	Requested XML element not found in the document
 	if ( ! meshFileXmlElement )
@@ -139,7 +168,7 @@ void											SpriteDataProviderXml::parseSpriteMeshFile ( void )
 void											SpriteDataProviderXml::parseSpriteViewDirection ( void )
 {
 
-	TiXmlElement* viewDirectionXmlElement = this->spriteDataXml.RootElement()->FirstChildElement("VIEW_DIRECTION");
+	TiXmlElement* viewDirectionXmlElement = this->spriteDataXml.RootElement()->FirstChildElement("view_direction");
 
 	//	Requested XML element not found in the document
 	if ( ! viewDirectionXmlElement )
@@ -178,21 +207,26 @@ void											SpriteDataProviderXml::parseSpriteParameters ( void )
 	std::map<SpriteParameterId,SpriteParameter> spriteParameters;
 
 	//	Retrieving parameters xml node
-	TiXmlElement* parametersXmlNode = this->spriteDataXml.RootElement()->FirstChildElement("PARAMETERS");
+	TiXmlElement* parametersXmlNode = this->spriteDataXml.RootElement()->FirstChildElement("parameters");
 
 	//	No PARAMETERS node found in the XML document
 	if ( ! parametersXmlNode )
 		throw ExcSpriteDataParsingFailed ( SPRITE_DATA_COMPONENT_PARAMETERS );
 	
 	//	Iterating through all parameter elements
-	TiXmlNode* parametersXmlNodeChild = NULL;
-	while ( parametersXmlNodeChild = parametersXmlNode->IterateChildren(parametersXmlNodeChild) )
+	TiXmlNode* parameterItemNode = NULL;
+	while ( parameterItemNode = parametersXmlNode->IterateChildren(parameterItemNode) )
 	{
 
+		TiXmlElement* parameterItemElement = parameterItemNode->ToElement();
+
+		if ( parameterItemElement == NULL )
+			throw ExcSpriteDataParsingFailed ( SPRITE_DATA_COMPONENT_PARAMETERS );
+
 		//	Gett parameter data
-		o__O::String parameterIdString = parametersXmlNodeChild->ToElement()->Attribute("ID");
-		o__O::String parameterValueInitialString = parametersXmlNodeChild->ToElement()->Attribute("VALUE_INITIAL");
-		o__O::String parameterValueGrowthString = parametersXmlNodeChild->ToElement()->Attribute("VALUE_GROWTH");
+		o__O::String parameterIdString = parameterItemElement->Attribute("id");
+		o__O::String parameterValueInitialString = parameterItemElement->Attribute("value_initial");
+		o__O::String parameterValueGrowthString = parameterItemElement->Attribute("value_growth");
 		
 		//	Check if parameter is defined correctly
 		if
@@ -221,5 +255,63 @@ void											SpriteDataProviderXml::parseSpriteParameters ( void )
 	}
 	
 	this->spriteParameters = spriteParameters;
+
+}
+
+void											SpriteDataProviderXml::parseSpriteAnimations ( void )
+{
+
+	//	Create empty map of animations
+	std::map<SpriteAnimationId,SpriteAnimation> spriteAnimations;
+
+	//	Retrieving animations xml node
+	TiXmlElement* animationsXmlNode = this->spriteDataXml.RootElement()->FirstChildElement("animations");
+
+	//	No `animations` node found in the XML document
+	if ( ! animationsXmlNode )
+		throw ExcSpriteDataParsingFailed ( SPRITE_DATA_COMPONENT_ANIMATIONS );
+	
+	//	Iterating through all animations elements
+	TiXmlNode* animationItemNode = NULL;
+	while ( animationItemNode = animationsXmlNode->IterateChildren(animationItemNode) )
+	{
+
+		TiXmlElement* animationItemElement = animationItemNode->ToElement();
+
+		if ( animationItemElement == NULL )
+			throw ExcSpriteDataParsingFailed ( SPRITE_DATA_COMPONENT_ANIMATIONS );
+
+		//	Get animation data
+		o__O::String animationIdString = animationItemElement->Attribute("id");
+		o__O::String animationNameString = animationItemElement->Attribute("name");
+		o__O::String parameterSpeedString = animationItemElement->Attribute("speed");
+		
+		//	Check if animation is defined correctly
+		if
+		(
+			animationIdString.toStdString().empty()
+				||
+			animationNameString.toStdString().empty()
+				||
+			parameterSpeedString.toStdString().empty()
+		)
+		{
+		
+			throw ExcSpriteDataParsingFailed ( SPRITE_DATA_COMPONENT_ANIMATIONS );
+		
+		}
+
+		//	Converting animation data to appropriate data types
+		SpriteAnimationId animationId = static_cast<SpriteAnimationId>(animationIdString.toInt());
+		std::string animationName = animationNameString.toStdString();
+		float parameterSpeed = parameterSpeedString.toFloat();
+		SpriteAnimation animation ( animationName , parameterSpeed );
+
+		//	Saving animation data
+		spriteAnimations.insert(std::pair<SpriteAnimationId,SpriteAnimation>(animationId,animation));
+
+	}
+	
+	this->spriteAnimations = spriteAnimations;
 
 }

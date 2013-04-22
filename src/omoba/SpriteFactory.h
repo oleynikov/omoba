@@ -2,7 +2,6 @@
 
 #include <string>
 #include "SpriteDataProvider.h"
-#include "SpriteDataGetter.h"
 #include "Sprite.h"
 
 
