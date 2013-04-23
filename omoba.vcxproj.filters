@@ -90,6 +90,9 @@
     <ClInclude Include="src\o__O\Data\DataGetter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\omoba\MapDataParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\o__O\Configuration\Configuration.cpp">
@@ -174,6 +177,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\o__O\Data\DataGetter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\omoba\MapDataParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

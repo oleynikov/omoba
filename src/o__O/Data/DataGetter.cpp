@@ -11,7 +11,7 @@ using namespace o__O;
 
 }
 
-std::string		DataGetterFromFile::getData ( const std::string& dataFileName )
+std::string		DataGetterFromFile::getData ( const std::string& dataFileName ) const
 {
 
 	//	Make file path
@@ -22,5 +22,14 @@ std::string		DataGetterFromFile::getData ( const std::string& dataFileName )
 
 	//	Return file data
 	return fileData;
+
+}
+
+const char*		DataGetterFromFile::getDataAsArray ( const std::string& dataId ) const
+{
+
+	std::string dataString = this->getData(dataId);
+
+	return dataString.data();
 
 }

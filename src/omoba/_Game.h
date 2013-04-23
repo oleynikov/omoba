@@ -21,6 +21,7 @@
 
 #include "Sprite.h"
 #include "SpriteFactory.h"
+#include "MapDataParser.h"
 
 
 

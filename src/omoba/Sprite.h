@@ -37,6 +37,17 @@ namespace omoba
 
 	
 
+	struct SpriteData
+	{
+
+		std::string		type;
+
+		float			position[3];
+
+	};
+
+
+
 	//	Sprite
 	class Sprite
 		:

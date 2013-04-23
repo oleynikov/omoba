@@ -20,6 +20,7 @@
     <ClInclude Include="src\omoba\InputDispatcher.h" />
     <ClInclude Include="src\omoba\InputEvent.h" />
     <ClInclude Include="src\omoba\InputListener.h" />
+    <ClInclude Include="src\omoba\MapDataParser.h" />
     <ClInclude Include="src\omoba\Ray.h" />
     <ClInclude Include="src\omoba\SceneNodeController.h" />
     <ClInclude Include="src\omoba\Segment.h" />
@@ -47,6 +48,7 @@
     <ClCompile Include="src\omoba\InputDispatcher.cpp" />
     <ClCompile Include="src\omoba\InputEvent.cpp" />
     <ClCompile Include="src\omoba\InputListener.cpp" />
+    <ClCompile Include="src\omoba\MapDataParser.cpp" />
     <ClCompile Include="src\omoba\Ray.cpp" />
     <ClCompile Include="src\omoba\SceneNodeController.cpp" />
     <ClCompile Include="src\omoba\Segment.cpp" />
