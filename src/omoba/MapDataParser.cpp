@@ -52,7 +52,7 @@ std::vector<SpriteData>							MapDataParserXml::getSprites ( const std::string m
 		//	Get sprite data
 		o__O::String spriteTypeString = spriteXmlElement->Attribute("type");
 		o__O::String spritePositionXString = spriteXmlElement->Attribute("position_x");
-		o__O::String spritePositionYString = spriteXmlElement->Attribute("position_y");
+		o__O::String spritePositionZString = spriteXmlElement->Attribute("position_z");
 		
 		//	Check if parameter is defined correctly
 		if
@@ -61,7 +61,7 @@ std::vector<SpriteData>							MapDataParserXml::getSprites ( const std::string m
 				||
 			spritePositionXString.toStdString().empty()
 				||
-			spritePositionYString.toStdString().empty()
+			spritePositionZString.toStdString().empty()
 		)
 		{
 		
@@ -74,7 +74,7 @@ std::vector<SpriteData>							MapDataParserXml::getSprites ( const std::string m
 		spriteData.type = spriteTypeString.toStdString();
 		spriteData.position[0] = spritePositionXString.toFloat();
 		spriteData.position[1] = 0;
-		spriteData.position[2] = spritePositionYString.toFloat();
+		spriteData.position[2] = spritePositionZString.toFloat();
 
 		spritesData.push_back(spriteData);
 

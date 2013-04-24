@@ -24,9 +24,9 @@ const OIS::MouseButtonID	Sprite::mouseButtonSetTarget = OIS::MouseButtonID::MB_R
 
 	//	and to the AnimationController
 	this->setAnimationEntity ( *entity );
-	this->setAnimationName ( "Idle" );
-	this->setAnimationLoop ( true );
-	this->setAnimationEnabled ( true );
+	//this->setAnimationName ( "Idle" );
+	//this->setAnimationLoop ( true );
+	//this->setAnimationEnabled ( true );
 
 	// Listening to the reach the destination event
 	this->signalNodeReachedDestination.connect(boost::bind(&Sprite::nodeReachDestinationHandler,this));

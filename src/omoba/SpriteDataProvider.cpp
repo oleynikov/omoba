@@ -41,8 +41,6 @@ using namespace omoba;
 														spriteDataGetter(spriteDataGetter)
 {
 
-		
-
 }
 
 std::string										SpriteDataProviderXml::getSpriteMeshFile ( const std::string& spriteName )
@@ -114,6 +112,9 @@ void											SpriteDataProviderXml::updateSpriteData ( const std::string& spri
 
 	//	Parsing data
 	this->parseSpriteData();
+
+	//	Save sprite name
+	this->spriteName = spriteName;
 	
 }
 
@@ -135,12 +136,12 @@ void											SpriteDataProviderXml::clearParsedData ( void )
 {
 
 	//	Truncating previously parsed data
-	
 	this->spriteMeshFile.clear();
-	
 	this->spriteViewDirection = Ogre::Vector3::ZERO;
-	
 	this->spriteParameters.clear();
+
+	//	Clear ths XML document
+	this->spriteDataXml.Clear();
 
 }
 
