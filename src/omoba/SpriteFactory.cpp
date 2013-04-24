@@ -11,7 +11,7 @@ using namespace omoba;
 
 }
 
-Sprite&			SpriteFactory::makeSprite ( const std::string& spriteName )
+Sprite&			SpriteFactory::makeSprite ( const std::string& spriteName ) const
 {
 
 	//	Getting sprite's mesh file from data provider and constructing the sprite

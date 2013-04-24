@@ -16,7 +16,7 @@ namespace omoba
 	
 		public:
 		
-			virtual Sprite&					makeSprite ( const std::string& spriteName ) = 0;
+			virtual Sprite&					makeSprite ( const std::string& spriteName ) const = 0;
 			
 	};
 	
@@ -31,7 +31,7 @@ namespace omoba
 		
 											SpriteFactory ( ASpriteDataProvider& spriteDataProvider , Ogre::SceneManager& sceneManager );
 		
-			virtual Sprite&					makeSprite ( const std::string& spriteName );
+			virtual Sprite&					makeSprite ( const std::string& spriteName ) const;
 	
 		private:
 		

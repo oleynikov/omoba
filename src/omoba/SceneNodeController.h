@@ -4,6 +4,7 @@
 #include <boost/signals2.hpp>
 #include <boost/bind.hpp>
 #include "Segment.h"
+#include "../OgreExtensions/SceneManager/SceneManager.h"
 
 
 

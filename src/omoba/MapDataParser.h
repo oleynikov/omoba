@@ -28,7 +28,7 @@ namespace omoba
 	
 		public:
 
-			virtual std::vector<SpriteData>		getSprites ( const std::string mapName ) = 0;
+			virtual std::vector<SpriteData>		getSprites ( const std::string mapName ) const = 0;
 
 			struct								ExcMapDataParsingFailed
 			{
@@ -52,7 +52,7 @@ namespace omoba
 
 												MapDataParserXml ( const o__O::ADataGetter& mapDataGetter );
 
-			std::vector<SpriteData>				getSprites ( const std::string mapName );
+			std::vector<SpriteData>				getSprites ( const std::string mapName ) const;
 
 		private:
 

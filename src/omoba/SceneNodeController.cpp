@@ -14,7 +14,8 @@ using namespace omoba;
 									nodeMovementLooped		( false )
 {
 
-	this->node = sceneManager.getRootSceneNode()->createChildSceneNode ( nodeName );
+	std::string sceneNodeName = OgreExtensions::SceneManager::getAvailableEntityName(sceneManager,nodeName);
+ 	this->node = sceneManager.getRootSceneNode()->createChildSceneNode ( sceneNodeName );
 
 }
 

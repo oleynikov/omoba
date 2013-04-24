@@ -14,7 +14,13 @@ namespace o__O
 	
 		public:
 			
-			static std::string	getFileData ( const std::string& file );
+			static std::string		getFileData ( const std::string& file );
+
+			static bool				getFileExists ( const std::string filePath );
+
+			static void				checkFileExists ( const std::string filePath );
+
+			class					ExcFileDoesNotExist { };
 			
 	};
 

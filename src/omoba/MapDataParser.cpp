@@ -24,7 +24,7 @@ using namespace omoba;
 
 }
 
-std::vector<SpriteData>							MapDataParserXml::getSprites ( const std::string mapName )
+std::vector<SpriteData>							MapDataParserXml::getSprites ( const std::string mapName ) const
 {
 
 	std::string mapData = this->mapDataGetter.getData(mapName);

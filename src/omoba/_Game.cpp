@@ -209,11 +209,6 @@ void			Game::createScene(void)
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_PRESSED , *this->groundController );
 	this->inputDispatcher->registerListener ( INPUT_EVENT_MOUSE_RELEASED , *this->groundController );
 	
-	//	Creating a sprite factory
-	o__O::AFilePathFactory&		spriteFilePathFactory = o__O::FilePathFactoryDefault("../../system/sprites","sprite");
-	o__O::ADataGetter&			spriteDataGetter = o__O::DataGetterFromFile(spriteFilePathFactory);
-	ASpriteDataProvider&		spriteDataProvider = SpriteDataProviderXml(spriteDataGetter);
-	ASpriteFactory&				spriteFactory = SpriteFactory(spriteDataProvider,*this->sceneManager);
 
 	/*
 	//	Create player
@@ -225,13 +220,21 @@ void			Game::createScene(void)
 	this->groundController->registerEventListener ( GROUND_EVENT_DESTINATION_SELECTED , *robot );
 	*/
 
+
+
+	//	Creating a sprite factory
+	o__O::AFilePathFactory&		spriteFilePathFactory = o__O::FilePathFactoryDefault("../../system/sprites","sprite");
+	o__O::ADataGetter&			spriteDataGetter = o__O::DataGetterFromFile(spriteFilePathFactory);
+	ASpriteDataProvider&		spriteDataProvider = SpriteDataProviderXml(spriteDataGetter);
+	ASpriteFactory&				spriteFactory = SpriteFactory(spriteDataProvider,*this->sceneManager);
+
 	//	Load map
 	o__O::AFilePathFactory&		mapFilePathFactory = o__O::FilePathFactoryDefault("../../system/maps","map");
 	o__O::ADataGetter&			mapDataGetter = o__O::DataGetterFromFile(mapFilePathFactory);
 	AMapDataParser&				mapDataParser = MapDataParserXml(mapDataGetter);
-	std::vector<SpriteData>		spritesData = mapDataParser.getSprites("dota");
-	SpriteData					spriteData = *spritesData.begin();
-	std::string					spriteType = spriteData.type;
+	AMapFactory&				mapFactory = MapFactory(mapDataParser,spriteFactory);
+
+	mapFactory.makeMap("DOTA_v0_0_1");
 
 }
 

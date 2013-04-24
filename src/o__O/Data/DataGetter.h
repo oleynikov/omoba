@@ -17,8 +17,6 @@ namespace o__O
 
 			virtual std::string			getData ( const std::string& dataId ) const = 0;
 
-			virtual const char*			getDataAsArray ( const std::string& dataId ) const = 0;
-
 	};
 
 
@@ -33,8 +31,6 @@ namespace o__O
 										DataGetterFromFile ( const AFilePathFactory& filePathFactory );
 
 			virtual std::string			getData ( const std::string& dataFileName ) const;
-
-			virtual const char*			getDataAsArray ( const std::string& dataId ) const;
 
 		private:
 

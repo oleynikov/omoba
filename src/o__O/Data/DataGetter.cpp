@@ -24,12 +24,3 @@ std::string		DataGetterFromFile::getData ( const std::string& dataFileName ) con
 	return fileData;
 
 }
-
-const char*		DataGetterFromFile::getDataAsArray ( const std::string& dataId ) const
-{
-
-	std::string dataString = this->getData(dataId);
-
-	return dataString.data();
-
-}

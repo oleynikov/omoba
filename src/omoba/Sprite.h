@@ -12,6 +12,7 @@
 #include "SceneNodeController.h"
 #include "CameraRayIntersectionCalculator.h"
 #include "../o__O/Configuration/Configuration.h"
+#include "../OgreExtensions/SceneManager/SceneManager.h"
 #include "SpriteParameter.h"
 #include "SpriteAnimation.h"
 

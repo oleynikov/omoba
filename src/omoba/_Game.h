@@ -22,7 +22,7 @@
 #include "Sprite.h"
 #include "SpriteFactory.h"
 #include "MapDataParser.h"
-
+#include "MapFactory.h"
 
 
 namespace omoba

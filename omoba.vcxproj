@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\OgreExtensions\SceneManager\SceneManager.h" />
     <ClInclude Include="src\OgreExtensions\Vector3\Vector3.h" />
     <ClInclude Include="src\omoba\AnimationController.h" />
     <ClInclude Include="src\omoba\Cameraman.h" />
@@ -21,6 +22,7 @@
     <ClInclude Include="src\omoba\InputEvent.h" />
     <ClInclude Include="src\omoba\InputListener.h" />
     <ClInclude Include="src\omoba\MapDataParser.h" />
+    <ClInclude Include="src\omoba\MapFactory.h" />
     <ClInclude Include="src\omoba\Ray.h" />
     <ClInclude Include="src\omoba\SceneNodeController.h" />
     <ClInclude Include="src\omoba\Segment.h" />
@@ -32,6 +34,7 @@
     <ClInclude Include="src\omoba\_Game.h" />
     <ClInclude Include="src\o__O\Configuration\Configuration.h" />
     <ClInclude Include="src\o__O\Data\DataGetter.h" />
+    <ClInclude Include="src\o__O\Data\NameIncrementor.h" />
     <ClInclude Include="src\o__O\FileManager\FileManager.h" />
     <ClInclude Include="src\o__O\FileManager\FilePathFactory.h" />
     <ClInclude Include="src\o__O\String\String.h" />
@@ -39,6 +42,7 @@
     <ClInclude Include="src\tinyxml\tinyxml.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\OgreExtensions\SceneManager\SceneManager.cpp" />
     <ClCompile Include="src\OgreExtensions\Vector3\Vector3.cpp" />
     <ClCompile Include="src\omoba\AnimationController.cpp" />
     <ClCompile Include="src\omoba\Cameraman.cpp" />
@@ -49,6 +53,7 @@
     <ClCompile Include="src\omoba\InputEvent.cpp" />
     <ClCompile Include="src\omoba\InputListener.cpp" />
     <ClCompile Include="src\omoba\MapDataParser.cpp" />
+    <ClCompile Include="src\omoba\MapFactory.cpp" />
     <ClCompile Include="src\omoba\Ray.cpp" />
     <ClCompile Include="src\omoba\SceneNodeController.cpp" />
     <ClCompile Include="src\omoba\Segment.cpp" />
@@ -60,6 +65,7 @@
     <ClCompile Include="src\omoba\_Game.cpp" />
     <ClCompile Include="src\o__O\Configuration\Configuration.cpp" />
     <ClCompile Include="src\o__O\Data\DataGetter.cpp" />
+    <ClCompile Include="src\o__O\Data\NameIncrementor.cpp" />
     <ClCompile Include="src\o__O\FileManager\FileManager.cpp" />
     <ClCompile Include="src\o__O\FileManager\FilePathFactory.cpp" />
     <ClCompile Include="src\o__O\String\String.cpp" />
