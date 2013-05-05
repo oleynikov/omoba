@@ -26,6 +26,8 @@ void			MapFactory::makeMap ( const std::string mapName )
 
 		Sprite& sprite = this->spriteFactory.makeSprite(spriteData.type);
 		sprite.setNodePosition(Ogre::Vector3(spriteData.position));
+		sprite.rotateNode(Ogre::Vector3::UNIT_Y,spriteData.rotation);
+		sprite.setNodeScale(spriteData.scale);
 
 	}
 

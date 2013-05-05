@@ -9,99 +9,37 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\o__O\Configuration\Configuration.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\o__O\FileManager\FileManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\o__O\FileManager\FilePathFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\o__O\String\String.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\OgreExtensions\Vector3\Vector3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\_Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\AnimationController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\Cameraman.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\CameraRayIntersectionCalculator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\Cursor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\Ground.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\InputDispatcher.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\InputEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\InputListener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\Ray.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\SceneNodeController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\Segment.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\Sprite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\SpriteDataProvider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\SpriteFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\SpriteParameter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tinyxml\tinystr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tinyxml\tinyxml.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\SpriteAnimation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\o__O\Data\DataGetter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\MapDataParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\MapFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\OgreExtensions\SceneManager\SceneManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\o__O\Data\NameIncrementor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="src\omoba\_Game.h" />
+    <ClInclude Include="src\omoba\AnimationController.h" />
+    <ClInclude Include="src\omoba\Cameraman.h" />
+    <ClInclude Include="src\omoba\CameraRayIntersectionCalculator.h" />
+    <ClInclude Include="src\o__O\Configuration\Configuration.h" />
+    <ClInclude Include="src\omoba\Cursor.h" />
+    <ClInclude Include="src\o__O\Data\DataGetter.h" />
+    <ClInclude Include="src\o__O\FileManager\FileManager.h" />
+    <ClInclude Include="src\o__O\FileManager\FilePathFactory.h" />
+    <ClInclude Include="src\omoba\Ground.h" />
+    <ClInclude Include="src\omoba\InputDispatcher.h" />
+    <ClInclude Include="src\omoba\InputEvent.h" />
+    <ClInclude Include="src\omoba\InputListener.h" />
+    <ClInclude Include="src\omoba\MapDataParser.h" />
+    <ClInclude Include="src\omoba\MapFactory.h" />
+    <ClInclude Include="src\o__O\Data\NameIncrementor.h" />
+    <ClInclude Include="src\omoba\Ray.h" />
+    <ClInclude Include="src\OgreExtensions\SceneManager\SceneManager.h" />
+    <ClInclude Include="src\omoba\SceneNodeController.h" />
+    <ClInclude Include="src\omoba\Segment.h" />
+    <ClInclude Include="src\omoba\Sprite.h" />
+    <ClInclude Include="src\omoba\SpriteAnimation.h" />
+    <ClInclude Include="src\omoba\SpriteDataProvider.h" />
+    <ClInclude Include="src\omoba\SpriteFactory.h" />
+    <ClInclude Include="src\omoba\SpriteParameter.h" />
+    <ClInclude Include="src\o__O\String\String.h" />
+    <ClInclude Include="src\tinyxml\tinystr.h" />
+    <ClInclude Include="src\tinyxml\tinyxml.h" />
+    <ClInclude Include="src\OgreExtensions\Vector3\Vector3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\o__O\Configuration\Configuration.cpp">
@@ -200,8 +138,5 @@
     <ClCompile Include="src\o__O\Data\NameIncrementor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\tinyxml\Makefile" />
   </ItemGroup>
 </Project>

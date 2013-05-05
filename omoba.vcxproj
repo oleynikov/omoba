@@ -75,9 +75,6 @@
     <ClCompile Include="src\tinyxml\tinyxmlparser.cpp" />
     <ClCompile Include="src\tinyxml\xmltest.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="src\tinyxml\Makefile" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E366C78A-8E9B-4290-B24A-47D7CDF27C7B}</ProjectGuid>
     <RootNamespace>omoba</RootNamespace>

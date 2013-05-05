@@ -121,6 +121,15 @@ void						SceneNodeController::setNodePosition ( const Ogre::Vector3& nodePositi
 
 }
 
+void						SceneNodeController::setNodeScale ( const Ogre::Vector3& nodeScale )
+{
+
+	this->checkNodeDefined();
+
+	this->node->setScale(nodeScale);
+
+}
+
 void						SceneNodeController::setNodeMovementMode ( const MovementMode nodeMovementMode )
 {
 
@@ -216,6 +225,15 @@ void						SceneNodeController::rotateNode ( const Ogre::Vector3& nodeRotationAxi
 	
 	this->node->rotate ( nodeRotationAxis , nodeRotationAngle , nodeRotationTransformSpace );
 	
+}
+
+void						SceneNodeController::rotateNode ( const Ogre::Vector3& nodeRotationAxis , const float nodeRotationAngle , Ogre::Node::TransformSpace nodeRotationTransformSpace )
+{
+
+	Ogre::Radian nodeRotationRadianAngle(nodeRotationAngle);
+
+	this->rotateNode(nodeRotationAxis,nodeRotationRadianAngle,nodeRotationTransformSpace);
+
 }
 
 void						SceneNodeController::aimNodeAt ( const Ogre::Vector3& nodeTargetPoint , Ogre::Node::TransformSpace nodeTransformSpace , const Ogre::Vector3& nodeViewDirection )

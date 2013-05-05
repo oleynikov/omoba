@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<map name="DOTA 0.0.0.1">
+	<sprites>
+		<sprite
+			type		= "MinionRangedSmall"
+			position_x	= "100"
+			position_z	= "50"
+			rotation	= "30"
+		/>
+		<sprite
+			type		= "Penguin"
+			position_x	= "0"
+			position_z	= "0"
+			scale		= "2;3;2"
+			rotation	= "0"
+		/>
+		<sprite
+			type		= "Penguin"
+			position_x	= "50"
+			position_z	= "50"
+			rotation	= "45"
+		/>
+		<sprite
+			type		= "Penguin"
+			position_x	= "100"
+			position_z	= "100"
+			rotation	= "90"
+		/>
+		<sprite
+			type		= "Penguin"
+			position_x	= "-50"
+			position_z	= "50"
+			rotation	= "-90"
+		/>
+	</sprite>
+</map>

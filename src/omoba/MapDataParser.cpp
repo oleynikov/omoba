@@ -53,6 +53,10 @@ std::vector<SpriteData>							MapDataParserXml::getSprites ( const std::string m
 		o__O::String spriteTypeString = spriteXmlElement->Attribute("type");
 		o__O::String spritePositionXString = spriteXmlElement->Attribute("position_x");
 		o__O::String spritePositionZString = spriteXmlElement->Attribute("position_z");
+		o__O::String spriteRotationString = spriteXmlElement->Attribute("rotation");
+
+		const char* spriteScaleStringPtr = spriteXmlElement->Attribute("scale");
+		o__O::String spriteScaleString = spriteScaleStringPtr ? spriteScaleStringPtr : "";
 		
 		//	Check if parameter is defined correctly
 		if
@@ -75,6 +79,12 @@ std::vector<SpriteData>							MapDataParserXml::getSprites ( const std::string m
 		spriteData.position[0] = spritePositionXString.toFloat();
 		spriteData.position[1] = 0;
 		spriteData.position[2] = spritePositionZString.toFloat();
+		spriteData.rotation = spriteRotationString.toInt();
+
+		if ( ! spriteScaleString.toStdString().empty() )
+			spriteData.scale = OgreExtensions::Vector3(spriteScaleString.toStdString());
+		else
+			spriteData.scale = Ogre::Vector3(1,1,1);
 
 		spritesData.push_back(spriteData);
 

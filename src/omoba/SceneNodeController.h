@@ -84,6 +84,8 @@ namespace omoba
 
 			void							setNodePosition ( const Ogre::Vector3& nodePosition );
 
+			void							setNodeScale ( const Ogre::Vector3& nodeScale );
+
 			void							setNodeMovementMode ( const MovementMode nodeMovementMode );
 
 			void							setNodeMovementVector ( const Ogre::Vector3& nodeMovementVector );
@@ -106,6 +108,8 @@ namespace omoba
 			void							moveNodeBy ( const Ogre::Ray& nodeMovementRay , const Ogre::Real& nodeMovementDistance );
 
 			void							rotateNode ( const Ogre::Vector3& nodeRotationAxis , const Ogre::Radian& nodeRotationAngle , Ogre::Node::TransformSpace nodeRotationTransformSpace = Ogre::Node::TS_PARENT );
+
+			void							rotateNode ( const Ogre::Vector3& nodeRotationAxis , const float nodeRotationAngle , Ogre::Node::TransformSpace nodeRotationTransformSpace = Ogre::Node::TS_PARENT );
 
 			void							aimNodeAt ( const Ogre::Vector3& nodeTargetPoint , Ogre::Node::TransformSpace nodeTransformSpace = Ogre::Node::TS_PARENT , const Ogre::Vector3& nodeViewDirection = Ogre::Vector3::ZERO );
 

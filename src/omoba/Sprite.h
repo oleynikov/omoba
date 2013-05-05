@@ -45,6 +45,10 @@ namespace omoba
 
 		float			position[3];
 
+		Ogre::Vector3	scale;
+
+		int				rotation;
+
 	};
 
 

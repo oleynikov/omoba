@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sprite>
+	<mesh_name>
+		robot.mesh
+	</mesh_name>
+	<view_direction>
+		1;0;0
+	</view_direction>
+	<parameters>
+		<parameter
+			id				=	"0"
+			value_initial	=	"100"
+			value_growth	=	"1"
+		/>
+		<parameter
+			id				=	"1"
+			value_initial	=	"0.9"
+			value_growth	=	"0.02"
+		/>
+		<parameter
+			id				=	"2"
+			value_initial	=	"0"
+			value_growth	=	"0"
+		/>
+	</parameters>
+	<animations>
+		<animation
+			id				=	"0"
+			name			=	"Idle"
+			speed			=	"1"
+		/>
+		<animation
+			id				=	"1"
+			name			=	"walk"
+			speed			=	"1"
+		/>
+	</animations>
+</sprite>
