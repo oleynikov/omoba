@@ -21,6 +21,7 @@
     <ClInclude Include="src\omoba\InputDispatcher.h" />
     <ClInclude Include="src\omoba\InputEvent.h" />
     <ClInclude Include="src\omoba\InputListener.h" />
+    <ClInclude Include="src\omoba\Map.h" />
     <ClInclude Include="src\omoba\MapDataParser.h" />
     <ClInclude Include="src\omoba\MapFactory.h" />
     <ClInclude Include="src\omoba\Ray.h" />
@@ -52,6 +53,7 @@
     <ClCompile Include="src\omoba\InputDispatcher.cpp" />
     <ClCompile Include="src\omoba\InputEvent.cpp" />
     <ClCompile Include="src\omoba\InputListener.cpp" />
+    <ClCompile Include="src\omoba\Map.cpp" />
     <ClCompile Include="src\omoba\MapDataParser.cpp" />
     <ClCompile Include="src\omoba\MapFactory.cpp" />
     <ClCompile Include="src\omoba\Ray.cpp" />
@@ -74,6 +76,9 @@
     <ClCompile Include="src\tinyxml\tinyxmlerror.cpp" />
     <ClCompile Include="src\tinyxml\tinyxmlparser.cpp" />
     <ClCompile Include="src\tinyxml\xmltest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\tinyxml\Makefile" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E366C78A-8E9B-4290-B24A-47D7CDF27C7B}</ProjectGuid>
