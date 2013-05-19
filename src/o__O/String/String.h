@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -11,9 +10,16 @@
 
 namespace o__O
 {
- 
 
- 
+
+	class String;
+
+
+
+	typedef std::vector<String> Strings;
+
+
+
     class String
     {
     
@@ -23,11 +29,21 @@ namespace o__O
 
                                     String ( const std::string& stdString );
             
-                                    String ( const float floatString );
+                                    String ( const float floatNumber );
             
-                                    String ( const int integerString );
+                                    String ( const int integerNumber );
         
             String&                 operator= ( const std::string& stdString );
+			
+			char&					operator[] ( const int characterPosition );
+			
+			const char&				operator[] ( const int characterPosition ) const;
+			
+			bool					operator== ( const std::string& stdString );
+			
+			bool					operator!= ( const std::string& stdString );
+			
+			int						getLength ( void );
             
             std::string&            toStdString ( void );
 			
@@ -35,14 +51,14 @@ namespace o__O
 			
 			int						toInt ( void );
         
-            std::vector<String>     split ( char delimiter );
+            Strings					split ( char delimiter );
             
         private:
         
             std::string             string;
         
     };
-	
-	
-	
+
+
+
 };

@@ -36,8 +36,9 @@
     <ClInclude Include="src\o__O\Configuration\Configuration.h" />
     <ClInclude Include="src\o__O\Data\DataGetter.h" />
     <ClInclude Include="src\o__O\Data\NameIncrementor.h" />
-    <ClInclude Include="src\o__O\FileManager\FileManager.h" />
-    <ClInclude Include="src\o__O\FileManager\FilePathFactory.h" />
+    <ClInclude Include="src\o__O\FileSystem\FileManager\FileManager.hpp" />
+    <ClInclude Include="src\o__O\FileSystem\FilePathFactory\FilePathFactory.hpp" />
+    <ClInclude Include="src\o__O\Geometry\Point\Point.hpp" />
     <ClInclude Include="src\o__O\String\String.h" />
     <ClInclude Include="src\tinyxml\tinystr.h" />
     <ClInclude Include="src\tinyxml\tinyxml.h" />
@@ -68,8 +69,9 @@
     <ClCompile Include="src\o__O\Configuration\Configuration.cpp" />
     <ClCompile Include="src\o__O\Data\DataGetter.cpp" />
     <ClCompile Include="src\o__O\Data\NameIncrementor.cpp" />
-    <ClCompile Include="src\o__O\FileManager\FileManager.cpp" />
-    <ClCompile Include="src\o__O\FileManager\FilePathFactory.cpp" />
+    <ClCompile Include="src\o__O\FileSystem\FileManager\FileManager.cpp" />
+    <ClCompile Include="src\o__O\FileSystem\FilePathFactory\FilePathFactory.cpp" />
+    <ClCompile Include="src\o__O\Geometry\Point\Point.cpp" />
     <ClCompile Include="src\o__O\String\String.cpp" />
     <ClCompile Include="src\tinyxml\tinystr.cpp" />
     <ClCompile Include="src\tinyxml\tinyxml.cpp" />
@@ -123,7 +125,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\Program Files\boost\boost_1_51;include;$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;C:\Program Files\boost\boost_1_51;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -134,7 +136,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>OgreMain_d.lib;OIS_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OGRE_HOME)\lib\$(Configuration);$(OGRE_HOME)\boost\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OGRE_HOME)\lib\$(Configuration)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -144,7 +146,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>C:\Program Files\boost\boost_1_51;include;$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;C:\Program Files\boost\boost_1_51;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -154,7 +156,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>OgreMain.lib;OIS.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OGRE_HOME)\lib\$(Configuration);$(OGRE_HOME)\boost\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OGRE_HOME)\lib\$(Configuration)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>

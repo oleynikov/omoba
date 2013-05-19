@@ -18,7 +18,7 @@ std::string		DataGetterFromFile::getData ( const std::string& dataFileName ) con
 	std::string filePath = this->filePathFactory.makeFilePath(dataFileName);
 
 	//	Get file data
-	std::string fileData = FileManager::getFileData(filePath);
+	std::string fileData = FileManager::getFileContents(filePath);
 
 	//	Return file data
 	return fileData;

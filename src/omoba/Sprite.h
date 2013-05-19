@@ -1,18 +1,17 @@
 #pragma once
 
+#include <string>
 #include <OgreFrameListener.h>
 #include <OgreEntity.h>
 #include <boost/signals2.hpp>
 #include <boost/bind.hpp>
-#include <string>
-
+#include <o__O/Configuration/Configuration.h>
+#include <OgreExtensions/SceneManager/SceneManager.h>
 #include "Ground.h"
 #include "InputListener.h"
 #include "AnimationController.h"
 #include "SceneNodeController.h"
 #include "CameraRayIntersectionCalculator.h"
-#include "../o__O/Configuration/Configuration.h"
-#include "../OgreExtensions/SceneManager/SceneManager.h"
 #include "SpriteParameter.h"
 #include "SpriteAnimation.h"
 

@@ -32,12 +32,6 @@
     <ClInclude Include="src\o__O\Data\DataGetter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\o__O\FileManager\FileManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\o__O\FileManager\FilePathFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\omoba\Ground.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -86,9 +80,6 @@
     <ClInclude Include="src\omoba\SpriteParameter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\o__O\String\String.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\tinyxml\tinystr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -101,18 +92,21 @@
     <ClInclude Include="src\omoba\Map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\o__O\String\String.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\o__O\FileSystem\FileManager\FileManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\o__O\FileSystem\FilePathFactory\FilePathFactory.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\o__O\Geometry\Point\Point.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\o__O\Configuration\Configuration.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\o__O\FileManager\FileManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\o__O\FileManager\FilePathFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\o__O\String\String.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\OgreExtensions\Vector3\Vector3.cpp">
@@ -200,6 +194,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\omoba\Map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\o__O\String\String.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\o__O\FileSystem\FileManager\FileManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\o__O\FileSystem\FilePathFactory\FilePathFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\o__O\Geometry\Point\Point.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

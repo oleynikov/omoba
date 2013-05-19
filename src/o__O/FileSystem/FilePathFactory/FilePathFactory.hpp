@@ -20,14 +20,14 @@ namespace o__O
 	
 	
 	
-	class FilePathFactoryByDirectoryAndExtention
+	class FilePathFactory
 		:
 			public AFilePathFactory
 	{
 	
 		public:
 		
-										FilePathFactoryByDirectoryAndExtention ( const std::string& fileDirectory , const std::string& fileExtention );
+										FilePathFactory ( const std::string& fileDirectory , const std::string& fileExtension );
 
 			virtual std::string			makeFilePath ( const std::string& fileName ) const;
 	
@@ -35,14 +35,10 @@ namespace o__O
 		
 			std::string					fileDirectory;
 			
-			std::string					fileExtention;
+			std::string					fileExtension;
 			
 	};
-	
 
 
-	typedef FilePathFactoryByDirectoryAndExtention FilePathFactoryDefault;
-	
-	
 
 };

@@ -1,7 +1,7 @@
 #pragma once;
 
 #include <OgreVector3.h>
-#include "../../o__O/String/String.h"
+#include <o__O/String/String.h>
 
 
 

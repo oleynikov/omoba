@@ -14,20 +14,20 @@ using namespace o__O;
 	
 }
 
-						String::String ( const float floatString )
+						String::String ( const float floatNumber )
 {
 	
 	std::stringstream stringStream;
-	stringStream << floatString;
+	stringStream << floatNumber;
 	this->string = stringStream.str();
 	
 }
 
-						String::String ( const int integerString )
+						String::String ( const int integerNumber )
 {
 	
 	std::stringstream stringStream;
-	stringStream << integerString;
+	stringStream << integerNumber;
 	this->string = stringStream.str();
 	
 }
@@ -38,6 +38,41 @@ String&					String::operator= ( const std::string& stdString )
 	this->string = stdString;
 	return *this;
 	
+}
+
+char&					String::operator[] ( const int characterPosition )
+{
+
+	return this->string[characterPosition];
+
+}
+
+const char&				String::operator[] ( const int characterPosition ) const
+{
+
+	return this->string[characterPosition];
+
+}
+
+bool					String::operator== ( const std::string& stdString )
+{
+
+	return this->toStdString() == stdString;
+
+}
+
+bool					String::operator!= ( const std::string& stdString )
+{
+
+	return ! ( this->toStdString() == stdString );
+
+}
+
+int						String::getLength ( void )
+{
+
+	return this->toStdString().size();
+
 }
 
 std::string&			String::toStdString ( void )
@@ -61,11 +96,11 @@ int						String::toInt ( void )
 	
 }
 
-std::vector<String>		String::split ( char delimiter )
+Strings					String::split ( char delimiter )
 {
 	
 	//  Creating the result vector
-	std::vector<String> result;
+	Strings result;
 	
 	//  Calculating the size of the input string
 	int stringSize = this->string.size();

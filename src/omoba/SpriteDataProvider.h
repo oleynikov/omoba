@@ -1,10 +1,10 @@
 #pragma once
 
 #include <string>
-#include "../o__O/Data/DataGetter.h"
-#include "../o__O/String/String.h"
-#include "../OgreExtensions/Vector3/Vector3.h"
-#include "../tinyxml/tinyxml.h"
+#include <tinyxml/tinyxml.h>
+#include <o__O/Data/DataGetter.h>
+#include <o__O/String/String.h>
+#include <OgreExtensions/Vector3/Vector3.h>
 #include "SpriteParameter.h"
 #include "SpriteAnimation.h"
 

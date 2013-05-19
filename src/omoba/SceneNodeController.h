@@ -3,8 +3,8 @@
 #include <OgreSceneManager.h>
 #include <boost/signals2.hpp>
 #include <boost/bind.hpp>
+#include <OgreExtensions/SceneManager/SceneManager.h>
 #include "Segment.h"
-#include "../OgreExtensions/SceneManager/SceneManager.h"
 
 
 

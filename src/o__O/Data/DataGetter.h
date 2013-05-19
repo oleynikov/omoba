@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../FileManager/FileManager.h"
-#include "../FileManager/FilePathFactory.h"
+#include <o__O/FileSystem/FileManager/FileManager.hpp>
+#include <o__O/FileSystem/FilePathFactory/FilePathFactory.hpp>
 
 
 

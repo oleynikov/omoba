@@ -2,7 +2,7 @@
 
 #include <string>
 #include <vector>
-#include "../../o__O/String/String.h"
+#include <o__O/String/String.h>
 
 
 namespace o__O

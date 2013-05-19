@@ -223,13 +223,13 @@ void			Game::createScene(void)
 
 
 	//	Creating a sprite factory
-	o__O::AFilePathFactory&		spriteFilePathFactory = o__O::FilePathFactoryDefault("../../system/sprites","sprite");
+	o__O::AFilePathFactory&		spriteFilePathFactory = o__O::FilePathFactory("../../system/sprites/",".sprite");
 	o__O::ADataGetter&			spriteDataGetter = o__O::DataGetterFromFile(spriteFilePathFactory);
 	ASpriteDataProvider&		spriteDataProvider = SpriteDataProviderXml(spriteDataGetter);
 	ASpriteFactory&				spriteFactory = SpriteFactory(spriteDataProvider,*this->sceneManager);
 
 	//	Load map
-	o__O::AFilePathFactory&		mapFilePathFactory = o__O::FilePathFactoryDefault("../../system/maps","map");
+	o__O::AFilePathFactory&		mapFilePathFactory = o__O::FilePathFactory("../../system/maps/",".map");
 	o__O::ADataGetter&			mapDataGetter = o__O::DataGetterFromFile(mapFilePathFactory);
 	AMapDataParser&				mapDataParser = MapDataParserXml(mapDataGetter);
 	AMapFactory&				mapFactory = MapFactory(mapDataParser,spriteFactory);

@@ -2,12 +2,11 @@
 
 #include <string>
 #include <vector>
+#include <o__O/Data/DataGetter.h>
+#include <o__O/String/String.h>
+#include <OgreExtensions/Vector3/Vector3.h>
+#include <tinyxml/tinyxml.h>
 #include "Sprite.h"
-#include "../o__O/String/String.h"
-#include "../o__O/Data/DataGetter.h"
-#include "../OgreExtensions/Vector3/Vector3.h"
-#include "../tinyxml/tinyxml.h"
-
 
 
 namespace omoba
