@@ -187,12 +187,12 @@ void											SpriteDataProviderXml::parseSpriteViewDirection ( void )
 	{
 
 		//	';' character used as a delimiter of the vector components
-		this->spriteViewDirection = OgreExtensions::Vector3(viewDirectionString,';');
+		this->spriteViewDirection = OgreAdaptor::Vector3(viewDirectionString,';');
 	
 	}
 	
 	//	String from the data file could not be converted to a vector
-	catch ( OgreExtensions::Vector3::ExcStringToVectorConvertionError exception )
+	catch ( OgreAdaptor::Vector3Exception::ExcStringToVectorConvertionError exception )
 	{
 	
 		throw ExcSpriteDataParsingFailed ( SPRITE_DATA_COMPONENT_VIEW_DIRECTION );

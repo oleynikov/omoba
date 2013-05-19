@@ -2,11 +2,11 @@
 
 #include <OgreSceneManager.h>
 #include <OgreException.h>
-#include "../../o__O/Data/NameIncrementor.h"
+#include <o__O/Data/NameIncrementor.h>
 
 
 
-namespace OgreExtensions
+namespace OgreExtension
 {
 
 	class SceneManager

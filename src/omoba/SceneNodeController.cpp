@@ -14,7 +14,7 @@ using namespace omoba;
 									nodeMovementLooped		( false )
 {
 
-	std::string sceneNodeName = OgreExtensions::SceneManager::getAvailableEntityName(sceneManager,nodeName);
+	std::string sceneNodeName = OgreExtension::SceneManager::getAvailableEntityName(sceneManager,nodeName);
  	this->node = sceneManager.getRootSceneNode()->createChildSceneNode ( sceneNodeName );
 
 }
@@ -147,7 +147,13 @@ void						SceneNodeController::setNodeMovementVector ( const Ogre::Vector3& node
 void						SceneNodeController::setNodeMovementVector ( const Ogre::Ray& nodeMovementRay , const Ogre::Real& nodeMovementSpeed )
 {
 
-	this->setNodeMovementVector ( Segment::getPointVector ( nodeMovementRay.getOrigin() , nodeMovementRay.getDirection() , nodeMovementSpeed ) );
+	o__O::PointF3 nodePositionCurrent = OgreAdaptor::Vector3(nodeMovementRay.getOrigin()).toPointF3();
+	o__O::PointF3 nodeDestination = OgreAdaptor::Vector3(nodeMovementRay.getDirection()).toPointF3();
+	o__O::PointF3 nodePositionNext = o__O::SegmentF3(nodePositionCurrent,nodeDestination).getInteriorPoint(nodeMovementSpeed);
+
+	OgreAdaptor::Vector3 nodeMovementVector = nodePositionNext - nodePositionCurrent;
+
+	this->setNodeMovementVector(nodeMovementVector);
 
 }
 
@@ -214,7 +220,11 @@ void						SceneNodeController::moveNodeBy ( const Ogre::Vector3& nodeMovementDis
 void						SceneNodeController::moveNodeBy ( const Ogre::Ray& nodeMovementRay , const Ogre::Real& nodeMovementDistance )
 {
 
-	this->moveNodeBy ( Segment::getPointVector ( nodeMovementRay.getOrigin() , nodeMovementRay.getDirection() , nodeMovementDistance ) );
+	o__O::PointF3 nodePositionCurrent = OgreAdaptor::Vector3(nodeMovementRay.getOrigin()).toPointF3();
+	o__O::PointF3 nodeDestination = OgreAdaptor::Vector3(nodeMovementRay.getDirection()).toPointF3();
+	o__O::PointF3 nodeMovementDelta = o__O::SegmentF3(nodePositionCurrent,nodeDestination).getInteriorPoint(nodeMovementDistance);
+
+	this->moveNodeBy(OgreAdaptor::Vector3(nodeMovementDelta));
 
 }
 
@@ -276,7 +286,7 @@ void						SceneNodeController::addNodeMovementTime ( const Ogre::Real& movementT
 
 				Ogre::Vector3	positionCurrent = this->getNodePosition();
 				Ogre::Real		nextStepDistance = this->nodeMovementSpeed * movementTime;
-				Ogre::Real		nextPathPointDistance = Segment::getLength ( positionCurrent , this->nodeMovementPath.front() );
+				Ogre::Real		nextPathPointDistance = positionCurrent.distance(this->nodeMovementPath.front());
 				
 				this->updateNodeOrientation();
 

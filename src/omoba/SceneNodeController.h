@@ -3,7 +3,9 @@
 #include <OgreSceneManager.h>
 #include <boost/signals2.hpp>
 #include <boost/bind.hpp>
-#include <OgreExtensions/SceneManager/SceneManager.h>
+#include <o__O/Geometry/Segment/Segment.hpp>
+#include <OgreAdaptor/Vector3/Vector3.hpp>
+#include <OgreExtension/SceneManager/SceneManager.h>
 #include "Segment.h"
 
 

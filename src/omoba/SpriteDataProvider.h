@@ -3,8 +3,8 @@
 #include <string>
 #include <tinyxml/tinyxml.h>
 #include <o__O/Data/DataGetter.h>
-#include <o__O/String/String.h>
-#include <OgreExtensions/Vector3/Vector3.h>
+#include <o__O/String/String.hpp>
+#include <OgreAdaptor/Vector3/Vector3.hpp>
 #include "SpriteParameter.h"
 #include "SpriteAnimation.h"
 

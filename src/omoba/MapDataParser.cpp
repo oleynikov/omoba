@@ -82,7 +82,7 @@ std::vector<SpriteData>							MapDataParserXml::getSprites ( const std::string m
 		spriteData.rotation = spriteRotationString.toInt();
 
 		if ( ! spriteScaleString.toStdString().empty() )
-			spriteData.scale = OgreExtensions::Vector3(spriteScaleString.toStdString());
+			spriteData.scale = OgreAdaptor::Vector3(spriteScaleString.toStdString());
 		else
 			spriteData.scale = Ogre::Vector3(1,1,1);
 

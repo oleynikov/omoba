@@ -1,6 +1,6 @@
 #include "SceneManager.h"
 
-using namespace OgreExtensions;
+using namespace OgreExtension;
 
 
 

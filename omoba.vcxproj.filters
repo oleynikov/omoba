@@ -56,13 +56,7 @@
     <ClInclude Include="src\omoba\Ray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\OgreExtensions\SceneManager\SceneManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\omoba\SceneNodeController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\omoba\Segment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\omoba\Sprite.h">
@@ -86,13 +80,7 @@
     <ClInclude Include="src\tinyxml\tinyxml.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\OgreExtensions\Vector3\Vector3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\omoba\Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\o__O\String\String.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\o__O\FileSystem\FileManager\FileManager.hpp">
@@ -104,12 +92,21 @@
     <ClInclude Include="src\o__O\Geometry\Point\Point.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\OgreAdaptor\Vector3\Vector3.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\o__O\String\String.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\o__O\Geometry\Segment\Segment.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OgreExtension\SceneManager\SceneManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\o__O\Configuration\Configuration.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\OgreExtensions\Vector3\Vector3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\omoba\_Game.cpp">
@@ -143,9 +140,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\omoba\SceneNodeController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\omoba\Segment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\omoba\Sprite.cpp">
@@ -187,9 +181,6 @@
     <ClCompile Include="src\omoba\MapFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\OgreExtensions\SceneManager\SceneManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\o__O\Data\NameIncrementor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -206,6 +197,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\o__O\Geometry\Point\Point.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreAdaptor\Vector3\Vector3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\o__O\Geometry\Segment\Segment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreExtension\SceneManager\SceneManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

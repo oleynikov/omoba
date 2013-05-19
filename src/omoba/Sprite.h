@@ -6,7 +6,7 @@
 #include <boost/signals2.hpp>
 #include <boost/bind.hpp>
 #include <o__O/Configuration/Configuration.h>
-#include <OgreExtensions/SceneManager/SceneManager.h>
+#include <OgreExtension/SceneManager/SceneManager.h>
 #include "Ground.h"
 #include "InputListener.h"
 #include "AnimationController.h"

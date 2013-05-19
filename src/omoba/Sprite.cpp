@@ -16,7 +16,7 @@ const OIS::MouseButtonID	Sprite::mouseButtonSetTarget = OIS::MouseButtonID::MB_R
 						selected ( false )
 {
 
-	std::string entityName = OgreExtensions::SceneManager::getAvailableEntityName(sceneManager,meshName);
+	std::string entityName = OgreExtension::SceneManager::getAvailableEntityName(sceneManager,meshName);
 
 	//  Create an entity and attach it to the SceneNodeController
 	Ogre::Entity* entity = sceneManager.createEntity ( entityName , meshName );
