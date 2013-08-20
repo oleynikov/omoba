@@ -1,6 +1,7 @@
 #include "MapFactory.h"
 
 using namespace omoba;
+using namespace o__O::Math;
 
 
 
@@ -30,5 +31,12 @@ void			MapFactory::makeMap ( const std::string mapName )
 		sprite.setNodeScale(spriteData.scale);
 
 	}
+
+}
+
+void			MapFactory::makeMapGraph ( void )
+{
+
+	PlaneGraphFactory mapGraphFactory(1000,1000,10);
 
 }

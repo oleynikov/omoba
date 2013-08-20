@@ -3,6 +3,7 @@
 #include <string>
 #include "MapDataParser.h"
 #include "SpriteFactory.h"
+#include <o__O/Math/Graph/GraphFactory/PlaneGraphFactory.hpp>
 
 
 
@@ -34,6 +35,8 @@ namespace omoba
 			virtual void				makeMap ( const std::string mapName );
 
 		private:
+
+			void						makeMapGraph ( void );
 
 			const AMapDataParser&		mapDataParser;
 			
